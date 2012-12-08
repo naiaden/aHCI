@@ -3,7 +3,6 @@
  */
 package nl.naiaden.ahci.poetrist.gui.model;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -20,7 +19,8 @@ import java.util.Observable;
  * @author louis
  * 
  */
-public class Flower extends Observable {
+public class Flower extends Observable
+{
 
 	/**
 	 * The maximum number of tepals.
@@ -28,37 +28,22 @@ public class Flower extends Observable {
 	private int numberOfTepalPositions;
 
 	/**
-	 * 
-	 * @return
+	 * The stigma.
 	 */
-	public int getNumberOfTepalPositions()
-	{
-		return numberOfTepalPositions;
-	}
-	
-	/**
-	 * The colour on the inside of the flower.
-	 */
-	private Color coreColour;
+	private Stigma stigma = null;
 
 	/**
 	 * The tepals.
 	 */
 	private List<Tepal> tepals = null;
 
-	private Stigma stigma = null;
-	
-	public Stigma getStigma()
-	{
-		return stigma;
-	}
-	
 	/**
 	 * Creates a (default) flower with a maximum of 8 tepals.
 	 * 
 	 * @see Flower#Flower(int)
 	 */
-	public Flower(Stigma stigma) {
+	public Flower(Stigma stigma)
+	{
 		this(stigma, 8);
 	}
 
@@ -68,7 +53,8 @@ public class Flower extends Observable {
 	 * @param numberOfTepals
 	 *            The number of tepals
 	 */
-	public Flower(Stigma stigma, int numberOfTepals) {
+	public Flower(Stigma stigma, int numberOfTepals)
+	{
 		this.stigma = stigma;
 		this.numberOfTepalPositions = numberOfTepals;
 
@@ -84,11 +70,11 @@ public class Flower extends Observable {
 	 * @return <code>true</code> if the tepal is added, <code>false</code>
 	 *         otherwise.
 	 */
-	public boolean addTepal(Tepal tepal) {
-		if (tepals.size() < numberOfTepalPositions) {
-			if (tepals.contains(tepal)) {
-				return false;
-			}
+	public boolean addTepal(Tepal tepal)
+	{
+		if (tepals.size() < numberOfTepalPositions)
+		{
+			if (tepals.contains(tepal)) { return false; }
 
 			tepals.add(tepal);
 			setChanged();
@@ -101,44 +87,17 @@ public class Flower extends Observable {
 	}
 
 	/**
-	 * Removes a tepal from the flower.
-	 * 
-	 * @param tepal
-	 * @return <code>true</code> if the tepal is deleted, <code>false</code>
-	 *         otherwise (also if the tepal was not present).
-	 */
-	public boolean removeTepal(Tepal tepal) {
-		boolean removed = tepals.remove(tepal);
-
-		if (removed) {
-			setChanged();
-			notifyObservers(this);
-		}
-
-		return removed;
-	}
-	
-	public Color getColour()
-	{
-		return coreColour;
-	}
-	
-	public List<Tepal> getTepals()
-	{
-		return tepals;
-	}
-	
-	/**
 	 * Determines whether another object is equal to this Flower. The result is
 	 * true if and only if the argument is not null and is a Flower object that
-	 * has the same tepals as this object.
+	 * has both the same tepals and the same stigma as this object.
 	 * 
 	 * @param obj
 	 *            the object to test for equality with this Flower.
 	 * @return <code>true</code> if the objects are the same; <code>false</code>
 	 *         otherwise.
 	 */
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj)
+	{
 		if (obj == null)
 			return false;
 		if (obj == this)
@@ -147,6 +106,57 @@ public class Flower extends Observable {
 			return false;
 
 		Flower rhs = (Flower) obj;
-		return coreColour.equals(rhs.getColour()) && tepals.equals(rhs.getTepals());
+		return stigma.equals(rhs.getStigma()) && tepals.equals(rhs.getTepals());
+	}
+
+	/**
+	 * Returns the number of tepal positions. Note that this can be different
+	 * from the actual number of tepals.
+	 * 
+	 * @return the maximum number of tepals.
+	 */
+	public int getNumberOfTepalPositions()
+	{
+		return numberOfTepalPositions;
+	}
+
+	/**
+	 * Returns the stigma of the flower.
+	 * 
+	 * @return the stigma of the flower.
+	 */
+	public Stigma getStigma()
+	{
+		return stigma;
+	}
+
+	/**
+	 * Returns the tepals of the flower.
+	 * 
+	 * @return the tepals.
+	 */
+	public List<Tepal> getTepals()
+	{
+		return tepals;
+	}
+
+	/**
+	 * Removes a tepal from the flower.
+	 * 
+	 * @param tepal
+	 * @return <code>true</code> if the tepal is deleted, <code>false</code>
+	 *         otherwise (also if the tepal was not present).
+	 */
+	public boolean removeTepal(Tepal tepal)
+	{
+		boolean removed = tepals.remove(tepal);
+
+		if (removed)
+		{
+			setChanged();
+			notifyObservers(this);
+		}
+
+		return removed;
 	}
 }
