@@ -51,6 +51,8 @@ public class Tepal extends Observable {
 			return false;
 
 		Tepal rhs = (Tepal) obj;
-		return tepalColour.equals(rhs.getColour());
+		// temporary fix, as colour will be word-colour later
+		return false;
+//		return tepalColour.equals(rhs.getColour());
 	}
 }

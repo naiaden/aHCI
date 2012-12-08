@@ -7,7 +7,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -35,29 +38,28 @@ public class FlowerViewObject implements Observer {
 	private double height;
 	private double width;
 	
+	public Flower getFlower()
+	{
+		return flower;
+	}
+	
 	/**
 	 * 
 	 */
 	private List<TepalViewObject> tepals = null;
+	
+	private StigmaViewObject stigma = null;
 
-	public FlowerViewObject()
+	public FlowerViewObject(Flower flower, StigmaViewObject stigmaViewObject, double xPos, double yPos, double height, double width)
 	{
-		this(new Flower());
-	}
-	
-	public FlowerViewObject(int numberOfTepals)
-	{
-		this(new Flower(numberOfTepals));
-	}
-	
-	public FlowerViewObject(Flower flower)
-	{
-		this(flower, 0, 0);
-	}
-	
-	public FlowerViewObject(Flower flower, double xPos, double yPos)
-	{
-		this(flower, xPos, yPos, 150, 25);
+		this.flower = flower;
+		this.xPosition = xPos;
+		this.yPosition = yPos;
+		this.height = height;
+		this.width = width;
+		
+		tepals = new ArrayList<TepalViewObject>();
+		stigma = stigmaViewObject;
 	}
 	
 	public FlowerViewObject(Flower flower, double xPos, double yPos, double height, double width)
@@ -69,6 +71,7 @@ public class FlowerViewObject implements Observer {
 		this.width = width;
 		
 		tepals = new ArrayList<TepalViewObject>();
+		stigma = new StigmaViewObject(flower.getStigma(), xPos, yPos, 2*width);
 		
 		flower.addObserver(this);
 	}
@@ -78,10 +81,7 @@ public class FlowerViewObject implements Observer {
 	 * @param g
 	 */
 	public void paint(Graphics g) {
-		System.out.println("[FlowerView] WOOEI (" + flower.getTepals().size() + ")");
-
 		Graphics2D g2 = (Graphics2D) g;
-
 
 		
 		Rectangle2D stem = new Rectangle2D.Double(xPosition-0.5*width, yPosition, width, height);
@@ -93,19 +93,24 @@ public class FlowerViewObject implements Observer {
 			tepal.paint(g);
 		}
 		
+		stigma.paint(g);
+		
 		double radiusCentre = 75;
 		double centreX = xPosition-0.5*radiusCentre;
 		double centreCentreY = yPosition+height;
 		
-		Ellipse2D.Double flower=new Ellipse2D.Double(centreX,centreCentreY-radiusCentre/2,radiusCentre,radiusCentre);
-		g2.setColor(Color.YELLOW);
-		g2.fill(flower);
 		
 	}
 
+
+	
 	public void addTepal(TepalViewObject tepal)
 	{
-		tepals.add(tepal);
+		if(flower.addTepal(tepal.getTepal()))
+		{
+			tepals.add(tepal);
+		}
+		
 	}
 	
 	@Override

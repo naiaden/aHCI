@@ -28,6 +28,15 @@ public class Flower extends Observable {
 	private int numberOfTepalPositions;
 
 	/**
+	 * 
+	 * @return
+	 */
+	public int getNumberOfTepalPositions()
+	{
+		return numberOfTepalPositions;
+	}
+	
+	/**
 	 * The colour on the inside of the flower.
 	 */
 	private Color coreColour;
@@ -37,13 +46,20 @@ public class Flower extends Observable {
 	 */
 	private List<Tepal> tepals = null;
 
+	private Stigma stigma = null;
+	
+	public Stigma getStigma()
+	{
+		return stigma;
+	}
+	
 	/**
 	 * Creates a (default) flower with a maximum of 8 tepals.
 	 * 
 	 * @see Flower#Flower(int)
 	 */
-	public Flower() {
-		this(8);
+	public Flower(Stigma stigma) {
+		this(stigma, 8);
 	}
 
 	/**
@@ -52,7 +68,8 @@ public class Flower extends Observable {
 	 * @param numberOfTepals
 	 *            The number of tepals
 	 */
-	public Flower(int numberOfTepals) {
+	public Flower(Stigma stigma, int numberOfTepals) {
+		this.stigma = stigma;
 		this.numberOfTepalPositions = numberOfTepals;
 
 		tepals = new ArrayList<Tepal>();
