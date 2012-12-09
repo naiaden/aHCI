@@ -2,11 +2,13 @@ package nl.naiaden.ahci.poetrist.gui.panel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.event.MouseInputListener;
 
 import nl.naiaden.ahci.poetrist.gui.model.Flower;
 import nl.naiaden.ahci.poetrist.gui.model.Stigma;
@@ -14,7 +16,7 @@ import nl.naiaden.ahci.poetrist.gui.model.Tepal;
 import nl.naiaden.ahci.poetrist.gui.view.FlowerViewObject;
 import nl.naiaden.ahci.poetrist.gui.view.TepalViewObject;
 
-public class GardenPanel extends JPanel
+public class GardenPanel extends JPanel implements MouseInputListener
 {
 
 	/**
@@ -126,6 +128,7 @@ public class GardenPanel extends JPanel
 
 		flowers = new ArrayList<FlowerViewObject>();
 
+		addMouseListener(this);
 	}
 
 	/**
@@ -146,6 +149,60 @@ public class GardenPanel extends JPanel
 		{
 			flower.paint(g);
 		}
+
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e)
+	{
+		// TODO Auto-generated method stub
+		System.out.println("[GP] Mouse Pressed: (" + e.getX() + "," + e.getY() + ")");
+
+		for (FlowerViewObject flower : flowers)
+		{
+			flower.mousePressed(e);
+		}
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e)
+	{
+		// TODO Auto-generated method stub
 
 	}
 

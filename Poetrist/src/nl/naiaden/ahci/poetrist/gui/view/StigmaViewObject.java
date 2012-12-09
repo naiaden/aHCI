@@ -5,10 +5,10 @@ package nl.naiaden.ahci.poetrist.gui.view;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Point2D;
 import java.util.Observable;
-import java.util.Observer;
-
 import nl.naiaden.ahci.poetrist.gui.model.Stigma;
 
 /**
@@ -17,8 +17,10 @@ import nl.naiaden.ahci.poetrist.gui.model.Stigma;
  * @author louis
  * 
  */
-public class StigmaViewObject implements Observer
+public class StigmaViewObject implements FlowerPartViewObject
 {
+	private boolean isSelected = false;
+
 	private double radius;
 	private Stigma stigma;
 	private double xPosition;
@@ -45,6 +47,12 @@ public class StigmaViewObject implements Observer
 		this.radius = radius;
 	}
 
+	@Override
+	public Shape getShape()
+	{
+		return new Ellipse2D.Double(xPosition - 0.5 * radius, yPosition - radius / 2, radius, radius);
+	}
+
 	/**
 	 * Returns the stigma.
 	 * 
@@ -66,8 +74,13 @@ public class StigmaViewObject implements Observer
 
 		g2.setColor(stigma.getColour());
 
-		Ellipse2D.Double stigmaShape = new Ellipse2D.Double(xPosition - 0.5 * radius, yPosition - radius / 2, radius, radius);
-		g2.fill(stigmaShape);
+		g2.fill(getShape());
+	}
+
+	@Override
+	public boolean positionInShape(Point2D position)
+	{
+		return getShape().contains(position);
 	}
 
 	@Override
@@ -76,4 +89,17 @@ public class StigmaViewObject implements Observer
 		// TODO Auto-generated method stub
 
 	}
+
+	@Override
+	public boolean isSelected()
+	{
+		return isSelected;
+	}
+
+	@Override
+	public void setSelected(boolean selected)
+	{
+		isSelected = selected;
+	}
+
 }

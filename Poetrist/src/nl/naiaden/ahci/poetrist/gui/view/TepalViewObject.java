@@ -20,8 +20,10 @@ import nl.naiaden.ahci.poetrist.gui.model.Tepal;
  * @author louis
  * 
  */
-public class TepalViewObject implements Observer
+public class TepalViewObject implements FlowerPartViewObject
 {
+
+	private boolean isSelected = false;
 
 	private double height;
 	private double rotation;
@@ -84,6 +86,12 @@ public class TepalViewObject implements Observer
 		this.rotation = rotation;
 	}
 
+	@Override
+	public Shape getShape()
+	{
+		return createTepal(100, (1.0 / (width / 2.0)) + 0.5);
+	}
+
 	/**
 	 * Returns the tepal.
 	 * 
@@ -94,17 +102,13 @@ public class TepalViewObject implements Observer
 		return tepal;
 	}
 
-	/**
-	 * Paints the tepal onto the canvas.
-	 * 
-	 * @param g
-	 */
+	@Override
 	public void paint(Graphics g)
 	{
 		Graphics2D g2 = (Graphics2D) g;
 
 		g2.setColor(tepal.getColour());
-		Shape shape = createTepal(100, (1.0 / (width / 2.0)) + 0.5);
+		Shape shape = getShape();
 		g2.fill(shape);
 	}
 
@@ -174,4 +178,23 @@ public class TepalViewObject implements Observer
 
 		return transformedShape;
 	}
+
+	@Override
+	public boolean positionInShape(Point2D position)
+	{
+		return getShape().contains(position);
+	}
+
+	@Override
+	public boolean isSelected()
+	{
+		return isSelected;
+	}
+
+	@Override
+	public void setSelected(boolean selected)
+	{
+		isSelected = selected;
+	}
+
 }

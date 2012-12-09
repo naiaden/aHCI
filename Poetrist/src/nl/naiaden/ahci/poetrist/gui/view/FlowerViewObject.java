@@ -6,6 +6,8 @@ package nl.naiaden.ahci.poetrist.gui.view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -156,6 +158,28 @@ public class FlowerViewObject implements Observer
 		if (arg == flower)
 		{
 			System.out.println("NICE!");
+		}
+
+	}
+
+	public void mousePressed(MouseEvent e)
+	{
+		Point2D position = new Point2D.Double(e.getX(), e.getY());
+
+		if (stigma.positionInShape(position))
+		{
+			stigma.setSelected(true);
+			System.out.println("Stigma(" + stigma.getStigma().getColour() + ") " + stigma.isSelected());
+			return;
+		}
+
+		for (TepalViewObject tepal : tepals)
+		{
+			if (tepal.positionInShape(position))
+			{
+				tepal.setSelected(true);
+				System.out.println("Tepal(" + tepal.getTepal().getColour() + ") " + tepal.isSelected());
+			}
 		}
 
 	}
