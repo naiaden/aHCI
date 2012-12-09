@@ -79,7 +79,6 @@ public class Flower extends Observable
 			tepals.add(tepal);
 			setChanged();
 			notifyObservers(this);
-			System.out.println("Adding tepal");
 			return true;
 		}
 

@@ -141,19 +141,14 @@ public class GardenPanel extends JPanel implements MouseInputListener
 	}
 
 	@Override
-	public void paintComponent(Graphics g)
+	public void mouseClicked(MouseEvent e)
 	{
-		super.paintComponent(g);
-
-		for (FlowerViewObject flower : flowers)
-		{
-			flower.paint(g);
-		}
+		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e)
+	public void mouseDragged(MouseEvent e)
 	{
 		// TODO Auto-generated method stub
 
@@ -174,15 +169,23 @@ public class GardenPanel extends JPanel implements MouseInputListener
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e)
+	public void mouseMoved(MouseEvent e)
 	{
 		// TODO Auto-generated method stub
-		System.out.println("[GP] Mouse Pressed: (" + e.getX() + "," + e.getY() + ")");
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e)
+	{
+		System.out.println("[GardenPanel] Mouse Pressed: (" + e.getX() + "," + e.getY() + ")");
 
 		for (FlowerViewObject flower : flowers)
 		{
 			flower.mousePressed(e);
 		}
+
+		repaint();
 	}
 
 	@Override
@@ -193,16 +196,14 @@ public class GardenPanel extends JPanel implements MouseInputListener
 	}
 
 	@Override
-	public void mouseDragged(MouseEvent e)
+	public void paintComponent(Graphics g)
 	{
-		// TODO Auto-generated method stub
+		super.paintComponent(g);
 
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent e)
-	{
-		// TODO Auto-generated method stub
+		for (FlowerViewObject flower : flowers)
+		{
+			flower.paint(g);
+		}
 
 	}
 

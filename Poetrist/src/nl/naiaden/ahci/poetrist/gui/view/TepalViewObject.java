@@ -3,6 +3,8 @@
  */
 package nl.naiaden.ahci.poetrist.gui.view;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
@@ -10,8 +12,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Point2D;
 import java.util.Observable;
-import java.util.Observer;
-
 import nl.naiaden.ahci.poetrist.gui.model.Tepal;
 
 /**
@@ -23,9 +23,9 @@ import nl.naiaden.ahci.poetrist.gui.model.Tepal;
 public class TepalViewObject implements FlowerPartViewObject
 {
 
-	private boolean isSelected = false;
-
 	private double height;
+
+	private boolean isSelected = false;
 	private double rotation;
 	private Tepal tepal;
 
@@ -103,13 +103,44 @@ public class TepalViewObject implements FlowerPartViewObject
 	}
 
 	@Override
+	public boolean isSelected()
+	{
+		return isSelected;
+	}
+
+	@Override
 	public void paint(Graphics g)
 	{
 		Graphics2D g2 = (Graphics2D) g;
 
 		g2.setColor(tepal.getColour());
-		Shape shape = getShape();
-		g2.fill(shape);
+		g2.fill(getShape());
+
+		if (isSelected)
+		{
+			g2.setStroke(new BasicStroke(3));
+			g2.setColor(Color.BLACK);
+			g2.draw(getShape());
+		}
+	}
+
+	@Override
+	public boolean positionInShape(Point2D position)
+	{
+		return getShape().contains(position);
+	}
+
+	@Override
+	public void setSelected(boolean selected)
+	{
+		isSelected = selected;
+	}
+
+	@Override
+	public boolean setSelectedIfInPosition(Point2D position)
+	{
+		setSelected(positionInShape(position));
+		return isSelected;
 	}
 
 	@Override
@@ -177,24 +208,6 @@ public class TepalViewObject implements FlowerPartViewObject
 		transformedShape = t.createTransformedShape(shape);
 
 		return transformedShape;
-	}
-
-	@Override
-	public boolean positionInShape(Point2D position)
-	{
-		return getShape().contains(position);
-	}
-
-	@Override
-	public boolean isSelected()
-	{
-		return isSelected;
-	}
-
-	@Override
-	public void setSelected(boolean selected)
-	{
-		isSelected = selected;
 	}
 
 }

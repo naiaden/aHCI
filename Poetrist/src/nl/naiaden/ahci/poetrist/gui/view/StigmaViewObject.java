@@ -3,6 +3,8 @@
  */
 package nl.naiaden.ahci.poetrist.gui.view;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
@@ -63,18 +65,26 @@ public class StigmaViewObject implements FlowerPartViewObject
 		return stigma;
 	}
 
-	/**
-	 * Paints the stigma onto the canvas.
-	 * 
-	 * @param g
-	 */
+	@Override
+	public boolean isSelected()
+	{
+		return isSelected;
+	}
+
+	@Override
 	public void paint(Graphics g)
 	{
 		Graphics2D g2 = (Graphics2D) g;
 
 		g2.setColor(stigma.getColour());
-
 		g2.fill(getShape());
+
+		if (isSelected)
+		{
+			g2.setStroke(new BasicStroke(3));
+			g2.setColor(Color.BLACK);
+			g2.draw(getShape());
+		}
 	}
 
 	@Override
@@ -84,22 +94,23 @@ public class StigmaViewObject implements FlowerPartViewObject
 	}
 
 	@Override
-	public void update(Observable arg0, Object arg1)
+	public void setSelected(boolean selected)
 	{
-		// TODO Auto-generated method stub
-
+		isSelected = selected;
 	}
 
 	@Override
-	public boolean isSelected()
+	public boolean setSelectedIfInPosition(Point2D position)
 	{
+		setSelected(positionInShape(position));
 		return isSelected;
 	}
 
 	@Override
-	public void setSelected(boolean selected)
+	public void update(Observable arg0, Object arg1)
 	{
-		isSelected = selected;
+		// TODO Auto-generated method stub
+
 	}
 
 }

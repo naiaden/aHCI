@@ -130,6 +130,30 @@ public class FlowerViewObject implements Observer
 	}
 
 	/**
+	 * 
+	 * @param e
+	 */
+	public void mousePressed(MouseEvent e)
+	{
+		Point2D position = new Point2D.Double(e.getX(), e.getY());
+
+		if (stigma.setSelectedIfInPosition(position))
+		{
+			for (TepalViewObject tepal : tepals)
+			{
+				tepal.setSelected(false);
+			}
+		} else
+		{
+			for (TepalViewObject tepal : tepals)
+			{
+				tepal.setSelectedIfInPosition(position);
+			}
+		}
+
+	}
+
+	/**
 	 * Paints the flower onto the canvas.
 	 * 
 	 * @param g
@@ -157,29 +181,7 @@ public class FlowerViewObject implements Observer
 	{
 		if (arg == flower)
 		{
-			System.out.println("NICE!");
-		}
-
-	}
-
-	public void mousePressed(MouseEvent e)
-	{
-		Point2D position = new Point2D.Double(e.getX(), e.getY());
-
-		if (stigma.positionInShape(position))
-		{
-			stigma.setSelected(true);
-			System.out.println("Stigma(" + stigma.getStigma().getColour() + ") " + stigma.isSelected());
-			return;
-		}
-
-		for (TepalViewObject tepal : tepals)
-		{
-			if (tepal.positionInShape(position))
-			{
-				tepal.setSelected(true);
-				System.out.println("Tepal(" + tepal.getTepal().getColour() + ") " + tepal.isSelected());
-			}
+			// System.out.println("NICE!");
 		}
 
 	}

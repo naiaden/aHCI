@@ -9,24 +9,35 @@ import java.awt.geom.Point2D;
 import java.util.Observer;
 
 /**
+ * The interface for objects that are part of a flower.
+ * 
  * @author louis
  * 
  */
 public interface FlowerPartViewObject extends Observer
 {
 	/**
-	 * Paints the flower onto the canvas.
-	 * 
-	 * @param g
-	 */
-	public void paint(Graphics g);
-
-	/**
 	 * Returns the representation of the flower part.
 	 * 
 	 * @return the shape representation of the flower part.
 	 */
 	public Shape getShape();
+
+	/**
+	 * Returns the state of the object's representation.
+	 * 
+	 * @return <code>true</code> if the representation is selected,
+	 *         <code>false</code> otherwise.
+	 */
+	public boolean isSelected();
+
+	/**
+	 * Paints the flower onto the canvas.
+	 * 
+	 * @param g
+	 *            The canvas.
+	 */
+	public void paint(Graphics g);
 
 	/**
 	 * Tests whether a point is located within the shape.
@@ -40,7 +51,23 @@ public interface FlowerPartViewObject extends Observer
 	 */
 	public boolean positionInShape(Point2D position);
 
-	public boolean isSelected();
-
+	/**
+	 * Set the state of the object's representation.
+	 * 
+	 * @param selected
+	 *            <code>true</code> if the representation is selected,
+	 *            <code>false</code> otherwise.
+	 */
 	public void setSelected(boolean selected);
+
+	/**
+	 * Set the state of the object's representation depending on the position.
+	 * 
+	 * @param position
+	 *            The position to check for. Iff the representation contains the
+	 *            position, the representation is selected.
+	 * @return <code>true</code> if the representation is selected,
+	 *         <code>false</code> otherwise.
+	 */
+	public boolean setSelectedIfInPosition(Point2D position);
 }
