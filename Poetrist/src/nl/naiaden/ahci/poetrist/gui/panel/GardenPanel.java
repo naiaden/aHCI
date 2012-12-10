@@ -117,14 +117,14 @@ public class GardenPanel extends JPanel implements MouseInputListener
 	/**
 	 * 
 	 */
-	private JPanel gardenPanel = null;
+//	private JPanel gardenPanel = null;
 
 	/**
 	 * Default constructor.
 	 */
 	public GardenPanel()
 	{
-		gardenPanel = new JPanel();
+//		gardenPanel = new JPanel();
 
 		flowers = new ArrayList<FlowerViewObject>();
 
