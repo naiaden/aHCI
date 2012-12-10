@@ -1,5 +1,6 @@
 package nl.naiaden.ahci.poetrist.gui.panel;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -64,6 +65,8 @@ public class FlowerPotPanel extends JPanel implements MouseInputListener
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
+		
+		setBackground(Color.BLUE);
 
 		for (TepalViewObject tepal : tepals)
 		{

@@ -16,15 +16,36 @@ import nl.naiaden.ahci.poetrist.gui.model.Flower;
 import nl.naiaden.ahci.poetrist.gui.model.Stigma;
 import nl.naiaden.ahci.poetrist.gui.model.Tepal;
 import nl.naiaden.ahci.poetrist.gui.panel.ColorSelectionPanel;
+import nl.naiaden.ahci.poetrist.gui.panel.FlowerPotPanel;
 import nl.naiaden.ahci.poetrist.gui.panel.GardenPanel;
 import nl.naiaden.ahci.poetrist.gui.view.FlowerViewObject;
 import nl.naiaden.ahci.poetrist.gui.view.TepalViewObject;
 
+/**
+ * This is the frame that connects all the individual components into the main
+ * application.
+ * 
+ * @author louis
+ * 
+ */
 public class PoetristFrame extends JFrame
 {
 
-	private Panel rootPanel = null;
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3465836273841215128L;
+
+	/**
+	 * Create the GUI and show it.
+	 */
+	private static void createAndShowGUI()
+	{
+		PoetristFrame frame = new PoetristFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+	}
+
 	/**
 	 * @param args
 	 */
@@ -38,44 +59,23 @@ public class PoetristFrame extends JFrame
 			}
 		});
 	}
-	
-	/**
-	 * Create the GUI and show it.
-	 */
-	private static void createAndShowGUI()
-	{
-		PoetristFrame frame = new PoetristFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
-	}
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3465836273841215128L;
-	
+
+	private Panel rootPanel = null;
+
 	public PoetristFrame()
-	{		
-//		super();
+	{
 		rootPanel = new Panel(new GridLayout(2, 2));
-		
-		
-		
-		
-		
-		
+
 		initialiseFrame();
 		add(rootPanel);
 
-		
-		this.setSize(700, 700);		
+		this.setSize(700, 700);
 	}
-	
-	
+
 	private void initialiseFrame()
-	{		
+	{
 		setTitle("Poetrist -- Your source of click and point art generation");
-		
+
 		double xpos = 150;
 		double ypos = 150;
 
@@ -99,7 +99,7 @@ public class PoetristFrame extends JFrame
 		fvo1.addTepal(new TepalViewObject(new Tepal(Color.RED), xpos, ypos, 100, nrPetals, 5 * (2 * Math.PI) / nrPetals));
 		fvo1.addTepal(new TepalViewObject(new Tepal(Color.RED), xpos, ypos, 100, nrPetals, 6 * (2 * Math.PI) / nrPetals));
 		fvo1.addTepal(new TepalViewObject(new Tepal(Color.RED), xpos, ypos, 100, nrPetals, 7 * (2 * Math.PI) / nrPetals));
-		
+
 		xpos = xpos - 100;
 		ypos = ypos + 50;
 		nrPetals = 6;
@@ -112,7 +112,7 @@ public class PoetristFrame extends JFrame
 		fvo2.addTepal(new TepalViewObject(new Tepal(Color.BLUE), xpos, ypos, 100, nrPetals, 5 * (2 * Math.PI) / nrPetals));
 		fvo2.addTepal(new TepalViewObject(new Tepal(Color.BLUE), xpos, ypos, 100, nrPetals, 6 * (2 * Math.PI) / nrPetals));
 		fvo2.addTepal(new TepalViewObject(new Tepal(Color.BLUE), xpos, ypos, 100, nrPetals, 7 * (2 * Math.PI) / nrPetals));
-		
+
 		xpos = xpos + 250;
 		ypos = ypos - 50;
 		nrPetals = 8;
@@ -123,30 +123,26 @@ public class PoetristFrame extends JFrame
 		fvo3.addTepal(new TepalViewObject(new Tepal(Color.MAGENTA), xpos, ypos, 100, nrPetals, 3 * (2 * Math.PI) / nrPetals));
 		fvo3.addTepal(new TepalViewObject(new Tepal(Color.YELLOW), xpos, ypos, 100, nrPetals, 4 * (2 * Math.PI) / nrPetals));
 		fvo3.addTepal(new TepalViewObject(new Tepal(Color.MAGENTA), xpos, ypos, 100, nrPetals, 5 * (2 * Math.PI) / nrPetals));
-		
-		
+
 		GardenPanel gp = new GardenPanel();
 		gp.addFlower(fvo1);
 		gp.addFlower(fvo2);
 		gp.addFlower(fvo3);
-		
-		
-//		rootPanel.setLayout(new GridBagLayout());
+
 		GridBagConstraints gbc = new GridBagConstraints();
-		
-		
+
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		rootPanel.add(gp, gbc);
-		
+
 		gbc.gridx = 1;
 		gbc.gridy = 0;
 		rootPanel.add(new ColorSelectionPanel(), gbc);
-		
+
 		gbc.gridx = 0;
 		gbc.gridy = 1;
-		rootPanel.add(new JLabel("test0,1"), gbc);
-		
+		rootPanel.add(new FlowerPotPanel(), gbc);
+
 	}
-	
+
 }
