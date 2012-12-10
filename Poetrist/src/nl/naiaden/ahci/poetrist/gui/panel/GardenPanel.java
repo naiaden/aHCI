@@ -2,6 +2,7 @@ package nl.naiaden.ahci.poetrist.gui.panel;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import javax.swing.event.MouseInputListener;
 import nl.naiaden.ahci.poetrist.gui.model.Flower;
 import nl.naiaden.ahci.poetrist.gui.model.Stigma;
 import nl.naiaden.ahci.poetrist.gui.model.Tepal;
+import nl.naiaden.ahci.poetrist.gui.view.FlowerPartViewObject;
 import nl.naiaden.ahci.poetrist.gui.view.FlowerViewObject;
 import nl.naiaden.ahci.poetrist.gui.view.TepalViewObject;
 
@@ -176,6 +178,18 @@ public class GardenPanel extends JPanel implements MouseInputListener
 	{
 		// TODO Auto-generated method stub
 
+	}
+
+	public FlowerPartViewObject selectedFlowerPart(Point point)
+	{
+
+		for (FlowerViewObject flower : flowers)
+		{
+			if (flower.getSelectedFlowerPart(point) != null)
+				return flower.getSelectedFlowerPart(point);
+		}
+
+		return null;
 	}
 
 	@Override
