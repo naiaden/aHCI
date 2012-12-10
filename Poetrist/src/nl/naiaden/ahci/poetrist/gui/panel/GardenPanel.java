@@ -128,6 +128,9 @@ public class GardenPanel extends JPanel implements MouseInputListener
 
 		flowers = new ArrayList<FlowerViewObject>();
 
+		revalidate();
+		repaint();
+		
 		addMouseListener(this);
 	}
 

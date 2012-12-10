@@ -1,7 +1,10 @@
 package nl.naiaden.ahci.poetrist.gui.panel;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.QuadCurve2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,9 +70,9 @@ public class FlowerPotPanel extends JPanel implements MouseInputListener
 			tepal.paint(g);
 		}
 		
-		
-
 	}
+	
+	
 	
 	@Override
 	public void mouseClicked(MouseEvent arg0)
