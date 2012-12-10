@@ -42,7 +42,7 @@ public class FlowerPotPanel extends JPanel implements MouseInputListener
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		FlowerPotPanel fpp = new FlowerPotPanel();
-		
+
 		frame.getContentPane().add(fpp);
 
 		frame.setSize(400, 300);
@@ -50,7 +50,15 @@ public class FlowerPotPanel extends JPanel implements MouseInputListener
 	}
 
 	private List<TepalViewObject> tepals;
-	
+
+	public void addTepal(TepalViewObject tepal)
+	{
+		tepals.add(tepal);
+
+		revalidate();
+		repaint();
+	}
+
 	/**
 	 * Default constructor.
 	 */
@@ -60,70 +68,68 @@ public class FlowerPotPanel extends JPanel implements MouseInputListener
 
 		addMouseListener(this);
 	}
-	
-	@Override
-	public void paintComponent(Graphics g)
-	{
-		super.paintComponent(g);
-		
-		setBackground(Color.BLUE);
 
-		for (TepalViewObject tepal : tepals)
-		{
-			tepal.paint(g);
-		}
-		
-	}
-	
-	
-	
 	@Override
 	public void mouseClicked(MouseEvent arg0)
 	{
 		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void mouseEntered(MouseEvent arg0)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0)
-	{
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent arg0)
 	{
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0)
+	{
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent arg0)
 	{
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void paintComponent(Graphics g)
+	{
+		super.paintComponent(g);
+
+		// setBackground(Color.BLUE);
+
+		for (TepalViewObject tepal : tepals)
+		{
+			tepal.paint(g);
+		}
+
 	}
 
 }

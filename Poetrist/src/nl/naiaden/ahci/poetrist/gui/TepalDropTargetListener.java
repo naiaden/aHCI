@@ -11,6 +11,8 @@ import java.awt.dnd.DropTargetDropEvent;
 
 import javax.swing.JPanel;
 
+import nl.naiaden.ahci.poetrist.gui.model.Tepal;
+import nl.naiaden.ahci.poetrist.gui.panel.FlowerPotPanel;
 import nl.naiaden.ahci.poetrist.gui.view.TepalViewObject;
 
 /**
@@ -42,6 +44,16 @@ public class TepalDropTargetListener extends DropTargetAdapter
 			{
 				arg0.acceptDrop(DnDConstants.ACTION_COPY);
 				System.out.println("Dropped tepal into bucket! [" + tepal.getTepal().getColour() + "]");
+
+				if (dropPanel instanceof FlowerPotPanel)
+				{
+					FlowerPotPanel fpp = (FlowerPotPanel) dropPanel;
+					Tepal originalTepal = tepal.getTepal();
+					TepalViewObject tepalCopy = new TepalViewObject(originalTepal, arg0.getLocation().getX(), arg0.getLocation().getY(), tepal.getHeight(), tepal.getWidth(),
+							tepal.getRotation());
+					fpp.addTepal(tepalCopy);
+				}
+
 				arg0.dropComplete(true);
 				return;
 			}

@@ -165,7 +165,6 @@ public class PoetristFrame extends JFrame implements DragGestureListener
 	@Override
 	public void dragGestureRecognized(DragGestureEvent arg0)
 	{
-		System.out.println("Let's go!");
 		FlowerPartViewObject selectedFlowerPart = gardenPanel.selectedFlowerPart(arg0.getDragOrigin());
 
 
