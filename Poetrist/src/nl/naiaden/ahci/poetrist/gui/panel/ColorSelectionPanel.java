@@ -1,14 +1,8 @@
 package nl.naiaden.ahci.poetrist.gui.panel;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.ComponentOrientation;
 import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
@@ -102,32 +96,7 @@ public class ColorSelectionPanel extends JPanel implements MouseInputListener
 		});
 	}
 	
-	/*public static void createAndShowGUI() {
-       JFrame frame  = new JFrame("ColorSelectionPanel");
-       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       
-       ColorSelectionPanel csp = new ColorSelectionPanel();
-		
-		
-        Color[] colors = new Color[12];
-        colors[0] = Color.white;
-        colors[1] = Color.black;
-
-        colors[2] = Color.blue;
-        colors[3] = Color.cyan;
-        colors[4] = Color.gray;
-        colors[5] = Color.green;
-        colors[6] = Color.lightGray;
-        colors[7] = Color.magenta;
-        colors[8] = Color.orange;
-        colors[9] = Color.pink;
-        colors[10] = Color.red;
-        colors[11] = Color.yellow;
-
-        csp.a
-
-	}*/
-
+	
 	@Override
 	public void mouseClicked(MouseEvent arg0)
 	{
