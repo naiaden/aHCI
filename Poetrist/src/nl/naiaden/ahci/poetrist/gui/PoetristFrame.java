@@ -1,30 +1,56 @@
-package nl.naiaden.ahci.poetrist.gui.panel;
+package nl.naiaden.ahci.poetrist.gui;
 
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.Container;
+import java.awt.Cursor;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.Panel;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DragGestureEvent;
+import java.awt.dnd.DragGestureListener;
+import java.awt.dnd.DragSource;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.event.MouseInputListener;
 
 import nl.naiaden.ahci.poetrist.gui.model.Flower;
 import nl.naiaden.ahci.poetrist.gui.model.Stigma;
 import nl.naiaden.ahci.poetrist.gui.model.Tepal;
+import nl.naiaden.ahci.poetrist.gui.panel.ColorSelectionPanel;
+import nl.naiaden.ahci.poetrist.gui.panel.FlowerPotPanel;
+import nl.naiaden.ahci.poetrist.gui.panel.GardenPanel;
 import nl.naiaden.ahci.poetrist.gui.view.FlowerPartViewObject;
 import nl.naiaden.ahci.poetrist.gui.view.FlowerViewObject;
 import nl.naiaden.ahci.poetrist.gui.view.TepalViewObject;
 
-public class GardenPanel extends JPanel implements MouseInputListener
+/**
+ * This is the frame that connects all the individual components into the main
+ * application.
+ * 
+ * @author louis
+ * 
+ */
+public class PoetristFrame extends JFrame implements DragGestureListener
 {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7043512667139679491L;
+	private static final long serialVersionUID = 3465836273841215128L;
+
+	/**
+	 * Create the GUI and show it.
+	 */
+	private static void createAndShowGUI()
+	{
+		PoetristFrame frame = new PoetristFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+	}
 
 	/**
 	 * @param args
@@ -40,15 +66,29 @@ public class GardenPanel extends JPanel implements MouseInputListener
 		});
 	}
 
-	/**
-	 * Create the GUI and show it.
-	 */
-	private static void createAndShowGUI()
-	{
-		JFrame frame = new JFrame("GardenPanelDemo");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	private Panel rootPanel = null;
 
-		GardenPanel gp = new GardenPanel();
+	public PoetristFrame()
+	{
+		rootPanel = new Panel(new GridLayout(2, 2));
+
+		initialiseFrame();
+		add(rootPanel);
+
+		new TepalDropTargetListener(flowerPotPanel);
+		DragSource ds = new DragSource();
+		ds.createDefaultDragGestureRecognizer(gardenPanel, DnDConstants.ACTION_COPY, this);
+
+		this.setSize(700, 700);
+	}
+
+	private void initialiseFrame()
+	{
+		setTitle("Poetrist -- Your source of click and point art generation");
+
+		gardenPanel = new GardenPanel();
+		colorSelectionPanel = new ColorSelectionPanel();
+		flowerPotPanel = new FlowerPotPanel();
 
 		double xpos = 150;
 		double ypos = 150;
@@ -73,7 +113,6 @@ public class GardenPanel extends JPanel implements MouseInputListener
 		fvo1.addTepal(new TepalViewObject(new Tepal(Color.RED), xpos, ypos, 100, nrPetals, 5 * (2 * Math.PI) / nrPetals));
 		fvo1.addTepal(new TepalViewObject(new Tepal(Color.RED), xpos, ypos, 100, nrPetals, 6 * (2 * Math.PI) / nrPetals));
 		fvo1.addTepal(new TepalViewObject(new Tepal(Color.RED), xpos, ypos, 100, nrPetals, 7 * (2 * Math.PI) / nrPetals));
-		gp.addFlower(fvo1);
 
 		xpos = xpos - 100;
 		ypos = ypos + 50;
@@ -87,7 +126,6 @@ public class GardenPanel extends JPanel implements MouseInputListener
 		fvo2.addTepal(new TepalViewObject(new Tepal(Color.BLUE), xpos, ypos, 100, nrPetals, 5 * (2 * Math.PI) / nrPetals));
 		fvo2.addTepal(new TepalViewObject(new Tepal(Color.BLUE), xpos, ypos, 100, nrPetals, 6 * (2 * Math.PI) / nrPetals));
 		fvo2.addTepal(new TepalViewObject(new Tepal(Color.BLUE), xpos, ypos, 100, nrPetals, 7 * (2 * Math.PI) / nrPetals));
-		gp.addFlower(fvo2);
 
 		xpos = xpos + 250;
 		ypos = ypos - 50;
@@ -99,128 +137,56 @@ public class GardenPanel extends JPanel implements MouseInputListener
 		fvo3.addTepal(new TepalViewObject(new Tepal(Color.MAGENTA), xpos, ypos, 100, nrPetals, 3 * (2 * Math.PI) / nrPetals));
 		fvo3.addTepal(new TepalViewObject(new Tepal(Color.YELLOW), xpos, ypos, 100, nrPetals, 4 * (2 * Math.PI) / nrPetals));
 		fvo3.addTepal(new TepalViewObject(new Tepal(Color.MAGENTA), xpos, ypos, 100, nrPetals, 5 * (2 * Math.PI) / nrPetals));
-		// fvo3.addTepal(new TepalViewObject(new Tepal(Color.YELLOW), xpos,
-		// ypos, 100, nrPetals,6*(2*Math.PI)/nrPetals));
-		// fvo3.addTepal(new TepalViewObject(new Tepal(Color.YELLOW), xpos,
-		// ypos, 100, nrPetals,7*(2*Math.PI)/nrPetals));
-		gp.addFlower(fvo3);
 
-		frame.getContentPane().add(gp);
+		gardenPanel.addFlower(fvo1);
+		gardenPanel.addFlower(fvo2);
+		gardenPanel.addFlower(fvo3);
 
-		frame.setSize(400, 300);
-		frame.setVisible(true);
+		GridBagConstraints gbc = new GridBagConstraints();
+
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		rootPanel.add(gardenPanel, gbc);
+
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		rootPanel.add(colorSelectionPanel, gbc);
+
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		rootPanel.add(flowerPotPanel, gbc);
+
 	}
 
-	/**
-	 * 
-	 */
-	private List<FlowerViewObject> flowers = null;
+	private GardenPanel gardenPanel = null;
+	private ColorSelectionPanel colorSelectionPanel = null;
+	private FlowerPotPanel flowerPotPanel = null;
 
-	/**
-	 * 
-	 */
-//	private JPanel gardenPanel = null;
-
-	/**
-	 * Default constructor.
-	 */
-	public GardenPanel()
+	@Override
+	public void dragGestureRecognized(DragGestureEvent arg0)
 	{
-//		gardenPanel = new JPanel();
+		FlowerPartViewObject selectedFlowerPart = gardenPanel.selectedFlowerPart(arg0.getDragOrigin());
 
-		flowers = new ArrayList<FlowerViewObject>();
 
-		revalidate();
-		repaint();
+		if(selectedFlowerPart != null)
+		{
+			if (selectedFlowerPart instanceof TepalViewObject)
+			{
+				TepalViewObject tepal = (TepalViewObject) selectedFlowerPart;
+
+				Cursor cursor = null;
+				JPanel source = (JPanel) arg0.getComponent();
+
+				if (arg0.getDragAction() == DnDConstants.ACTION_COPY)
+				{
+					cursor = DragSource.DefaultCopyDrop;
+				}
+
+				arg0.startDrag(cursor, new TransferableTepal(tepal));
+			}
+		}
+
 		
-		addMouseListener(this);
-	}
-
-	/**
-	 * 
-	 * @param flower
-	 */
-	public void addFlower(FlowerViewObject flower)
-	{
-		flowers.add(flower);
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent e)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent e)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	public FlowerPartViewObject selectedFlowerPart(Point point)
-	{
-
-		for (FlowerViewObject flower : flowers)
-		{
-			if (flower.getSelectedFlowerPart(point) != null)
-				return flower.getSelectedFlowerPart(point);
-		}
-
-		return null;
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e)
-	{
-		System.out.println("[GardenPanel] Mouse Pressed: (" + e.getX() + "," + e.getY() + ")");
-
-		for (FlowerViewObject flower : flowers)
-		{
-			flower.mousePressed(e);
-		}
-
-		repaint();
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void paintComponent(Graphics g)
-	{
-		super.paintComponent(g);
-
-		for (FlowerViewObject flower : flowers)
-		{
-			flower.paint(g);
-		}
 
 	}
 

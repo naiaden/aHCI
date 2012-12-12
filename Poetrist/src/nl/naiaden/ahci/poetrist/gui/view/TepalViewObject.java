@@ -86,6 +86,26 @@ public class TepalViewObject implements FlowerPartViewObject
 		this.rotation = rotation;
 	}
 
+	/**
+	 * Returns the height of the tepal.
+	 * 
+	 * @return the height of the tepal.
+	 */
+	public double getHeight()
+	{
+		return height;
+	}
+
+	/**
+	 * Returns the rotation of the tepal.
+	 * 
+	 * @return the rotation of the tepal in radians.
+	 */
+	public double getRotation()
+	{
+		return rotation;
+	}
+
 	@Override
 	public Shape getShape()
 	{
@@ -100,6 +120,16 @@ public class TepalViewObject implements FlowerPartViewObject
 	public Tepal getTepal()
 	{
 		return tepal;
+	}
+
+	/**
+	 * Returns the reciprocal width of the tepal.
+	 * 
+	 * @return the reciprocal width of the tepal.
+	 */
+	public double getWidth()
+	{
+		return width;
 	}
 
 	@Override
