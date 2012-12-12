@@ -125,4 +125,10 @@ public class StigmaViewObject implements FlowerPartViewObject
 
 	}
 
+	@Override
+	public String toString()
+	{
+		return "Stigma with colour: " + getStigma().getColour();
+	}
+
 }

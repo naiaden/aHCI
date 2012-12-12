@@ -10,7 +10,6 @@ import java.awt.dnd.DropTargetAdapter;
 import java.awt.dnd.DropTargetDropEvent;
 
 import javax.swing.JPanel;
-
 import nl.naiaden.ahci.poetrist.gui.model.Stigma;
 import nl.naiaden.ahci.poetrist.gui.model.Tepal;
 import nl.naiaden.ahci.poetrist.gui.panel.FlowerPartPotPanel;
@@ -20,7 +19,7 @@ import nl.naiaden.ahci.poetrist.gui.view.TepalViewObject;
 
 /**
  * @author louis
- *
+ * 
  */
 public class FlowerPartDropTargetListener extends DropTargetAdapter
 {
@@ -33,24 +32,27 @@ public class FlowerPartDropTargetListener extends DropTargetAdapter
 		dropTarget = new DropTarget(dropPanel, DnDConstants.ACTION_COPY, this, true, null);
 	}
 
-	/* (non-Javadoc)
-	 * @see java.awt.dnd.DropTargetListener#drop(java.awt.dnd.DropTargetDropEvent)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * java.awt.dnd.DropTargetListener#drop(java.awt.dnd.DropTargetDropEvent)
 	 */
 	@Override
 	public void drop(DropTargetDropEvent arg0)
 	{
+
 		try
 		{
 			Transferable tr = arg0.getTransferable();
-			FlowerPartViewObject flowerPart = (FlowerPartViewObject) tr.getTransferData(TransferableFlowerPart.flowerPartFlavor);
+
 			if (arg0.isDataFlavorSupported(TransferableFlowerPart.flowerPartFlavor))
 			{
+				FlowerPartViewObject flowerPart = (FlowerPartViewObject) tr.getTransferData(TransferableFlowerPart.flowerPartFlavor);
 				arg0.acceptDrop(DnDConstants.ACTION_COPY);
-
 
 				if (dropPanel instanceof FlowerPartPotPanel)
 				{
-
 
 					if (flowerPart instanceof StigmaViewObject)
 					{
@@ -82,6 +84,7 @@ public class FlowerPartDropTargetListener extends DropTargetAdapter
 				arg0.dropComplete(true);
 				return;
 			}
+			// }
 			arg0.rejectDrop();
 		} catch (Exception e)
 		{

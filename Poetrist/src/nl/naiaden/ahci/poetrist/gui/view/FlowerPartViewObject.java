@@ -70,4 +70,11 @@ public interface FlowerPartViewObject extends Observer
 	 *         <code>false</code> otherwise.
 	 */
 	public boolean setSelectedIfInPosition(Point2D position);
+
+	/**
+	 * The string representation of a flower part.
+	 * 
+	 * @return a one-line string representation of the flower part.
+	 */
+	public String toString();
 }

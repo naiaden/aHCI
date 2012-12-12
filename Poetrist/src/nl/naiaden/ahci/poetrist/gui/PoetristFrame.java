@@ -163,41 +163,20 @@ public class PoetristFrame extends JFrame implements DragGestureListener
 	{
 		FlowerPartViewObject selectedFlowerPart = gardenPanel.selectedFlowerPart(arg0.getDragOrigin());
 
-
-		if(selectedFlowerPart != null)
+		if (selectedFlowerPart != null)
 		{
-			// if (selectedFlowerPart instanceof TepalViewObject)
-			// {
-			// TepalViewObject tepal = (TepalViewObject) selectedFlowerPart;
-			//
-			// Cursor cursor = null;
-			// JPanel source = (JPanel) arg0.getComponent();
-			//
-			// if (arg0.getDragAction() == DnDConstants.ACTION_COPY)
-			// {
-			// cursor = DragSource.DefaultCopyDrop;
-			// }
-			//
-			// arg0.startDrag(cursor, new TransferableFlowerPart(tepal));
-			// }
 
-			// if (selectedFlowerPart instanceof TepalViewObject)
-			// {
-			// TepalViewObject tepal = (TepalViewObject) selectedFlowerPart;
+			Cursor cursor = null;
+			JPanel source = (JPanel) arg0.getComponent();
 
-				Cursor cursor = null;
-			// JPanel source = (JPanel) arg0.getComponent();
-
-				if (arg0.getDragAction() == DnDConstants.ACTION_COPY)
-				{
-					cursor = DragSource.DefaultCopyDrop;
-				}
+			if (arg0.getDragAction() == DnDConstants.ACTION_COPY)
+			{
+				cursor = DragSource.DefaultCopyDrop;
+			}
 
 			arg0.startDrag(cursor, new TransferableFlowerPart(selectedFlowerPart));
 			// }
 		}
-
-		
 
 	}
 

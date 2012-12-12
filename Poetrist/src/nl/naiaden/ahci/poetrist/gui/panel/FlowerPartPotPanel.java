@@ -1,11 +1,7 @@
 package nl.naiaden.ahci.poetrist.gui.panel;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.QuadCurve2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
 import nl.naiaden.ahci.poetrist.gui.view.FlowerPartViewObject;
-import nl.naiaden.ahci.poetrist.gui.view.FlowerViewObject;
-import nl.naiaden.ahci.poetrist.gui.view.TepalViewObject;
 
 public class FlowerPartPotPanel extends JPanel implements MouseInputListener
 {
@@ -59,6 +53,8 @@ public class FlowerPartPotPanel extends JPanel implements MouseInputListener
 
 	public void addFlowerPart(FlowerPartViewObject flowerPart)
 	{
+
+		System.out.println("Added");
 		flowerParts.add(flowerPart);
 
 		revalidate();

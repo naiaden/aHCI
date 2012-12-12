@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
+import nl.naiaden.ahci.poetrist.gui.WordCellListRenderer;
 import nl.naiaden.ahci.poetrist.lexicon.Word;
 
 public class ColorSelectionPanel extends JPanel
@@ -65,17 +66,7 @@ public class ColorSelectionPanel extends JPanel
 		greenWords = new ArrayList<Word>();
 		
 		wordList = new JList(model1);
-		wordList.setCellRenderer(new DefaultListCellRenderer() {
-			public Component getListCellRendererComponent(JList list, Object value, int index,
-                    boolean isSelected, boolean cellHasFocus) {
-				
-				Word word = (Word) value;
-				setText(word.word);
-				setBackground(word.color);
-
-                return this;
-            }
-		});
+		wordList.setCellRenderer(new WordCellListRenderer());
 		
 		
 		

@@ -199,4 +199,10 @@ public class FlowerViewObject implements Observer
 		}
 
 	}
+
+	@Override
+	public String toString()
+	{
+		return "Flower (" + getFlower().getStigma().getColour() + ") with " + getFlower().getTepals().size() + "/" + getFlower().getNumberOfTepalPositions() + " tepals";
+	}
 }

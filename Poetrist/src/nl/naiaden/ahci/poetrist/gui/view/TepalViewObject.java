@@ -243,4 +243,10 @@ public class TepalViewObject implements FlowerPartViewObject
 		return transformedShape;
 	}
 
+	@Override
+	public String toString()
+	{
+		return "Tepal with colour: " + getTepal().getColour();
+	}
+
 }
