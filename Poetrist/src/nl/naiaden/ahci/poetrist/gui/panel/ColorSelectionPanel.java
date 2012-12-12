@@ -1,15 +1,20 @@
 package nl.naiaden.ahci.poetrist.gui.panel;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
+import nl.naiaden.ahci.poetrist.lexicon.Word;
 
 public class ColorSelectionPanel extends JPanel
 {
@@ -19,50 +24,17 @@ public class ColorSelectionPanel extends JPanel
 	 */
 	private static final long serialVersionUID = -6313111916626939259L;
 
-	String listBlack[]={
-			"motive",
-			"bomer",
-			"regrettable",
-			"curse"
-		};
-		
-		String listGrey[]={
-				"saucepan","coincide","aerodynamics"
-				
-		};
-		
-		String listYellow[]={
-				"motive","ditty"
-		};
-		
-		String listBrown[]={
-				"saddle","telephone"
-		};
-		
-		String listPink[]={
-				"coincide","buss"
-		};
-		
-		String listRed[]={
-				"assail","wrap","mangle","buss"
-		};
-		
-		String listWhite[]={
-				"tableware","transcendental","herewith","anterior"
-		};
-		
-		String listOrange[]={
-				"due"
-		};
-		
-		String listBlue[]={
-				"ditty"
-		};
-		
-		String listGreen[]={
-				"garden"
-		};
-	
+	List<Word> blackWords = null;
+	List<Word> greyWords = null;
+	List<Word> yellowWords = null;
+	List<Word> brownWords = null;
+	List<Word> pinkWords = null;
+	List<Word> redWords = null;
+	List<Word> whiteWords = null;
+	List<Word> orangeWords = null;
+	List<Word> blueWords = null;
+	List<Word> greenWords = null;
+
 	JButton black= new JButton();
 	JButton grey= new JButton();
 	JButton yellow= new JButton();
@@ -75,12 +47,71 @@ public class ColorSelectionPanel extends JPanel
 	JButton green = new JButton();
 	
 	DefaultListModel model1 = new DefaultListModel();
-	JList wordList = new JList(model1);
+	JList wordList = null;
 	DefaultListModel model2 = new DefaultListModel();
 	JList wordList2 = new JList(model2);
 	
 	
 	public ColorSelectionPanel(){
+		blackWords = new ArrayList<Word>();
+		greyWords = new ArrayList<Word>();
+		yellowWords = new ArrayList<Word>();
+		brownWords = new ArrayList<Word>();
+		pinkWords = new ArrayList<Word>();
+		redWords = new ArrayList<Word>();
+		whiteWords = new ArrayList<Word>();
+		orangeWords = new ArrayList<Word>();
+		blueWords = new ArrayList<Word>();
+		greenWords = new ArrayList<Word>();
+		
+		wordList = new JList(model1);
+		wordList.setCellRenderer(new DefaultListCellRenderer() {
+			public Component getListCellRendererComponent(JList list, Object value, int index,
+                    boolean isSelected, boolean cellHasFocus) {
+				
+				Word word = (Word) value;
+				setText(word.word);
+				setBackground(word.color);
+
+                return this;
+            }
+		});
+		
+		
+		
+		blackWords.add(new Word("motive", Color.BLACK));
+		blackWords.add(new Word("bomer", Color.BLACK));
+		blackWords.add(new Word("regrettable", Color.BLACK));
+		blackWords.add(new Word("curse", Color.BLACK));
+
+		greyWords.add(new Word("saucepan", Color.GRAY));
+		greyWords.add(new Word("coincide", Color.GRAY));
+		greyWords.add(new Word("aerodynamics", Color.GRAY));
+
+		yellowWords.add(new Word("motive", Color.YELLOW));
+		yellowWords.add(new Word("ditty", Color.YELLOW));
+
+		brownWords.add(new Word("saddle", new Color(156, 93, 82)));
+		brownWords.add(new Word("telephone", new Color(156, 93, 82)));
+
+		pinkWords.add(new Word("coincide", Color.PINK));
+		pinkWords.add(new Word("buss", Color.PINK));
+
+		redWords.add(new Word("assail", Color.RED));
+		redWords.add(new Word("wrap", Color.RED));
+		redWords.add(new Word("mangle", Color.RED));
+		redWords.add(new Word("buss", Color.RED));
+
+		whiteWords.add(new Word("tableware", Color.WHITE));
+		whiteWords.add(new Word("transcendental", Color.WHITE));
+		whiteWords.add(new Word("herewith", Color.WHITE));
+		whiteWords.add(new Word("anterior", Color.WHITE));
+
+		orangeWords.add(new Word("due", Color.ORANGE));
+
+		blueWords.add(new Word("ditty", Color.BLUE));
+
+		greenWords.add(new Word("garden", Color.GREEN));
 		
 		ButtonListener bl = new ButtonListener();
 		GridLayout layout = new GridLayout(1,3);
@@ -150,53 +181,55 @@ public class ButtonListener implements ActionListener{
 		{	int i;
 			model1.clear();
 			if(e.getSource() == black){
-				for (i=0;i<listBlack.length;i++){
-					model1.addElement(listBlack[i]);
-					
+				for (Word word : blackWords)
+				{
+					model1.addElement(word);
 				}
+
 			}else if(e.getSource() == grey){
-				for (i=0;i<listGrey.length;i++){
-					model1.addElement(listGrey[i]);
+				for (Word word : greyWords)
+				{
+					model1.addElement(word);
 				}
 			}else if(e.getSource() == yellow){
-				for (i=0;i<listYellow.length;i++){
-					model1.addElement(listYellow[i]);
+				for (Word word : yellowWords)
+				{
+					model1.addElement(word);
 				}
 			}else if(e.getSource() == brown){
-				for (i=0;i<listBrown.length;i++){
-					model1.addElement(listBrown[i]);
-				}
-			}else if(e.getSource() == grey){
-				for (i=0;i<listGrey.length;i++){
-					model1.addElement(listGrey[i]);
+				for (Word word : brownWords)
+				{
+					model1.addElement(word);
 				}
 			}else if(e.getSource() == pink){
-				for (i=0;i<listPink.length;i++){
-					model1.addElement(listPink[i]);
+				for (Word word : pinkWords)
+				{
+					model1.addElement(word);
 				}
 			}else if(e.getSource() == red){
-				for (i=0;i<listRed.length;i++){
-					model1.addElement(listRed[i]);
-				}
-			}else if(e.getSource() == grey){
-				for (i=0;i<listGrey.length;i++){
-					model1.addElement(listGrey[i]);
+				for (Word word : redWords)
+				{
+					model1.addElement(word);
 				}
 			}else if(e.getSource() == white){
-				for (i=0;i<listWhite.length;i++){
-					model1.addElement(listWhite[i]);
+				for (Word word : whiteWords)
+				{
+					model1.addElement(word);
 				}
 			}else if(e.getSource() == orange){
-				for (i=0;i<listOrange.length;i++){
-					model1.addElement(listOrange[i]);
+				for (Word word : orangeWords)
+				{
+					model1.addElement(word);
 				}
 			}else if(e.getSource() == blue){
-				for (i=0;i<listBlue.length;i++){
-					model1.addElement(listBlue[i]);
+				for (Word word : blueWords)
+				{
+					model1.addElement(word);
 				}
 			}else if(e.getSource() == green){
-				for (i=0;i<listGreen.length;i++){
-					model1.addElement(listGreen[i]);
+				for (Word word : greenWords)
+				{
+					model1.addElement(word);
 				}
 			}
 		}

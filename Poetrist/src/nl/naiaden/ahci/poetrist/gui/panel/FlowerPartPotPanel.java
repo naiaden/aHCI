@@ -129,8 +129,6 @@ public class FlowerPartPotPanel extends JPanel implements MouseInputListener
 	{
 		super.paintComponent(g);
 
-		// setBackground(Color.BLUE);
-
 		for (FlowerPartViewObject flowerPart : flowerParts)
 		{
 			flowerPart.paint(g);
