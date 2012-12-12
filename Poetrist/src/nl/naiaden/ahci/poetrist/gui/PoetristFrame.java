@@ -1,10 +1,8 @@
 package nl.naiaden.ahci.poetrist.gui;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Panel;
 import java.awt.dnd.DnDConstants;
@@ -12,18 +10,15 @@ import java.awt.dnd.DragGestureEvent;
 import java.awt.dnd.DragGestureListener;
 import java.awt.dnd.DragSource;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import nl.naiaden.ahci.poetrist.gui.model.Flower;
 import nl.naiaden.ahci.poetrist.gui.model.Stigma;
 import nl.naiaden.ahci.poetrist.gui.model.Tepal;
 import nl.naiaden.ahci.poetrist.gui.panel.ColorSelectionPanel;
-import nl.naiaden.ahci.poetrist.gui.panel.FlowerPotPanel;
+import nl.naiaden.ahci.poetrist.gui.panel.FlowerPartPotPanel;
 import nl.naiaden.ahci.poetrist.gui.panel.GardenPanel;
-import nl.naiaden.ahci.poetrist.gui.panel.ColorSelectionPanel;
 import nl.naiaden.ahci.poetrist.gui.view.FlowerPartViewObject;
 import nl.naiaden.ahci.poetrist.gui.view.FlowerViewObject;
 import nl.naiaden.ahci.poetrist.gui.view.TepalViewObject;
@@ -76,7 +71,7 @@ public class PoetristFrame extends JFrame implements DragGestureListener
 		initialiseFrame();
 		add(rootPanel);
 
-		new TepalDropTargetListener(flowerPotPanel);
+		new FlowerPartDropTargetListener(flowerPotPanel);
 		DragSource ds = new DragSource();
 		ds.createDefaultDragGestureRecognizer(gardenPanel, DnDConstants.ACTION_COPY, this);
 
@@ -89,7 +84,7 @@ public class PoetristFrame extends JFrame implements DragGestureListener
 
 		gardenPanel = new GardenPanel();
 		colorSelectionPanel = new ColorSelectionPanel();
-		flowerPotPanel = new FlowerPotPanel();
+		flowerPotPanel = new FlowerPartPotPanel();
 
 		double xpos = 150;
 		double ypos = 150;
@@ -161,7 +156,7 @@ public class PoetristFrame extends JFrame implements DragGestureListener
 
 	private GardenPanel gardenPanel = null;
 	private ColorSelectionPanel colorSelectionPanel = null;
-	private FlowerPotPanel flowerPotPanel = null;
+	private FlowerPartPotPanel flowerPotPanel = null;
 
 	@Override
 	public void dragGestureRecognized(DragGestureEvent arg0)
@@ -171,20 +166,35 @@ public class PoetristFrame extends JFrame implements DragGestureListener
 
 		if(selectedFlowerPart != null)
 		{
-			if (selectedFlowerPart instanceof TepalViewObject)
-			{
-				TepalViewObject tepal = (TepalViewObject) selectedFlowerPart;
+			// if (selectedFlowerPart instanceof TepalViewObject)
+			// {
+			// TepalViewObject tepal = (TepalViewObject) selectedFlowerPart;
+			//
+			// Cursor cursor = null;
+			// JPanel source = (JPanel) arg0.getComponent();
+			//
+			// if (arg0.getDragAction() == DnDConstants.ACTION_COPY)
+			// {
+			// cursor = DragSource.DefaultCopyDrop;
+			// }
+			//
+			// arg0.startDrag(cursor, new TransferableFlowerPart(tepal));
+			// }
+
+			// if (selectedFlowerPart instanceof TepalViewObject)
+			// {
+			// TepalViewObject tepal = (TepalViewObject) selectedFlowerPart;
 
 				Cursor cursor = null;
-				JPanel source = (JPanel) arg0.getComponent();
+			// JPanel source = (JPanel) arg0.getComponent();
 
 				if (arg0.getDragAction() == DnDConstants.ACTION_COPY)
 				{
 					cursor = DragSource.DefaultCopyDrop;
 				}
 
-				arg0.startDrag(cursor, new TransferableTepal(tepal));
-			}
+			arg0.startDrag(cursor, new TransferableFlowerPart(selectedFlowerPart));
+			// }
 		}
 
 		

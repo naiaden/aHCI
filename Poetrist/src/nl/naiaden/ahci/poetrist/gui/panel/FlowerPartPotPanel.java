@@ -13,11 +13,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
+import nl.naiaden.ahci.poetrist.gui.view.FlowerPartViewObject;
 import nl.naiaden.ahci.poetrist.gui.view.FlowerViewObject;
 import nl.naiaden.ahci.poetrist.gui.view.TepalViewObject;
 
-public class FlowerPotPanel extends JPanel implements MouseInputListener
+public class FlowerPartPotPanel extends JPanel implements MouseInputListener
 {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 631892447445446136L;
 
 	/**
 	 * @param args
@@ -38,10 +44,10 @@ public class FlowerPotPanel extends JPanel implements MouseInputListener
 	 */
 	private static void createAndShowGUI()
 	{
-		JFrame frame = new JFrame("GardenPanelDemo");
+		JFrame frame = new JFrame("FlowerPartPotPanelDemo");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		FlowerPotPanel fpp = new FlowerPotPanel();
+		FlowerPartPotPanel fpp = new FlowerPartPotPanel();
 
 		frame.getContentPane().add(fpp);
 
@@ -49,11 +55,11 @@ public class FlowerPotPanel extends JPanel implements MouseInputListener
 		frame.setVisible(true);
 	}
 
-	private List<TepalViewObject> tepals;
+	private List<FlowerPartViewObject> flowerParts;
 
-	public void addTepal(TepalViewObject tepal)
+	public void addFlowerPart(FlowerPartViewObject flowerPart)
 	{
-		tepals.add(tepal);
+		flowerParts.add(flowerPart);
 
 		revalidate();
 		repaint();
@@ -62,9 +68,9 @@ public class FlowerPotPanel extends JPanel implements MouseInputListener
 	/**
 	 * Default constructor.
 	 */
-	public FlowerPotPanel()
+	public FlowerPartPotPanel()
 	{
-		tepals = new ArrayList<TepalViewObject>();
+		flowerParts = new ArrayList<FlowerPartViewObject>();
 
 		addMouseListener(this);
 	}
@@ -125,9 +131,9 @@ public class FlowerPotPanel extends JPanel implements MouseInputListener
 
 		// setBackground(Color.BLUE);
 
-		for (TepalViewObject tepal : tepals)
+		for (FlowerPartViewObject flowerPart : flowerParts)
 		{
-			tepal.paint(g);
+			flowerPart.paint(g);
 		}
 
 	}

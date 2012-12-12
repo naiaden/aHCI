@@ -7,6 +7,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
@@ -56,6 +57,16 @@ public class StigmaViewObject implements FlowerPartViewObject
 	}
 
 	/**
+	 * Returns the radius of the stigma. Stigmata are assumed to be circular.
+	 * 
+	 * @return the radius of the stigma.
+	 */
+	public double getRadius()
+	{
+		return radius;
+	}
+
+	/**
 	 * Returns the stigma.
 	 * 
 	 * @return the stigma.
@@ -75,6 +86,7 @@ public class StigmaViewObject implements FlowerPartViewObject
 	public void paint(Graphics g)
 	{
 		Graphics2D g2 = (Graphics2D) g;
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 		g2.setColor(stigma.getColour());
 		g2.fill(getShape());

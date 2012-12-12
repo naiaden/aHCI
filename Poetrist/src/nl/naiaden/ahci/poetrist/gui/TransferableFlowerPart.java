@@ -9,23 +9,24 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 
 import nl.naiaden.ahci.poetrist.gui.model.Tepal;
+import nl.naiaden.ahci.poetrist.gui.view.FlowerPartViewObject;
 import nl.naiaden.ahci.poetrist.gui.view.TepalViewObject;
 
 /**
  * @author louis
  * 
  */
-public class TransferableTepal implements Transferable
+public class TransferableFlowerPart implements Transferable
 {
-	protected static DataFlavor tepalFlavor = new DataFlavor(Tepal.class, "A Tepal Object");
+	protected static DataFlavor flowerPartFlavor = new DataFlavor(Tepal.class, "A Flower Part Object");
 	protected static DataFlavor[] supportedFlavors =
-	{ tepalFlavor };
+	{ flowerPartFlavor };
 
-	private final TepalViewObject tepal;
+	private final FlowerPartViewObject flowerPart;
 
-	public TransferableTepal(TepalViewObject tepal)
+	public TransferableFlowerPart(FlowerPartViewObject flowerPart)
 	{
-		this.tepal = tepal;
+		this.flowerPart = flowerPart;
 	}
 
 	/*
@@ -38,9 +39,9 @@ public class TransferableTepal implements Transferable
 	@Override
 	public Object getTransferData(DataFlavor arg0) throws UnsupportedFlavorException, IOException
 	{
-		if (arg0.equals(tepalFlavor))
+		if (arg0.equals(flowerPartFlavor))
 		{
-			return tepal;
+			return flowerPart;
 		} else
 			throw new UnsupportedFlavorException(arg0);
 	}
@@ -65,7 +66,7 @@ public class TransferableTepal implements Transferable
 	@Override
 	public boolean isDataFlavorSupported(DataFlavor arg0)
 	{
-		if (arg0.equals(tepalFlavor)) { return true; }
+		if (arg0.equals(flowerPartFlavor)) { return true; }
 		return false;
 	}
 
