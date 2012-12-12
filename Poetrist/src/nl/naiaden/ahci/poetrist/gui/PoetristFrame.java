@@ -23,6 +23,7 @@ import nl.naiaden.ahci.poetrist.gui.model.Tepal;
 import nl.naiaden.ahci.poetrist.gui.panel.ColorSelectionPanel;
 import nl.naiaden.ahci.poetrist.gui.panel.FlowerPotPanel;
 import nl.naiaden.ahci.poetrist.gui.panel.GardenPanel;
+import nl.naiaden.ahci.poetrist.gui.panel.ColorSelectionPanel;
 import nl.naiaden.ahci.poetrist.gui.view.FlowerPartViewObject;
 import nl.naiaden.ahci.poetrist.gui.view.FlowerViewObject;
 import nl.naiaden.ahci.poetrist.gui.view.TepalViewObject;
