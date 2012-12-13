@@ -21,7 +21,7 @@ import nl.naiaden.ahci.poetrist.lexicon.Entry;
  * @author Nellethor
  * @version 0.1
  */
-public class lexiconreader {
+public class LexiconReader {
 	/**
 	 * Little subclass. Might be forked into
 	 * an own java file in the near future.
@@ -79,7 +79,7 @@ public class lexiconreader {
 	 * Provides some error feedback in case anything
 	 * goes wrong.
 	 */
-	public lexiconreader() {
+	public LexiconReader() {
 		//System.out.println("Hello, I live!");
 		String filename = "emolex.txt";
 		FileInputStream in;

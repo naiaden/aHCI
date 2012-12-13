@@ -9,7 +9,7 @@ import java.awt.Color;
  * @author louis
  *
  */
-public class Word
+public class Word		//TODO: why do we need a word color association, we go from word to emotion to color
 {
 	public String word;
 	public Color color;
