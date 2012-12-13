@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package nl.naiaden.ahci.poetrist.gui.panel;
 
 import java.awt.Color;
@@ -17,6 +20,12 @@ import javax.swing.JPanel;
 import nl.naiaden.ahci.poetrist.gui.WordCellListRenderer;
 import nl.naiaden.ahci.poetrist.lexicon.Word;
 
+/**
+ * 
+ * @author Ding
+ * @author louis
+ * 
+ */
 public class ColorSelectionPanel extends JPanel
 {
 
@@ -25,27 +34,27 @@ public class ColorSelectionPanel extends JPanel
 	 */
 	private static final long serialVersionUID = -6313111916626939259L;
 
-	List<Word> blackWords = null;
-	List<Word> greyWords = null;
-	List<Word> yellowWords = null;
-	List<Word> brownWords = null;
-	List<Word> pinkWords = null;
-	List<Word> redWords = null;
-	List<Word> whiteWords = null;
-	List<Word> orangeWords = null;
-	List<Word> blueWords = null;
-	List<Word> greenWords = null;
+	private List<Word> blackWords = null;
+	private List<Word> greyWords = null;
+	private List<Word> yellowWords = null;
+	private List<Word> brownWords = null;
+	private List<Word> pinkWords = null;
+	private List<Word> redWords = null;
+	private List<Word> whiteWords = null;
+	private List<Word> orangeWords = null;
+	private List<Word> blueWords = null;
+	private List<Word> greenWords = null;
 
-	JButton black= new JButton();
-	JButton grey= new JButton();
-	JButton yellow= new JButton();
-	JButton brown= new JButton();
-	JButton pink = new JButton();
-	JButton red = new JButton();
-	JButton white = new JButton();
-	JButton orange = new JButton();
-	JButton blue = new JButton();
-	JButton green = new JButton();
+	private JButton blackButton = null;
+	private JButton greyButton = null;
+	private JButton yellowButton = null;
+	private JButton brownButton = null;
+	private JButton pinkButton = null;
+	private JButton redButton = null;
+	private JButton whiteButton = null;
+	private JButton orangeButton = null;
+	private JButton blueButton = null;
+	private JButton greenButton = null;
 	
 	DefaultListModel model1 = new DefaultListModel();
 	JList wordList = null;
@@ -65,11 +74,23 @@ public class ColorSelectionPanel extends JPanel
 		blueWords = new ArrayList<Word>();
 		greenWords = new ArrayList<Word>();
 		
+		Color brown = new Color(156, 93, 82);
+
+		ButtonListener bl = new ButtonListener();
+		blackButton = new ColorSelectionButton(Color.BLACK, bl);
+		greyButton = new ColorSelectionButton(Color.GRAY, bl);
+		yellowButton = new ColorSelectionButton(Color.YELLOW, bl);
+		brownButton = new ColorSelectionButton(brown, bl);
+		pinkButton = new ColorSelectionButton(Color.PINK, bl);
+		redButton = new ColorSelectionButton(Color.RED, bl);
+		whiteButton = new ColorSelectionButton(Color.WHITE, bl);
+		orangeButton = new ColorSelectionButton(Color.ORANGE, bl);
+		blueButton = new ColorSelectionButton(Color.BLUE, bl);
+		greenButton = new ColorSelectionButton(Color.GREEN, bl);
+
 		wordList = new JList(model1);
 		wordList.setCellRenderer(new WordCellListRenderer());
-		
-		
-		
+
 		blackWords.add(new Word("motive", Color.BLACK));
 		blackWords.add(new Word("bomer", Color.BLACK));
 		blackWords.add(new Word("regrettable", Color.BLACK));
@@ -82,8 +103,8 @@ public class ColorSelectionPanel extends JPanel
 		yellowWords.add(new Word("motive", Color.YELLOW));
 		yellowWords.add(new Word("ditty", Color.YELLOW));
 
-		brownWords.add(new Word("saddle", new Color(156, 93, 82)));
-		brownWords.add(new Word("telephone", new Color(156, 93, 82)));
+		brownWords.add(new Word("saddle", brown));
+		brownWords.add(new Word("telephone", brown));
 
 		pinkWords.add(new Word("coincide", Color.PINK));
 		pinkWords.add(new Word("buss", Color.PINK));
@@ -104,7 +125,6 @@ public class ColorSelectionPanel extends JPanel
 
 		greenWords.add(new Word("garden", Color.GREEN));
 		
-		ButtonListener bl = new ButtonListener();
 		GridLayout layout = new GridLayout(1,3);
 		setLayout(layout);
 		
@@ -115,46 +135,16 @@ public class ColorSelectionPanel extends JPanel
 		GridLayout rightLayout  = new GridLayout(1,1);
 		JPanel rightPanel = new JPanel(rightLayout);
 		
-		black.setBackground(Color.BLACK);
-		leftPanel.add(black);
-		black.addActionListener(bl);
-		
-		grey.setBackground(Color.GRAY);
-		leftPanel.add(grey);
-		grey.addActionListener(bl);
-		
-		yellow.setBackground(Color.YELLOW);
-		leftPanel.add(yellow);
-		yellow.addActionListener(bl);
-		
-		Color myBrown = new Color(165,42,42);
-		brown.setBackground(myBrown);
-		leftPanel.add(brown);
-		brown.addActionListener(bl);
-		
-		pink.setBackground(Color.PINK);
-		leftPanel.add(pink);
-		pink.addActionListener(bl);
-		
-		red.setBackground(Color.RED);
-		leftPanel.add(red);
-		red.addActionListener(bl);
-		
-		white.setBackground(Color.WHITE);
-		leftPanel.add(white);
-		white.addActionListener(bl);
-		
-		orange.setBackground(Color.ORANGE);
-		leftPanel.add(orange);
-		orange.addActionListener(bl);
-		
-		blue.setBackground(Color.BLUE);
-		leftPanel.add(blue);
-		blue.addActionListener(bl);
-		
-		green.setBackground(Color.GREEN);
-		leftPanel.add(green);
-		green.addActionListener(bl);
+		leftPanel.add(blackButton);
+		leftPanel.add(greyButton);
+		leftPanel.add(yellowButton);
+		leftPanel.add(brownButton);
+		leftPanel.add(pinkButton);
+		leftPanel.add(redButton);
+		leftPanel.add(whiteButton);
+		leftPanel.add(orangeButton);
+		leftPanel.add(blueButton);
+		leftPanel.add(greenButton);
 		
 		wordList.setDragEnabled(true);
 		wordList2.setDragEnabled(true);
@@ -171,53 +161,63 @@ public class ButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e)
 		{	int i;
 			model1.clear();
-			if(e.getSource() == black){
+			if (e.getSource() == blackButton)
+			{
 				for (Word word : blackWords)
 				{
 					model1.addElement(word);
 				}
 
-			}else if(e.getSource() == grey){
+			} else if (e.getSource() == greyButton)
+			{
 				for (Word word : greyWords)
 				{
 					model1.addElement(word);
 				}
-			}else if(e.getSource() == yellow){
+			} else if (e.getSource() == yellowButton)
+			{
 				for (Word word : yellowWords)
 				{
 					model1.addElement(word);
 				}
-			}else if(e.getSource() == brown){
+			} else if (e.getSource() == brownButton)
+			{
 				for (Word word : brownWords)
 				{
 					model1.addElement(word);
 				}
-			}else if(e.getSource() == pink){
+			} else if (e.getSource() == pinkButton)
+			{
 				for (Word word : pinkWords)
 				{
 					model1.addElement(word);
 				}
-			}else if(e.getSource() == red){
+			} else if (e.getSource() == redButton)
+			{
 				for (Word word : redWords)
 				{
 					model1.addElement(word);
 				}
-			}else if(e.getSource() == white){
+			} else if (e.getSource() == whiteButton)
+			{
 				for (Word word : whiteWords)
 				{
 					model1.addElement(word);
 				}
-			}else if(e.getSource() == orange){
+			} else if (e.getSource() == orangeButton)
+			{
 				for (Word word : orangeWords)
 				{
 					model1.addElement(word);
 				}
-			}else if(e.getSource() == blue){
+			} else if (e.getSource() == blueButton)
+			{
 				for (Word word : blueWords)
 				{
 					model1.addElement(word);
 				}
-			}else if(e.getSource() == green){
+			} else if (e.getSource() == greenButton)
+			{
 				for (Word word : greenWords)
 				{
 					model1.addElement(word);
