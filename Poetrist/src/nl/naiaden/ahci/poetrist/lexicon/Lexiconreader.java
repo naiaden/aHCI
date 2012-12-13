@@ -17,7 +17,7 @@ import java.util.Scanner;
  * copy please contact saif.mohammad@nrc-cnrc.gc.ca
  * 
  * Note: requires the NRC emotion lexicon and the 
- * NRC color lexicon, both v0.92 to locally available.
+ * NRC color lexicon, both v0.92, locally available.
  * 
  * @author Nellethor
  * @version 0.2
