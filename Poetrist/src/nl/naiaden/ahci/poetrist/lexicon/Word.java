@@ -4,12 +4,13 @@
 package nl.naiaden.ahci.poetrist.lexicon;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 /**
  * @author louis
  *
  */
-public class Word		//TODO: why do we need a word color association, we go from word to emotion to color
+public class Word implements Serializable
 {
 	public String word;
 	public Color color;

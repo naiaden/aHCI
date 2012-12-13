@@ -6,18 +6,35 @@ package nl.naiaden.ahci.poetrist.gui.panel;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.datatransfer.Transferable;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DragGestureEvent;
+import java.awt.dnd.DragGestureListener;
+import java.awt.dnd.DragSource;
+import java.awt.dnd.DragSourceDragEvent;
+import java.awt.dnd.DragSourceDropEvent;
+import java.awt.dnd.DragSourceEvent;
+import java.awt.dnd.DragSourceListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
+import javax.swing.TransferHandler;
+import javax.swing.event.MouseInputAdapter;
+import javax.swing.event.MouseInputListener;
 
-import nl.naiaden.ahci.poetrist.gui.WordCellListRenderer;
+import nl.naiaden.ahci.poetrist.gui.SeedCellListRenderer;
+import nl.naiaden.ahci.poetrist.gui.TransferableSeed;
+import nl.naiaden.ahci.poetrist.gui.view.SeedViewObject;
 import nl.naiaden.ahci.poetrist.lexicon.Word;
 
 /**
@@ -26,7 +43,7 @@ import nl.naiaden.ahci.poetrist.lexicon.Word;
  * @author louis
  * 
  */
-public class ColorSelectionPanel extends JPanel
+public class ColorSelectionPanel extends JPanel implements DragSourceListener, DragGestureListener
 {
 
 	/**
@@ -34,16 +51,16 @@ public class ColorSelectionPanel extends JPanel
 	 */
 	private static final long serialVersionUID = -6313111916626939259L;
 
-	private List<Word> blackWords = null;
-	private List<Word> greyWords = null;
-	private List<Word> yellowWords = null;
-	private List<Word> brownWords = null;
-	private List<Word> pinkWords = null;
-	private List<Word> redWords = null;
-	private List<Word> whiteWords = null;
-	private List<Word> orangeWords = null;
-	private List<Word> blueWords = null;
-	private List<Word> greenWords = null;
+	private List<SeedViewObject> blackWords = null;
+	private List<SeedViewObject> greyWords = null;
+	private List<SeedViewObject> yellowWords = null;
+	private List<SeedViewObject> brownWords = null;
+	private List<SeedViewObject> pinkWords = null;
+	private List<SeedViewObject> redWords = null;
+	private List<SeedViewObject> whiteWords = null;
+	private List<SeedViewObject> orangeWords = null;
+	private List<SeedViewObject> blueWords = null;
+	private List<SeedViewObject> greenWords = null;
 
 	private JButton blackButton = null;
 	private JButton greyButton = null;
@@ -58,21 +75,22 @@ public class ColorSelectionPanel extends JPanel
 	
 	DefaultListModel model1 = new DefaultListModel();
 	JList wordList = null;
-	DefaultListModel model2 = new DefaultListModel();
-	JList wordList2 = new JList(model2);
+
+	// DefaultListModel model2 = new DefaultListModel();
+	// JList wordList2 = new JList(model2);
 	
 	
 	public ColorSelectionPanel(){
-		blackWords = new ArrayList<Word>();
-		greyWords = new ArrayList<Word>();
-		yellowWords = new ArrayList<Word>();
-		brownWords = new ArrayList<Word>();
-		pinkWords = new ArrayList<Word>();
-		redWords = new ArrayList<Word>();
-		whiteWords = new ArrayList<Word>();
-		orangeWords = new ArrayList<Word>();
-		blueWords = new ArrayList<Word>();
-		greenWords = new ArrayList<Word>();
+		blackWords = new ArrayList<SeedViewObject>();
+		greyWords = new ArrayList<SeedViewObject>();
+		yellowWords = new ArrayList<SeedViewObject>();
+		brownWords = new ArrayList<SeedViewObject>();
+		pinkWords = new ArrayList<SeedViewObject>();
+		redWords = new ArrayList<SeedViewObject>();
+		whiteWords = new ArrayList<SeedViewObject>();
+		orangeWords = new ArrayList<SeedViewObject>();
+		blueWords = new ArrayList<SeedViewObject>();
+		greenWords = new ArrayList<SeedViewObject>();
 		
 		Color brown = new Color(156, 93, 82);
 
@@ -88,42 +106,86 @@ public class ColorSelectionPanel extends JPanel
 		blueButton = new ColorSelectionButton(Color.BLUE, bl);
 		greenButton = new ColorSelectionButton(Color.GREEN, bl);
 
-		wordList = new JList(model1);
-		wordList.setCellRenderer(new WordCellListRenderer());
 
-		blackWords.add(new Word("motive", Color.BLACK));
-		blackWords.add(new Word("bomer", Color.BLACK));
-		blackWords.add(new Word("regrettable", Color.BLACK));
-		blackWords.add(new Word("curse", Color.BLACK));
 
-		greyWords.add(new Word("saucepan", Color.GRAY));
-		greyWords.add(new Word("coincide", Color.GRAY));
-		greyWords.add(new Word("aerodynamics", Color.GRAY));
+		wordList = new JList();
+		wordList.setDragEnabled(true);
+		// WordTransferHandler wth = new WordTransferHandler();
+		// this.setTransferHandler(new SeedTransferHandler());
+		wordList.setTransferHandler(new TransferHandler()
+		{
+			protected Transferable createTransferable(JComponent c)
+			{
+				JList list = (JList) c;
+				Object value = list.getSelectedValue();
+				if (value instanceof SeedViewObject)
+				{
+					System.out.println("succes");
+					SeedViewObject seed = (SeedViewObject) value;
+					return new TransferableSeed(seed);
+				}
 
-		yellowWords.add(new Word("motive", Color.YELLOW));
-		yellowWords.add(new Word("ditty", Color.YELLOW));
+				return null;
+			}
 
-		brownWords.add(new Word("saddle", brown));
-		brownWords.add(new Word("telephone", brown));
+			@Override
+			public int getSourceActions(JComponent c)
+			{
+				return COPY;
+				// COPY MOVE COPY_OR_MOVE same problem :)
+			}
+		});
+		wordList.setModel(model1);
+		wordList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		wordList.setCellRenderer(new SeedCellListRenderer());
+		
+		DragSource ds = new DragSource();
+		ds.createDefaultDragGestureRecognizer(wordList, DnDConstants.ACTION_COPY, this);
 
-		pinkWords.add(new Word("coincide", Color.PINK));
-		pinkWords.add(new Word("buss", Color.PINK));
+		// MouseInputAdapter dnd = new MouseInputAdapter() {
+		//
+		// @Override
+		// public void mousePressed(MouseEvent e) {
+		// // wth.exportAsDrag(wordList, e, TransferHandler.COPY);
+		// System.out.println("HALLO DAAR?");
+		// }
+		// };
+		// wordList.addMouseMotionListener(dnd);
+		
 
-		redWords.add(new Word("assail", Color.RED));
-		redWords.add(new Word("wrap", Color.RED));
-		redWords.add(new Word("mangle", Color.RED));
-		redWords.add(new Word("buss", Color.RED));
+		blackWords.add(new SeedViewObject(new Word("motive", Color.BLACK)));
+		blackWords.add(new SeedViewObject(new Word("bomer", Color.BLACK)));
+		blackWords.add(new SeedViewObject(new Word("regrettable", Color.BLACK)));
+		blackWords.add(new SeedViewObject(new Word("curse", Color.BLACK)));
 
-		whiteWords.add(new Word("tableware", Color.WHITE));
-		whiteWords.add(new Word("transcendental", Color.WHITE));
-		whiteWords.add(new Word("herewith", Color.WHITE));
-		whiteWords.add(new Word("anterior", Color.WHITE));
+		greyWords.add(new SeedViewObject(new Word("saucepan", Color.GRAY)));
+		greyWords.add(new SeedViewObject(new Word("coincide", Color.GRAY)));
+		greyWords.add(new SeedViewObject(new Word("aerodynamics", Color.GRAY)));
 
-		orangeWords.add(new Word("due", Color.ORANGE));
+		yellowWords.add(new SeedViewObject(new Word("motive", Color.YELLOW)));
+		yellowWords.add(new SeedViewObject(new Word("ditty", Color.YELLOW)));
 
-		blueWords.add(new Word("ditty", Color.BLUE));
+		brownWords.add(new SeedViewObject(new Word("saddle", brown)));
+		brownWords.add(new SeedViewObject(new Word("telephone", brown)));
 
-		greenWords.add(new Word("garden", Color.GREEN));
+		pinkWords.add(new SeedViewObject(new Word("coincide", Color.PINK)));
+		pinkWords.add(new SeedViewObject(new Word("buss", Color.PINK)));
+
+		redWords.add(new SeedViewObject(new Word("assail", Color.RED)));
+		redWords.add(new SeedViewObject(new Word("wrap", Color.RED)));
+		redWords.add(new SeedViewObject(new Word("mangle", Color.RED)));
+		redWords.add(new SeedViewObject(new Word("buss", Color.RED)));
+
+		whiteWords.add(new SeedViewObject(new Word("tableware", Color.WHITE)));
+		whiteWords.add(new SeedViewObject(new Word("transcendental", Color.WHITE)));
+		whiteWords.add(new SeedViewObject(new Word("herewith", Color.WHITE)));
+		whiteWords.add(new SeedViewObject(new Word("anterior", Color.WHITE)));
+
+		orangeWords.add(new SeedViewObject(new Word("due", Color.ORANGE)));
+
+		blueWords.add(new SeedViewObject(new Word("ditty", Color.BLUE)));
+
+		greenWords.add(new SeedViewObject(new Word("garden", Color.GREEN)));
 		
 		GridLayout layout = new GridLayout(1,3);
 		setLayout(layout);
@@ -132,8 +194,8 @@ public class ColorSelectionPanel extends JPanel
 		JPanel leftPanel = new JPanel(leftLayout);
 		GridLayout middleLayout  = new GridLayout(1,1);
 		JPanel middlePanel = new JPanel(middleLayout);
-		GridLayout rightLayout  = new GridLayout(1,1);
-		JPanel rightPanel = new JPanel(rightLayout);
+		// GridLayout rightLayout = new GridLayout(1,1);
+		// JPanel rightPanel = new JPanel(rightLayout);
 		
 		leftPanel.add(blackButton);
 		leftPanel.add(greyButton);
@@ -146,14 +208,15 @@ public class ColorSelectionPanel extends JPanel
 		leftPanel.add(blueButton);
 		leftPanel.add(greenButton);
 		
-		wordList.setDragEnabled(true);
-		wordList2.setDragEnabled(true);
+
+
+		// wordList2.setDragEnabled(true);
 		middlePanel.add(wordList);
-		rightPanel.add(wordList2);
+		// rightPanel.add(wordList2);
 		
 		add(leftPanel);
 		add(middlePanel);
-		add(rightPanel);
+		// add(rightPanel);
 	}
 	
 public class ButtonListener implements ActionListener{
@@ -163,66 +226,114 @@ public class ButtonListener implements ActionListener{
 			model1.clear();
 			if (e.getSource() == blackButton)
 			{
-				for (Word word : blackWords)
+				for (SeedViewObject word : blackWords)
 				{
 					model1.addElement(word);
 				}
 
 			} else if (e.getSource() == greyButton)
 			{
-				for (Word word : greyWords)
+				for (SeedViewObject word : greyWords)
 				{
 					model1.addElement(word);
 				}
 			} else if (e.getSource() == yellowButton)
 			{
-				for (Word word : yellowWords)
+				for (SeedViewObject word : yellowWords)
 				{
 					model1.addElement(word);
 				}
 			} else if (e.getSource() == brownButton)
 			{
-				for (Word word : brownWords)
+				for (SeedViewObject word : brownWords)
 				{
 					model1.addElement(word);
 				}
 			} else if (e.getSource() == pinkButton)
 			{
-				for (Word word : pinkWords)
+				for (SeedViewObject word : pinkWords)
 				{
 					model1.addElement(word);
 				}
 			} else if (e.getSource() == redButton)
 			{
-				for (Word word : redWords)
+				for (SeedViewObject word : redWords)
 				{
 					model1.addElement(word);
 				}
 			} else if (e.getSource() == whiteButton)
 			{
-				for (Word word : whiteWords)
+				for (SeedViewObject word : whiteWords)
 				{
 					model1.addElement(word);
 				}
 			} else if (e.getSource() == orangeButton)
 			{
-				for (Word word : orangeWords)
+				for (SeedViewObject word : orangeWords)
 				{
 					model1.addElement(word);
 				}
 			} else if (e.getSource() == blueButton)
 			{
-				for (Word word : blueWords)
+				for (SeedViewObject word : blueWords)
 				{
 					model1.addElement(word);
 				}
 			} else if (e.getSource() == greenButton)
 			{
-				for (Word word : greenWords)
+				for (SeedViewObject word : greenWords)
 				{
 					model1.addElement(word);
 				}
 			}
+
+			wordList.setModel(model1);
 		}
+	}
+
+
+
+	@Override
+	public void dragDropEnd(DragSourceDropEvent dsde)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void dragEnter(DragSourceDragEvent dsde)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void dragExit(DragSourceEvent dse)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void dragOver(DragSourceDragEvent dsde)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void dropActionChanged(DragSourceDragEvent dsde)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void dragGestureRecognized(DragGestureEvent arg0)
+	{
+
+		// arg0.startDrag(null, new TransferableSeed(new SeedViewObject(new
+		// Word("test", Color.CYAN))));
+
 	}
 }

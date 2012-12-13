@@ -9,6 +9,7 @@ import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DragGestureEvent;
 import java.awt.dnd.DragGestureListener;
 import java.awt.dnd.DragSource;
+import java.awt.dnd.DropTarget;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,6 +23,7 @@ import nl.naiaden.ahci.poetrist.gui.panel.GardenPanel;
 import nl.naiaden.ahci.poetrist.gui.view.FlowerPartViewObject;
 import nl.naiaden.ahci.poetrist.gui.view.FlowerViewObject;
 import nl.naiaden.ahci.poetrist.gui.view.TepalViewObject;
+import nl.naiaden.ahci.poetrist.lexicon.Word;
 
 /**
  * This is the frame that connects all the individual components into the main
@@ -71,9 +73,14 @@ public class PoetristFrame extends JFrame implements DragGestureListener
 		initialiseFrame();
 		add(rootPanel);
 
-		new FlowerPartDropTargetListener(flowerPotPanel);
-		DragSource ds = new DragSource();
-		ds.createDefaultDragGestureRecognizer(gardenPanel, DnDConstants.ACTION_COPY, this);
+		new FlowerPartPotDropTargetListener(flowerPotPanel);
+		DragSource gardenPanelDragSource = new DragSource();
+		gardenPanelDragSource.createDefaultDragGestureRecognizer(gardenPanel, DnDConstants.ACTION_COPY, this);
+
+		new GardenDropTargetListener(gardenPanel);
+		DragSource colorSelectionPanelDragSource = new DragSource();
+		colorSelectionPanelDragSource.createDefaultDragGestureRecognizer(colorSelectionPanel, DnDConstants.ACTION_COPY, this);
+		// new DropTarget(flowerPotPanel, DnDConstants.ACTION_COPY, this);
 
 		this.setSize(700, 700);
 	}
@@ -161,6 +168,8 @@ public class PoetristFrame extends JFrame implements DragGestureListener
 	@Override
 	public void dragGestureRecognized(DragGestureEvent arg0)
 	{
+		System.out.println("[PoetristFrame#dragGestureRecognized]");
+
 		FlowerPartViewObject selectedFlowerPart = gardenPanel.selectedFlowerPart(arg0.getDragOrigin());
 
 		if (selectedFlowerPart != null)
