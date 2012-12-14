@@ -27,6 +27,77 @@ public class GardenPanel extends JPanel implements MouseInputListener
 	private static final long serialVersionUID = 7043512667139679491L;
 
 	/**
+	 * Create the GUI and show it.
+	 */
+	private static void createAndShowGUI()
+	{
+		JFrame frame = new JFrame("GardenPanelDemo");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		GardenPanel gp = new GardenPanel();
+
+		double xpos = 150;
+		double ypos = 150;
+
+		int nrPetals = 8;
+
+		Stigma s1 = new Stigma(Color.YELLOW);
+		Flower f1 = new Flower(s1, nrPetals);
+
+		Stigma s2 = new Stigma(Color.WHITE);
+		Flower f2 = new Flower(s2, 6);
+
+		Stigma s3 = new Stigma(Color.CYAN);
+		Flower f3 = new Flower(s3, 8);
+
+		FlowerViewObject fvo1 = new FlowerViewObject(f1, xpos, ypos, 150, 7);
+		fvo1.addTepal(new TepalViewObject(new Tepal(Color.RED), xpos, ypos, 100, nrPetals));
+		fvo1.addTepal(new TepalViewObject(new Tepal(Color.RED), xpos, ypos, 100, nrPetals, 1 * (2 * Math.PI) / nrPetals));
+		fvo1.addTepal(new TepalViewObject(new Tepal(Color.RED), xpos, ypos, 100, nrPetals, 2 * (2 * Math.PI) / nrPetals));
+		fvo1.addTepal(new TepalViewObject(new Tepal(Color.RED), xpos, ypos, 100, nrPetals, 3 * (2 * Math.PI) / nrPetals));
+		fvo1.addTepal(new TepalViewObject(new Tepal(Color.RED), xpos, ypos, 100, nrPetals, 4 * (2 * Math.PI) / nrPetals));
+		fvo1.addTepal(new TepalViewObject(new Tepal(Color.RED), xpos, ypos, 100, nrPetals, 5 * (2 * Math.PI) / nrPetals));
+		fvo1.addTepal(new TepalViewObject(new Tepal(Color.RED), xpos, ypos, 100, nrPetals, 6 * (2 * Math.PI) / nrPetals));
+		fvo1.addTepal(new TepalViewObject(new Tepal(Color.RED), xpos, ypos, 100, nrPetals, 7 * (2 * Math.PI) / nrPetals));
+		gp.addFlower(fvo1);
+
+		xpos = xpos - 100;
+		ypos = ypos + 50;
+		nrPetals = 6;
+		FlowerViewObject fvo2 = new FlowerViewObject(f2, xpos, ypos, 150, 7);
+		fvo2.addTepal(new TepalViewObject(new Tepal(Color.BLUE), xpos, ypos, 100, nrPetals));
+		fvo2.addTepal(new TepalViewObject(new Tepal(Color.BLUE), xpos, ypos, 100, nrPetals, 1 * (2 * Math.PI) / nrPetals));
+		fvo2.addTepal(new TepalViewObject(new Tepal(Color.BLUE), xpos, ypos, 100, nrPetals, 2 * (2 * Math.PI) / nrPetals));
+		fvo2.addTepal(new TepalViewObject(new Tepal(Color.BLUE), xpos, ypos, 100, nrPetals, 3 * (2 * Math.PI) / nrPetals));
+		fvo2.addTepal(new TepalViewObject(new Tepal(Color.BLUE), xpos, ypos, 100, nrPetals, 4 * (2 * Math.PI) / nrPetals));
+		fvo2.addTepal(new TepalViewObject(new Tepal(Color.BLUE), xpos, ypos, 100, nrPetals, 5 * (2 * Math.PI) / nrPetals));
+		fvo2.addTepal(new TepalViewObject(new Tepal(Color.BLUE), xpos, ypos, 100, nrPetals, 6 * (2 * Math.PI) / nrPetals));
+		fvo2.addTepal(new TepalViewObject(new Tepal(Color.BLUE), xpos, ypos, 100, nrPetals, 7 * (2 * Math.PI) / nrPetals));
+		gp.addFlower(fvo2);
+
+		xpos = xpos + 250;
+		ypos = ypos - 50;
+		nrPetals = 8;
+		FlowerViewObject fvo3 = new FlowerViewObject(f3, xpos, ypos, 150, 7);
+		fvo3.addTepal(new TepalViewObject(new Tepal(Color.YELLOW), xpos, ypos, 100, nrPetals));
+		fvo3.addTepal(new TepalViewObject(new Tepal(Color.MAGENTA), xpos, ypos, 100, nrPetals, 1 * (2 * Math.PI) / nrPetals));
+		fvo3.addTepal(new TepalViewObject(new Tepal(Color.YELLOW), xpos, ypos, 100, nrPetals, 2 * (2 * Math.PI) / nrPetals));
+		fvo3.addTepal(new TepalViewObject(new Tepal(Color.MAGENTA), xpos, ypos, 100, nrPetals, 3 * (2 * Math.PI) / nrPetals));
+		fvo3.addTepal(new TepalViewObject(new Tepal(Color.YELLOW), xpos, ypos, 100, nrPetals, 4 * (2 * Math.PI) / nrPetals));
+		fvo3.addTepal(new TepalViewObject(new Tepal(Color.MAGENTA), xpos, ypos, 100, nrPetals, 5 * (2 * Math.PI) / nrPetals));
+		// fvo3.addTepal(new TepalViewObject(new Tepal(Color.YELLOW), xpos,
+		// ypos, 100, nrPetals,6*(2*Math.PI)/nrPetals));
+		// fvo3.addTepal(new TepalViewObject(new Tepal(Color.YELLOW), xpos,
+		// ypos, 100, nrPetals,7*(2*Math.PI)/nrPetals));
+		gp.addFlower(fvo3);
+
+		frame.getContentPane().add(gp);
+
+		frame.setSize(400, 300);
+		frame.setVisible(true);
+	}
+
+	/**
 	 * @param args
 	 */
 	public static void main(String[] args)
@@ -41,110 +112,34 @@ public class GardenPanel extends JPanel implements MouseInputListener
 	}
 
 	/**
-	 * Create the GUI and show it.
-	 */
-	private static void createAndShowGUI()
-	{
-		JFrame frame = new JFrame("GardenPanelDemo");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		GardenPanel gp = new GardenPanel();
-
-//		double xpos = 150;
-//		double ypos = 150;
-//
-//		int nrPetals = 8;
-//
-//		Stigma s1 = new Stigma(Color.YELLOW);
-//		Flower f1 = new Flower(s1, nrPetals);
-//
-//		Stigma s2 = new Stigma(Color.WHITE);
-//		Flower f2 = new Flower(s2, 6);
-//
-//		Stigma s3 = new Stigma(Color.CYAN);
-//		Flower f3 = new Flower(s3, 8);
-//
-//		FlowerViewObject fvo1 = new FlowerViewObject(f1, xpos, ypos, 150, 7);
-//		fvo1.addTepal(new TepalViewObject(new Tepal(Color.RED), xpos, ypos, 100, nrPetals));
-//		fvo1.addTepal(new TepalViewObject(new Tepal(Color.RED), xpos, ypos, 100, nrPetals, 1 * (2 * Math.PI) / nrPetals));
-//		fvo1.addTepal(new TepalViewObject(new Tepal(Color.RED), xpos, ypos, 100, nrPetals, 2 * (2 * Math.PI) / nrPetals));
-//		fvo1.addTepal(new TepalViewObject(new Tepal(Color.RED), xpos, ypos, 100, nrPetals, 3 * (2 * Math.PI) / nrPetals));
-//		fvo1.addTepal(new TepalViewObject(new Tepal(Color.RED), xpos, ypos, 100, nrPetals, 4 * (2 * Math.PI) / nrPetals));
-//		fvo1.addTepal(new TepalViewObject(new Tepal(Color.RED), xpos, ypos, 100, nrPetals, 5 * (2 * Math.PI) / nrPetals));
-//		fvo1.addTepal(new TepalViewObject(new Tepal(Color.RED), xpos, ypos, 100, nrPetals, 6 * (2 * Math.PI) / nrPetals));
-//		fvo1.addTepal(new TepalViewObject(new Tepal(Color.RED), xpos, ypos, 100, nrPetals, 7 * (2 * Math.PI) / nrPetals));
-//		gp.addFlower(fvo1);
-//
-//		xpos = xpos - 100;
-//		ypos = ypos + 50;
-//		nrPetals = 6;
-//		FlowerViewObject fvo2 = new FlowerViewObject(f2, xpos, ypos, 150, 7);
-//		fvo2.addTepal(new TepalViewObject(new Tepal(Color.BLUE), xpos, ypos, 100, nrPetals));
-//		fvo2.addTepal(new TepalViewObject(new Tepal(Color.BLUE), xpos, ypos, 100, nrPetals, 1 * (2 * Math.PI) / nrPetals));
-//		fvo2.addTepal(new TepalViewObject(new Tepal(Color.BLUE), xpos, ypos, 100, nrPetals, 2 * (2 * Math.PI) / nrPetals));
-//		fvo2.addTepal(new TepalViewObject(new Tepal(Color.BLUE), xpos, ypos, 100, nrPetals, 3 * (2 * Math.PI) / nrPetals));
-//		fvo2.addTepal(new TepalViewObject(new Tepal(Color.BLUE), xpos, ypos, 100, nrPetals, 4 * (2 * Math.PI) / nrPetals));
-//		fvo2.addTepal(new TepalViewObject(new Tepal(Color.BLUE), xpos, ypos, 100, nrPetals, 5 * (2 * Math.PI) / nrPetals));
-//		fvo2.addTepal(new TepalViewObject(new Tepal(Color.BLUE), xpos, ypos, 100, nrPetals, 6 * (2 * Math.PI) / nrPetals));
-//		fvo2.addTepal(new TepalViewObject(new Tepal(Color.BLUE), xpos, ypos, 100, nrPetals, 7 * (2 * Math.PI) / nrPetals));
-//		gp.addFlower(fvo2);
-//
-//		xpos = xpos + 250;
-//		ypos = ypos - 50;
-//		nrPetals = 8;
-//		FlowerViewObject fvo3 = new FlowerViewObject(f3, xpos, ypos, 150, 7);
-//		fvo3.addTepal(new TepalViewObject(new Tepal(Color.YELLOW), xpos, ypos, 100, nrPetals));
-//		fvo3.addTepal(new TepalViewObject(new Tepal(Color.MAGENTA), xpos, ypos, 100, nrPetals, 1 * (2 * Math.PI) / nrPetals));
-//		fvo3.addTepal(new TepalViewObject(new Tepal(Color.YELLOW), xpos, ypos, 100, nrPetals, 2 * (2 * Math.PI) / nrPetals));
-//		fvo3.addTepal(new TepalViewObject(new Tepal(Color.MAGENTA), xpos, ypos, 100, nrPetals, 3 * (2 * Math.PI) / nrPetals));
-//		fvo3.addTepal(new TepalViewObject(new Tepal(Color.YELLOW), xpos, ypos, 100, nrPetals, 4 * (2 * Math.PI) / nrPetals));
-//		fvo3.addTepal(new TepalViewObject(new Tepal(Color.MAGENTA), xpos, ypos, 100, nrPetals, 5 * (2 * Math.PI) / nrPetals));
-//		// fvo3.addTepal(new TepalViewObject(new Tepal(Color.YELLOW), xpos,
-//		// ypos, 100, nrPetals,6*(2*Math.PI)/nrPetals));
-//		// fvo3.addTepal(new TepalViewObject(new Tepal(Color.YELLOW), xpos,
-//		// ypos, 100, nrPetals,7*(2*Math.PI)/nrPetals));
-//		gp.addFlower(fvo3);
-
-		frame.getContentPane().add(gp);
-
-		frame.setSize(400, 300);
-		frame.setVisible(true);
-	}
-
-	/**
-	 * 
+	 * The flowers in the garden.
 	 */
 	private List<FlowerViewObject> flowers = null;
-
-	/**
-	 * 
-	 */
-//	private JPanel gardenPanel = null;
 
 	/**
 	 * Default constructor.
 	 */
 	public GardenPanel()
 	{
-//		gardenPanel = new JPanel();
-
 		flowers = new ArrayList<FlowerViewObject>();
 
 		revalidate();
 		repaint();
-		
+
 		addMouseListener(this);
+		addMouseMotionListener(this);
 	}
 
 	/**
+	 * Adds a flower to the garden.
 	 * 
 	 * @param flower
+	 *            The new flower.
 	 */
 	public void addFlower(FlowerViewObject flower)
 	{
 		flowers.add(flower);
-		System.out.println("[GardenPanel#addFlower] " + flower.toString());
-		
+
 		revalidate();
 		repaint();
 	}
@@ -184,22 +179,11 @@ public class GardenPanel extends JPanel implements MouseInputListener
 
 	}
 
-	public FlowerPartViewObject selectedFlowerPart(Point point)
-	{
-
-		for (FlowerViewObject flower : flowers)
-		{
-			if (flower.getSelectedFlowerPart(point) != null)
-				return flower.getSelectedFlowerPart(point);
-		}
-
-		return null;
-	}
-
 	@Override
 	public void mousePressed(MouseEvent e)
 	{
-		System.out.println("[GardenPanel] Mouse Pressed: (" + e.getX() + "," + e.getY() + ")");
+		// System.out.println("[GardenPanel] Mouse Pressed: (" + e.getX() + ","
+		// + e.getY() + ")");
 
 		for (FlowerViewObject flower : flowers)
 		{
@@ -212,8 +196,10 @@ public class GardenPanel extends JPanel implements MouseInputListener
 	@Override
 	public void mouseReleased(MouseEvent e)
 	{
-		// TODO Auto-generated method stub
-
+		// if(selectedObject != null)
+		// {
+		// selectedObject = null;
+		// }
 	}
 
 	@Override
@@ -226,6 +212,28 @@ public class GardenPanel extends JPanel implements MouseInputListener
 			flower.paint(g);
 		}
 
+	}
+
+	/**
+	 * Returns the flower part that is selected. Currently the oldest flower
+	 * part has preference over the other parts. This is not by definition the
+	 * (best) visible flower part.
+	 * 
+	 * @param point
+	 *            The position to check for.
+	 * @return the oldest flower part on the selected point. If no flower part
+	 *         is available
+	 */
+	public FlowerPartViewObject selectedFlowerPart(Point point)
+	{
+
+		for (FlowerViewObject flower : flowers)
+		{
+			if (flower.getSelectedFlowerPart(point) != null)
+				return flower.getSelectedFlowerPart(point);
+		}
+
+		return null;
 	}
 
 }

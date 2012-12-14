@@ -78,6 +78,12 @@ public interface FlowerPartViewObject extends Observer
 	 * @return a one-line string representation of the flower part.
 	 */
 	public String toString();
-	
+
+	/**
+	 * Set the new location of the flower part.
+	 * 
+	 * @param location
+	 *            The new location.
+	 */
 	public void setLocation(Point location);
 }

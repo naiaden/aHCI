@@ -18,15 +18,21 @@ import nl.naiaden.ahci.poetrist.gui.view.StigmaViewObject;
 import nl.naiaden.ahci.poetrist.gui.view.TepalViewObject;
 
 /**
+ * The drop target listener for the basket.
+ * 
  * @author louis
  * 
  */
 public class FlowerPartPotDropTargetListener extends DropTargetAdapter
 {
+	private final FlowerPartPotPanel dropPanel;
 	private final DropTarget dropTarget;
-	private final JPanel dropPanel;
 
-	public FlowerPartPotDropTargetListener(JPanel panel)
+	/**
+	 * Creates a new listener.
+	 * @param panel The basket panel.
+	 */
+	public FlowerPartPotDropTargetListener(FlowerPartPotPanel panel)
 	{
 		dropPanel = panel;
 		dropTarget = new DropTarget(dropPanel, DnDConstants.ACTION_COPY, this, true, null);
@@ -51,40 +57,35 @@ public class FlowerPartPotDropTargetListener extends DropTargetAdapter
 				FlowerPartViewObject flowerPart = (FlowerPartViewObject) tr.getTransferData(TransferableFlowerPart.flowerPartFlavor);
 				arg0.acceptDrop(DnDConstants.ACTION_COPY);
 
-				// if (dropPanel instanceof FlowerPartPotPanel)
-				// {
+				if (flowerPart instanceof StigmaViewObject)
+				{
+					StigmaViewObject stigma = (StigmaViewObject) flowerPart;
 
-					if (flowerPart instanceof StigmaViewObject)
-					{
-						StigmaViewObject stigma = (StigmaViewObject) flowerPart;
+					System.out.println("Dropped stigma into bucket! [" + stigma.getStigma().getColour() + "]");
 
-						System.out.println("Dropped stigma into bucket! [" + stigma.getStigma().getColour() + "]");
+					FlowerPartPotPanel fpp = (FlowerPartPotPanel) dropPanel;
+					Stigma originalStigma = stigma.getStigma();
+					StigmaViewObject stigmaCopy = new StigmaViewObject(originalStigma, arg0.getLocation().getX(), arg0.getLocation().getY(), stigma.getRadius());
+					fpp.addFlowerPart(stigmaCopy);
+				}
 
-						FlowerPartPotPanel fpp = (FlowerPartPotPanel) dropPanel;
-						Stigma originalStigma = stigma.getStigma();
-						StigmaViewObject stigmaCopy = new StigmaViewObject(originalStigma, arg0.getLocation().getX(), arg0.getLocation().getY(), stigma.getRadius());
-						fpp.addFlowerPart(stigmaCopy);
-					}
+				if (flowerPart instanceof TepalViewObject)
+				{
+					TepalViewObject tepal = (TepalViewObject) flowerPart;
 
-					if (flowerPart instanceof TepalViewObject)
-					{
-						TepalViewObject tepal = (TepalViewObject) flowerPart;
+					System.out.println("Dropped tepal into bucket! [" + tepal.getTepal().getColour() + "]");
 
-						System.out.println("Dropped tepal into bucket! [" + tepal.getTepal().getColour() + "]");
-
-						FlowerPartPotPanel fpp = (FlowerPartPotPanel) dropPanel;
-						Tepal originalTepal = tepal.getTepal();
-						TepalViewObject tepalCopy = new TepalViewObject(originalTepal, arg0.getLocation().getX(), arg0.getLocation().getY(), tepal.getHeight(), tepal.getWidth(),
-								tepal.getRotation());
-						fpp.addFlowerPart(tepalCopy);
-					}
-
-				// }
+					FlowerPartPotPanel fpp = (FlowerPartPotPanel) dropPanel;
+					Tepal originalTepal = tepal.getTepal();
+					TepalViewObject tepalCopy = new TepalViewObject(originalTepal, arg0.getLocation().getX(), arg0.getLocation().getY(), tepal.getHeight(), tepal.getWidth(),
+							tepal.getRotation());
+					fpp.addFlowerPart(tepalCopy);
+				}
 
 				arg0.dropComplete(true);
 				return;
 			}
-			// }
+
 			arg0.rejectDrop();
 		} catch (Exception e)
 		{

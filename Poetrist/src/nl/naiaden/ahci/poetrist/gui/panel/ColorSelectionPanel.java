@@ -38,6 +38,8 @@ import nl.naiaden.ahci.poetrist.gui.view.SeedViewObject;
 import nl.naiaden.ahci.poetrist.lexicon.Word;
 
 /**
+ * The {@link ColorSelectionPanel} is a sort of closet where words are ordered
+ * by their colour.
  * 
  * @author Ding
  * @author louis
@@ -72,15 +74,12 @@ public class ColorSelectionPanel extends JPanel implements DragSourceListener, D
 	private JButton orangeButton = null;
 	private JButton blueButton = null;
 	private JButton greenButton = null;
-	
+
 	DefaultListModel model1 = new DefaultListModel();
 	JList wordList = null;
 
-	// DefaultListModel model2 = new DefaultListModel();
-	// JList wordList2 = new JList(model2);
-	
-	
-	public ColorSelectionPanel(){
+	public ColorSelectionPanel()
+	{
 		blackWords = new ArrayList<SeedViewObject>();
 		greyWords = new ArrayList<SeedViewObject>();
 		yellowWords = new ArrayList<SeedViewObject>();
@@ -91,7 +90,7 @@ public class ColorSelectionPanel extends JPanel implements DragSourceListener, D
 		orangeWords = new ArrayList<SeedViewObject>();
 		blueWords = new ArrayList<SeedViewObject>();
 		greenWords = new ArrayList<SeedViewObject>();
-		
+
 		Color brown = new Color(156, 93, 82);
 
 		ButtonListener bl = new ButtonListener();
@@ -106,12 +105,8 @@ public class ColorSelectionPanel extends JPanel implements DragSourceListener, D
 		blueButton = new ColorSelectionButton(Color.BLUE, bl);
 		greenButton = new ColorSelectionButton(Color.GREEN, bl);
 
-
-
 		wordList = new JList();
 		wordList.setDragEnabled(true);
-		// WordTransferHandler wth = new WordTransferHandler();
-		// this.setTransferHandler(new SeedTransferHandler());
 		wordList.setTransferHandler(new TransferHandler()
 		{
 			protected Transferable createTransferable(JComponent c)
@@ -131,26 +126,14 @@ public class ColorSelectionPanel extends JPanel implements DragSourceListener, D
 			public int getSourceActions(JComponent c)
 			{
 				return COPY;
-				// COPY MOVE COPY_OR_MOVE same problem :)
 			}
 		});
 		wordList.setModel(model1);
 		wordList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		wordList.setCellRenderer(new SeedCellListRenderer());
-		
+
 		DragSource ds = new DragSource();
 		ds.createDefaultDragGestureRecognizer(wordList, DnDConstants.ACTION_COPY, this);
-
-		// MouseInputAdapter dnd = new MouseInputAdapter() {
-		//
-		// @Override
-		// public void mousePressed(MouseEvent e) {
-		// // wth.exportAsDrag(wordList, e, TransferHandler.COPY);
-		// System.out.println("HALLO DAAR?");
-		// }
-		// };
-		// wordList.addMouseMotionListener(dnd);
-		
 
 		blackWords.add(new SeedViewObject(new Word("motive", Color.BLACK)));
 		blackWords.add(new SeedViewObject(new Word("bomer", Color.BLACK)));
@@ -185,17 +168,15 @@ public class ColorSelectionPanel extends JPanel implements DragSourceListener, D
 		blueWords.add(new SeedViewObject(new Word("ditty", Color.BLUE)));
 
 		greenWords.add(new SeedViewObject(new Word("garden", Color.GREEN)));
-		
-		GridLayout layout = new GridLayout(1,3);
+
+		GridLayout layout = new GridLayout(1, 3);
 		setLayout(layout);
-		
-		GridLayout leftLayout  = new GridLayout(10,1);
+
+		GridLayout leftLayout = new GridLayout(10, 1);
 		JPanel leftPanel = new JPanel(leftLayout);
-		GridLayout middleLayout  = new GridLayout(1,1);
+		GridLayout middleLayout = new GridLayout(1, 1);
 		JPanel middlePanel = new JPanel(middleLayout);
-		// GridLayout rightLayout = new GridLayout(1,1);
-		// JPanel rightPanel = new JPanel(rightLayout);
-		
+
 		leftPanel.add(blackButton);
 		leftPanel.add(greyButton);
 		leftPanel.add(yellowButton);
@@ -206,22 +187,19 @@ public class ColorSelectionPanel extends JPanel implements DragSourceListener, D
 		leftPanel.add(orangeButton);
 		leftPanel.add(blueButton);
 		leftPanel.add(greenButton);
-		
 
-
-		// wordList2.setDragEnabled(true);
 		middlePanel.add(wordList);
-		// rightPanel.add(wordList2);
-		
+
 		add(leftPanel);
 		add(middlePanel);
-		// add(rightPanel);
 	}
-	
-public class ButtonListener implements ActionListener{
-		
+
+	public class ButtonListener implements ActionListener
+	{
+
 		public void actionPerformed(ActionEvent e)
-		{	int i;
+		{
+			int i;
 			model1.clear();
 			if (e.getSource() == blackButton)
 			{
@@ -289,8 +267,6 @@ public class ButtonListener implements ActionListener{
 			wordList.setModel(model1);
 		}
 	}
-
-
 
 	@Override
 	public void dragDropEnd(DragSourceDropEvent dsde)

@@ -14,6 +14,7 @@ import nl.naiaden.ahci.poetrist.gui.view.SeedViewObject;
 import nl.naiaden.ahci.poetrist.lexicon.Word;
 
 /**
+ * The transfer representation for a seed.
  * 
  * @author louis
  * 
@@ -21,17 +22,18 @@ import nl.naiaden.ahci.poetrist.lexicon.Word;
 public class TransferableSeed implements Transferable
 {
 
-	public String toString()
-	{
-		return seed.getWord().word;
-	}
-
 	protected static DataFlavor seedFlavor = new DataFlavor(SeedViewObject.class, "A Seed Object");
 	protected static DataFlavor[] supportedFlavors =
 	{ seedFlavor };
 
 	private final SeedViewObject seed;
 
+	/**
+	 * Create a transferable seed.
+	 * 
+	 * @param seed
+	 *            The seed that will be transfered.
+	 */
 	public TransferableSeed(SeedViewObject seed)
 	{
 		System.out.println("[TransferableSeed#TransferableSeed]");
@@ -63,8 +65,6 @@ public class TransferableSeed implements Transferable
 		System.out.println("[TransferableSeed#isDataFlavorSupported]");
 		if (flavor.equals(seedFlavor)) { return true; }
 		return false;
-
-		// return true;
 	}
 
 }

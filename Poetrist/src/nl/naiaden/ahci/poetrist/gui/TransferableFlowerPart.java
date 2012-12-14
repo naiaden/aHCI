@@ -13,6 +13,8 @@ import nl.naiaden.ahci.poetrist.gui.view.FlowerPartViewObject;
 import nl.naiaden.ahci.poetrist.gui.view.TepalViewObject;
 
 /**
+ * The transfer representation of a flower part.
+ * 
  * @author louis
  * 
  */
@@ -24,9 +26,13 @@ public class TransferableFlowerPart implements Transferable
 
 	private final FlowerPartViewObject flowerPart;
 
+	/**
+	 * Create a transferable flower part.
+	 * 
+	 * @param flowerPart The flower part that will be transfered.
+	 */
 	public TransferableFlowerPart(FlowerPartViewObject flowerPart)
 	{
-		System.out.println("[TransferableFlowerPart#TransferableFlowerPart]");
 		this.flowerPart = flowerPart;
 	}
 
@@ -40,7 +46,6 @@ public class TransferableFlowerPart implements Transferable
 	@Override
 	public Object getTransferData(DataFlavor arg0) throws UnsupportedFlavorException, IOException
 	{
-		System.out.println("[TransferableFlowerPart#getTransferData]");
 
 		if (arg0.equals(flowerPartFlavor))
 		{
@@ -57,7 +62,6 @@ public class TransferableFlowerPart implements Transferable
 	@Override
 	public DataFlavor[] getTransferDataFlavors()
 	{
-		System.out.println("[TransferableFlowerPart#getTransferDataFlavors]");
 		return supportedFlavors;
 	}
 
@@ -70,7 +74,6 @@ public class TransferableFlowerPart implements Transferable
 	@Override
 	public boolean isDataFlavorSupported(DataFlavor arg0)
 	{
-		System.out.println("[TransferableFlowerPart#isDataFlavorSupported]");
 		if (arg0.equals(flowerPartFlavor)) { return true; }
 		return false;
 	}
