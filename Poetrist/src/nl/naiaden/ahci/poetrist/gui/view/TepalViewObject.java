@@ -7,6 +7,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
@@ -247,6 +248,13 @@ public class TepalViewObject implements FlowerPartViewObject
 	public String toString()
 	{
 		return "Tepal with colour: " + getTepal().getColour();
+	}
+
+	@Override
+	public void setLocation(Point location)
+	{
+		xPosition = location.getX();
+		yPosition = location.getY();
 	}
 
 }

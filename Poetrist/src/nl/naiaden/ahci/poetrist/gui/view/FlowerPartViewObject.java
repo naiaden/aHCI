@@ -4,6 +4,7 @@
 package nl.naiaden.ahci.poetrist.gui.view;
 
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Shape;
 import java.awt.geom.Point2D;
 import java.util.Observer;
@@ -77,4 +78,6 @@ public interface FlowerPartViewObject extends Observer
 	 * @return a one-line string representation of the flower part.
 	 */
 	public String toString();
+	
+	public void setLocation(Point location);
 }

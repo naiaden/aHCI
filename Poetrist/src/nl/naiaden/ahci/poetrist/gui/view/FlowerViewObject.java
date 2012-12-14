@@ -184,11 +184,6 @@ public class FlowerViewObject implements Observer
 		Graphics2D g2 = (Graphics2D) g;
 
 		stem.paint(g);
-		
-		// move to separate inner-class?
-//		Rectangle2D stem = new Rectangle2D.Double(xPosition - 0.5 * width, yPosition, width, height);
-//		g2.setColor(Color.GREEN);
-//		g2.fill(stem);
 
 		for (TepalViewObject tepal : tepals)
 		{
@@ -216,6 +211,11 @@ public class FlowerViewObject implements Observer
 	}
 }
 
+/**
+ * 
+ * @author louis
+ *
+ */
 class StemViewObject
 {
 	double xPosition;

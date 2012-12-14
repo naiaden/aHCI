@@ -67,8 +67,11 @@ public class FlowerPartPotPanel extends JPanel implements MouseInputListener
 		flowerParts = new ArrayList<FlowerPartViewObject>();
 
 		addMouseListener(this);
+		addMouseMotionListener(this);
 	}
 
+	private FlowerPartViewObject draggedObject = null;
+	
 	@Override
 	public void mouseClicked(MouseEvent arg0)
 	{
@@ -79,7 +82,14 @@ public class FlowerPartPotPanel extends JPanel implements MouseInputListener
 	@Override
 	public void mouseDragged(MouseEvent arg0)
 	{
-		// TODO Auto-generated method stub
+		
+		if(draggedObject != null)
+		{
+//			System.out.println("[FlowerPartPotPanel#mouseDragged] " + draggedObject.toString());
+			draggedObject.setLocation(arg0.getPoint());
+			revalidate();
+			repaint();
+		}
 
 	}
 
@@ -100,21 +110,32 @@ public class FlowerPartPotPanel extends JPanel implements MouseInputListener
 	@Override
 	public void mouseMoved(MouseEvent arg0)
 	{
-		// TODO Auto-generated method stub
+//		if()
 
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0)
 	{
-		// TODO Auto-generated method stub
+		for(FlowerPartViewObject flowerPart : flowerParts)
+		{
+			if(flowerPart.positionInShape(arg0.getPoint()))
+			{
+//				System.out.println("[FlowerPartPotPanel#mousePressed] " + flowerPart.toString());
+				draggedObject = flowerPart;
+				return;
+			}
+		}
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0)
 	{
-		// TODO Auto-generated method stub
+		if(draggedObject != null)
+		{
+//		System.out.println("[FlowerPartPotPanel#mouseReleased] " + draggedObject.toString());
+		}
 
 	}
 
