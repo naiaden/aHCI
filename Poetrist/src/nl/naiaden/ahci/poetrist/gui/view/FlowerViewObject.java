@@ -3,17 +3,20 @@
  */
 package nl.naiaden.ahci.poetrist.gui.view;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 
 import nl.naiaden.ahci.poetrist.gui.model.Flower;
 
@@ -32,6 +35,8 @@ public class FlowerViewObject implements Observer
 	 */
 	private StigmaViewObject stigma = null;
 
+	private StemViewObject stem = null;
+	
 	/**
 	 * The representation of the tepals.
 	 */
@@ -67,6 +72,8 @@ public class FlowerViewObject implements Observer
 
 		tepals = new ArrayList<TepalViewObject>();
 		stigma = new StigmaViewObject(flower.getStigma(), xPos, yPos, 2 * width);
+		
+		stem = new StemViewObject(xPos, yPos, height);
 
 		flower.addObserver(this);
 	}
@@ -176,10 +183,12 @@ public class FlowerViewObject implements Observer
 	{
 		Graphics2D g2 = (Graphics2D) g;
 
+		stem.paint(g);
+		
 		// move to separate inner-class?
-		Rectangle2D stem = new Rectangle2D.Double(xPosition - 0.5 * width, yPosition, width, height);
-		g2.setColor(Color.GREEN);
-		g2.fill(stem);
+//		Rectangle2D stem = new Rectangle2D.Double(xPosition - 0.5 * width, yPosition, width, height);
+//		g2.setColor(Color.GREEN);
+//		g2.fill(stem);
 
 		for (TepalViewObject tepal : tepals)
 		{
@@ -204,5 +213,43 @@ public class FlowerViewObject implements Observer
 	public String toString()
 	{
 		return "Flower (" + getFlower().getStigma().getColour() + ") with " + getFlower().getTepals().size() + "/" + getFlower().getNumberOfTepalPositions() + " tepals";
+	}
+}
+
+class StemViewObject
+{
+	double xPosition;
+	double yPosition;
+	double height;
+	
+	double xSwingTop;
+	double xSwingBottom;
+	
+	public StemViewObject(double xPos, double yPos, double height)
+	{
+		this.xPosition = xPos;
+		this.yPosition = yPos;
+		this.height = height;
+		
+		Random r = new Random();
+		xSwingTop = r.nextGaussian()*15;
+		xSwingBottom = r.nextGaussian()*7;
+	}
+	
+	/**
+	 * Paints the stem onto the canvas.
+	 * 
+	 * @param g
+	 */
+	public void paint(Graphics g)
+	{
+		Graphics2D g2 = (Graphics2D) g;
+	
+		g2.setStroke(new BasicStroke(3));
+		g2.setColor(Color.GREEN);
+		CubicCurve2D c = new CubicCurve2D.Double(xPosition, yPosition, xPosition+xSwingTop, yPosition+(height*0.33), xPosition+xSwingBottom, yPosition+(height*0.66), xPosition, yPosition+height);
+		g2.draw(c);
+		
+
 	}
 }
