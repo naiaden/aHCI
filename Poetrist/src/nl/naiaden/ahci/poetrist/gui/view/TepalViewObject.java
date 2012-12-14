@@ -5,6 +5,7 @@ package nl.naiaden.ahci.poetrist.gui.view;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -12,6 +13,7 @@ import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.CubicCurve2D;
+import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.Observable;
 import nl.naiaden.ahci.poetrist.gui.model.Tepal;
@@ -147,8 +149,24 @@ public class TepalViewObject implements FlowerPartViewObject
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 
-		g2.setColor(tepal.getColour());
+		double fadeOut = 40;
+
+		Color tepalColor = tepal.getColour();
+
+		GradientPaint gp = new GradientPaint(new Point2D.Double(xPosition, yPosition), tepalColor.darker().darker(), new Point2D.Double(xPosition + fadeOut
+				* Math.cos(rotation + Math.PI * .25), yPosition + fadeOut * Math.sin(rotation + Math.PI * .25)), tepalColor);
+		g2.setPaint(gp);
+
 		g2.fill(getShape());
+
+		// Line2D tepalLine = new Line2D.Double(xPosition, yPosition, xPosition
+		// + fadeOut * 0.55 * Math.cos(rotation + Math.PI * .25), yPosition +
+		// fadeOut * 0.55
+		// * Math.sin(rotation + Math.PI * .25));
+		//
+		// g2.setStroke(new BasicStroke(1));
+		// g2.setColor(Color.BLACK);
+		// g2.draw(tepalLine);
 
 		if (isSelected)
 		{
