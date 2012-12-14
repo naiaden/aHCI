@@ -53,8 +53,6 @@ public class FlowerPartPotPanel extends JPanel implements MouseInputListener
 
 	public void addFlowerPart(FlowerPartViewObject flowerPart)
 	{
-
-		System.out.println("Added");
 		flowerParts.add(flowerPart);
 
 		revalidate();

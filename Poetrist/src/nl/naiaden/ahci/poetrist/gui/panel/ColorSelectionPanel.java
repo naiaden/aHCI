@@ -120,7 +120,6 @@ public class ColorSelectionPanel extends JPanel implements DragSourceListener, D
 				Object value = list.getSelectedValue();
 				if (value instanceof SeedViewObject)
 				{
-					System.out.println("succes");
 					SeedViewObject seed = (SeedViewObject) value;
 					return new TransferableSeed(seed);
 				}
