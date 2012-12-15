@@ -17,6 +17,7 @@ import nl.naiaden.ahci.poetrist.gui.panel.ColorSelectionPanel;
 import nl.naiaden.ahci.poetrist.gui.panel.FlowerPartPotPanel;
 import nl.naiaden.ahci.poetrist.gui.panel.GardenPanel;
 import nl.naiaden.ahci.poetrist.gui.panel.PeotryMakePanel;
+import nl.naiaden.ahci.poetrist.gui.panel.PicturePanel;
 import nl.naiaden.ahci.poetrist.gui.view.FlowerPartViewObject;
 
 /**
@@ -62,9 +63,11 @@ public class PoetristFrame extends JFrame implements DragGestureListener
 	private JPanel pedalPanel = null;
 	private JPanel flowerColorPanel = null;
 	private JPanel poetryPanel = null;
+	private JPanel picPanel = null;
 
 
 	JTabbedPane tabbedPane = new JTabbedPane();
+	JTabbedPane tabbedPane2 = new JTabbedPane();
 	
 
 	public PoetristFrame()
@@ -73,6 +76,7 @@ public class PoetristFrame extends JFrame implements DragGestureListener
 		pedalPanel = new JPanel(new GridLayout(1, 1));
 		flowerColorPanel = new JPanel(new GridLayout(1,2));
 		poetryPanel = new JPanel(new GridLayout(1, 1));
+		picPanel = new JPanel();
 		
 		initialiseFrame();
 		
@@ -81,8 +85,12 @@ public class PoetristFrame extends JFrame implements DragGestureListener
 		pedalPanel.add(flowerPotPanel);
 		tabbedPane.addTab("garden",flowerColorPanel);
 		tabbedPane.addTab("peotry", poetryPanel);
-		rootPanel.add(tabbedPane,BorderLayout.LINE_START);
+		rootPanel.add(tabbedPane);
 		rootPanel.add(pedalPanel);
+		
+		tabbedPane2.addTab("poetry", rootPanel);
+		tabbedPane2.addTab("picture",picPanel);
+		add(tabbedPane2);
 		
 	
 		new FlowerPartPotDropTargetListener(flowerPotPanel);
@@ -105,6 +113,7 @@ public class PoetristFrame extends JFrame implements DragGestureListener
 		colorSelectionPanel = new ColorSelectionPanel();
 		flowerPotPanel = new FlowerPartPotPanel();
 		PeotryMakePanel peotryMakePanel = new PeotryMakePanel();
+		PicturePanel picturePanel = new PicturePanel();
 
 	/*	GridBagConstraints gbc = new GridBagConstraints();
 
@@ -125,6 +134,7 @@ public class PoetristFrame extends JFrame implements DragGestureListener
 		flowerColorPanel.add(colorSelectionPanel);
 		poetryPanel.add(peotryMakePanel);
 		pedalPanel.add(flowerPotPanel);
+		picPanel.add(picturePanel);
 		
 	}
 
