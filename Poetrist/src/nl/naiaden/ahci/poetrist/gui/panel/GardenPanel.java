@@ -1,7 +1,9 @@
 package nl.naiaden.ahci.poetrist.gui.panel;
 
 import java.awt.Color;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -207,10 +209,20 @@ public class GardenPanel extends JPanel implements MouseInputListener
 	{
 		super.paintComponent(g);
 
+		setOpaque(false);
+
+		// the colour is skyblue
+		GradientPaint gp = new GradientPaint(0, 0, new Color(135, 206, 235), 0, getHeight(), Color.WHITE);
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setPaint(gp);
+		g2.fillRect(0, 0, getWidth(), getHeight());
+
 		for (FlowerViewObject flower : flowers)
 		{
 			flower.paint(g);
 		}
+
+		setOpaque(true);
 
 	}
 
