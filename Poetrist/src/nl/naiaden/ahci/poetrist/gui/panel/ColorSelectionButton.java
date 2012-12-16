@@ -7,8 +7,6 @@ import java.awt.Color;
 
 import javax.swing.JButton;
 
-import nl.naiaden.ahci.poetrist.gui.panel.ColorSelectionPanel.ButtonListener;
-
 /**
  * This class is a wrapper around the normal {@link JButton}. However, because
  * the normal {@link JButton} background colour is working on a Mac out of the
@@ -35,14 +33,12 @@ public class ColorSelectionButton extends JButton
 	 * @param buttonListener
 	 *            The ButtonListener.
 	 */
-	public ColorSelectionButton(Color color, ButtonListener buttonListener)
+	public ColorSelectionButton(Color color)
 	{
 		this.color = color;
 
 		setOpaque(true);
 		setBackground(color);
-
-		addActionListener(buttonListener);
 	}
 
 	/**

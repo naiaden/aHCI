@@ -1,10 +1,7 @@
 package nl.naiaden.ahci.poetrist.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Cursor;
-import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
-import java.awt.Panel;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DragGestureEvent;
 import java.awt.dnd.DragGestureListener;
@@ -13,7 +10,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import nl.naiaden.ahci.poetrist.gui.panel.ColorSelectionPanel;
+import nl.naiaden.ahci.poetrist.gui.dnd.FlowerPartPotDropTargetListener;
+import nl.naiaden.ahci.poetrist.gui.dnd.GardenDropTargetListener;
+import nl.naiaden.ahci.poetrist.gui.dnd.TransferableFlowerPart;
+import nl.naiaden.ahci.poetrist.gui.panel.SeedSelectionPanel;
 import nl.naiaden.ahci.poetrist.gui.panel.FlowerPartPotPanel;
 import nl.naiaden.ahci.poetrist.gui.panel.GardenPanel;
 import nl.naiaden.ahci.poetrist.gui.panel.PeotryMakePanel;
@@ -99,7 +99,7 @@ public class PoetristFrame extends JFrame implements DragGestureListener
 
 		new GardenDropTargetListener(gardenPanel);
 		DragSource colorSelectionPanelDragSource = new DragSource();
-		colorSelectionPanelDragSource.createDefaultDragGestureRecognizer(colorSelectionPanel, DnDConstants.ACTION_COPY, this);
+		colorSelectionPanelDragSource.createDefaultDragGestureRecognizer(seedSelectionPanel, DnDConstants.ACTION_COPY, this);
 		// new DropTarget(flowerPotPanel, DnDConstants.ACTION_COPY, this);
 
 		this.setSize(700, 700);
@@ -110,7 +110,7 @@ public class PoetristFrame extends JFrame implements DragGestureListener
 		setTitle("Poetrist -- Your source of click and point art generation");
 
 		gardenPanel = new GardenPanel();
-		colorSelectionPanel = new ColorSelectionPanel();
+		seedSelectionPanel = new SeedSelectionPanel();
 		flowerPotPanel = new FlowerPartPotPanel();
 		PeotryMakePanel peotryMakePanel = new PeotryMakePanel();
 		PicturePanel picturePanel = new PicturePanel();
@@ -123,7 +123,7 @@ public class PoetristFrame extends JFrame implements DragGestureListener
 
 		gbc.gridx = 1;
 		gbc.gridy = 0;
-		rootPanel.add(colorSelectionPanel, gbc);
+		rootPanel.add(seedSelectionPanel, gbc);
 
 		gbc.gridx = 0;
 		gbc.gridy = 1;
@@ -131,7 +131,7 @@ public class PoetristFrame extends JFrame implements DragGestureListener
 */		
 		
 		flowerColorPanel.add(gardenPanel);
-		flowerColorPanel.add(colorSelectionPanel);
+		flowerColorPanel.add(seedSelectionPanel);
 		poetryPanel.add(peotryMakePanel);
 		pedalPanel.add(flowerPotPanel);
 		picPanel.add(picturePanel);
@@ -139,7 +139,7 @@ public class PoetristFrame extends JFrame implements DragGestureListener
 	}
 
 	private GardenPanel gardenPanel = null;
-	private ColorSelectionPanel colorSelectionPanel = null;
+	private SeedSelectionPanel seedSelectionPanel = null;
 	private FlowerPartPotPanel flowerPotPanel = null;
 
 	@Override

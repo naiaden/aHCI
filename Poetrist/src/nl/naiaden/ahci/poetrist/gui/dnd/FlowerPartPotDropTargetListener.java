@@ -1,7 +1,7 @@
 /**
  * 
  */
-package nl.naiaden.ahci.poetrist.gui;
+package nl.naiaden.ahci.poetrist.gui.dnd;
 
 import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DnDConstants;
