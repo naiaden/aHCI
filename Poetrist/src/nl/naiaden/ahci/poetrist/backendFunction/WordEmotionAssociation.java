@@ -126,4 +126,28 @@ public class WordEmotionAssociation
 		return emotionList;
 	}
 	
+	/**
+	 * return a list of words
+	 * @return
+	 */
+	public ArrayList<Word> getWordList(){
+		for (Word_EmotionList wel : weList){
+			wordList.add(wel.getWord());
+		}
+		return wordList;
+	}
+	
+	/**
+	 * Check if the list contains target word
+	 * @param word
+	 * @return
+	 */
+	public boolean contains(Word word){
+		for (Word_EmotionList wel : weList){
+			if (word.equals(wel.getWord())){
+				return true;
+			}
+		}
+		return false;
+	}
 }
