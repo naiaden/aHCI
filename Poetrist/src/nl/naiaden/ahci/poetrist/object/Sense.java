@@ -1,4 +1,4 @@
-package ni.naiaden.ahci.poetrist.object;
+package nl.naiaden.ahci.poetrist.object;
 
 public class Sense {
 	String name;

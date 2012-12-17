@@ -1,4 +1,4 @@
-package ni.naiaden.ahci.poetrist.object;
+package nl.naiaden.ahci.poetrist.object;
 
 import java.util.ArrayList;
 
@@ -7,11 +7,11 @@ public class Word {
 	String name;
 	ArrayList<Sense> senses;
 	
-	public void setWord(String name){
+	public void setName(String name){
 		this.name = name;
 	}
 	
-	public String getWord(){
+	public String getName(){
 		return name;
 	}
 	
