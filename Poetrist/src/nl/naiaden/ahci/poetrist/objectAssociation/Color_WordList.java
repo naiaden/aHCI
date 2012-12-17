@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import nl.naiaden.ahci.poetrist.object.Color;
 import nl.naiaden.ahci.poetrist.object.Word;
 
+/**
+ * one color with a list of words 
+ * @author Ding
+ */
 public class Color_WordList
 {
 	Color color;
@@ -22,7 +26,7 @@ public class Color_WordList
 	
 	public void addWord(Word newWord){
 		for (Word word : wordList){
-			if (!newWord.getName().equals(word.getName())){
+			if (!newWord.equals(word)){
 				wordList.add(newWord);
 			}
 		}

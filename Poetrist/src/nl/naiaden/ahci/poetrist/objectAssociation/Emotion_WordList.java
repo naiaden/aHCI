@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import nl.naiaden.ahci.poetrist.object.Emotion;
 import nl.naiaden.ahci.poetrist.object.Word;
 
+/**
+ * one emotion with a list of words
+ * @author Ding
+ *
+ */
 public class Emotion_WordList
 {
 	Emotion emotion;
@@ -24,7 +29,7 @@ public class Emotion_WordList
 		
 		for (Word word : wordList){
 			
-			if (!newWord.getName().equals(word.getName())){
+			if (!newWord.equals(word)){
 				
 				wordList.add(newWord);
 			}
