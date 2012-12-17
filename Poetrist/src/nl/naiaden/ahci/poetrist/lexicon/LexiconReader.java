@@ -26,7 +26,7 @@ public class LexiconReader {
 	 * Little subclass. Might be forked into
 	 * an own java file in the near future.
 	 */
-	private class Wordlist {
+	public class Wordlist {
 		private ArrayList<Entry> words;
 		
 		
@@ -66,10 +66,19 @@ public class LexiconReader {
 		public Entry get(int index) {
 			return words.get(index);
 		}
+		
+		public Entry get(String word) {
+			for (int i = 0; i<words.size(); i++) { 
+				//System.out.println("Checking " + word + " against " + words.get(i).getName() + " " + (words.get(i).getName().equals(word)));
+				if (words.get(i).getName().equals(word))
+					return words.get(i);	
+			}
+			return null;
+		}
 	}
 	
-	Wordlist lex_emotion = new Wordlist();
-	Wordlist lex_colour = new Wordlist();
+	public Wordlist lex_emotion = new Wordlist();
+	public Wordlist lex_colour = new Wordlist();
 	
 	/**
 	 * lexiconreader()
@@ -113,6 +122,10 @@ public class LexiconReader {
 			System.out.println("Job failed!");
 			e.printStackTrace();
 		}
+	}
+	
+	public Wordlist getEmotionLexicon() {
+		return lex_emotion;
 	}
 
 
