@@ -1,7 +1,7 @@
 /**
  * 
  */
-package nl.naiaden.ahci.poetrist.gui;
+package nl.naiaden.ahci.poetrist.gui.dnd;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -13,17 +13,24 @@ import nl.naiaden.ahci.poetrist.gui.view.FlowerPartViewObject;
 import nl.naiaden.ahci.poetrist.gui.view.TepalViewObject;
 
 /**
+ * The transfer representation of a flower part.
+ * 
  * @author louis
  * 
  */
 public class TransferableFlowerPart implements Transferable
 {
-	protected static DataFlavor flowerPartFlavor = new DataFlavor(Tepal.class, "A Flower Part Object");
+	protected static DataFlavor flowerPartFlavor = new DataFlavor(FlowerPartViewObject.class, "A Flower Part Object");
 	protected static DataFlavor[] supportedFlavors =
 	{ flowerPartFlavor };
 
 	private final FlowerPartViewObject flowerPart;
 
+	/**
+	 * Create a transferable flower part.
+	 * 
+	 * @param flowerPart The flower part that will be transfered.
+	 */
 	public TransferableFlowerPart(FlowerPartViewObject flowerPart)
 	{
 		this.flowerPart = flowerPart;
@@ -39,6 +46,7 @@ public class TransferableFlowerPart implements Transferable
 	@Override
 	public Object getTransferData(DataFlavor arg0) throws UnsupportedFlavorException, IOException
 	{
+
 		if (arg0.equals(flowerPartFlavor))
 		{
 			return flowerPart;

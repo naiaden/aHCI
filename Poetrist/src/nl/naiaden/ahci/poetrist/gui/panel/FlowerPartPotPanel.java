@@ -11,6 +11,14 @@ import javax.swing.event.MouseInputListener;
 
 import nl.naiaden.ahci.poetrist.gui.view.FlowerPartViewObject;
 
+/**
+ * This class represents your metaphorical basket. The tepals you ripped of the
+ * flowers can be saved and brought to the next stage of the process in this
+ * basket.
+ * 
+ * @author louis
+ * 
+ */
 public class FlowerPartPotPanel extends JPanel implements MouseInputListener
 {
 
@@ -18,20 +26,6 @@ public class FlowerPartPotPanel extends JPanel implements MouseInputListener
 	 * 
 	 */
 	private static final long serialVersionUID = 631892447445446136L;
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		javax.swing.SwingUtilities.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-				createAndShowGUI();
-			}
-		});
-	}
 
 	/**
 	 * Create the GUI and show it.
@@ -49,17 +43,26 @@ public class FlowerPartPotPanel extends JPanel implements MouseInputListener
 		frame.setVisible(true);
 	}
 
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args)
+	{
+		javax.swing.SwingUtilities.invokeLater(new Runnable()
+		{
+			public void run()
+			{
+				createAndShowGUI();
+			}
+		});
+	}
+
+	/**
+	 * The flower parts in the basket.
+	 */
 	private List<FlowerPartViewObject> flowerParts;
 
-	public void addFlowerPart(FlowerPartViewObject flowerPart)
-	{
-
-		System.out.println("Added");
-		flowerParts.add(flowerPart);
-
-		revalidate();
-		repaint();
-	}
+	private FlowerPartViewObject selectedObject = null;
 
 	/**
 	 * Default constructor.
@@ -69,6 +72,21 @@ public class FlowerPartPotPanel extends JPanel implements MouseInputListener
 		flowerParts = new ArrayList<FlowerPartViewObject>();
 
 		addMouseListener(this);
+		addMouseMotionListener(this);
+	}
+
+	/**
+	 * Add a flower part to your basket.
+	 * 
+	 * @param flowerPart
+	 *            The flower part.
+	 */
+	public void addFlowerPart(FlowerPartViewObject flowerPart)
+	{
+		flowerParts.add(flowerPart);
+
+		revalidate();
+		repaint();
 	}
 
 	@Override
@@ -81,7 +99,13 @@ public class FlowerPartPotPanel extends JPanel implements MouseInputListener
 	@Override
 	public void mouseDragged(MouseEvent arg0)
 	{
-		// TODO Auto-generated method stub
+
+		if (selectedObject != null)
+		{
+			selectedObject.setLocation(arg0.getPoint());
+			revalidate();
+			repaint();
+		}
 
 	}
 
@@ -102,21 +126,31 @@ public class FlowerPartPotPanel extends JPanel implements MouseInputListener
 	@Override
 	public void mouseMoved(MouseEvent arg0)
 	{
-		// TODO Auto-generated method stub
+		// if()
 
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0)
 	{
-		// TODO Auto-generated method stub
+		for (FlowerPartViewObject flowerPart : flowerParts)
+		{
+			if (flowerPart.positionInShape(arg0.getPoint()))
+			{
+				selectedObject = flowerPart;
+				return;
+			}
+		}
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0)
 	{
-		// TODO Auto-generated method stub
+		if (selectedObject != null)
+		{
+			selectedObject = null;
+		}
 
 	}
 

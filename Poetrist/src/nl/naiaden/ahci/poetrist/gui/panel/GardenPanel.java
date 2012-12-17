@@ -1,7 +1,9 @@
 package nl.naiaden.ahci.poetrist.gui.panel;
 
 import java.awt.Color;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -25,20 +27,6 @@ public class GardenPanel extends JPanel implements MouseInputListener
 	 * 
 	 */
 	private static final long serialVersionUID = 7043512667139679491L;
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		javax.swing.SwingUtilities.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-				createAndShowGUI();
-			}
-		});
-	}
 
 	/**
 	 * Create the GUI and show it.
@@ -112,37 +100,50 @@ public class GardenPanel extends JPanel implements MouseInputListener
 	}
 
 	/**
-	 * 
+	 * @param args
 	 */
-	private List<FlowerViewObject> flowers = null;
+	public static void main(String[] args)
+	{
+		javax.swing.SwingUtilities.invokeLater(new Runnable()
+		{
+			public void run()
+			{
+				createAndShowGUI();
+			}
+		});
+	}
 
 	/**
-	 * 
+	 * The flowers in the garden.
 	 */
-//	private JPanel gardenPanel = null;
+	private List<FlowerViewObject> flowers = null;
 
 	/**
 	 * Default constructor.
 	 */
 	public GardenPanel()
 	{
-//		gardenPanel = new JPanel();
-
 		flowers = new ArrayList<FlowerViewObject>();
 
 		revalidate();
 		repaint();
-		
+
 		addMouseListener(this);
+		addMouseMotionListener(this);
 	}
 
 	/**
+	 * Adds a flower to the garden.
 	 * 
 	 * @param flower
+	 *            The new flower.
 	 */
 	public void addFlower(FlowerViewObject flower)
 	{
 		flowers.add(flower);
+
+		revalidate();
+		repaint();
 	}
 
 	@Override
@@ -180,22 +181,11 @@ public class GardenPanel extends JPanel implements MouseInputListener
 
 	}
 
-	public FlowerPartViewObject selectedFlowerPart(Point point)
-	{
-
-		for (FlowerViewObject flower : flowers)
-		{
-			if (flower.getSelectedFlowerPart(point) != null)
-				return flower.getSelectedFlowerPart(point);
-		}
-
-		return null;
-	}
-
 	@Override
 	public void mousePressed(MouseEvent e)
 	{
-		System.out.println("[GardenPanel] Mouse Pressed: (" + e.getX() + "," + e.getY() + ")");
+		// System.out.println("[GardenPanel] Mouse Pressed: (" + e.getX() + ","
+		// + e.getY() + ")");
 
 		for (FlowerViewObject flower : flowers)
 		{
@@ -208,8 +198,10 @@ public class GardenPanel extends JPanel implements MouseInputListener
 	@Override
 	public void mouseReleased(MouseEvent e)
 	{
-		// TODO Auto-generated method stub
-
+		// if(selectedObject != null)
+		// {
+		// selectedObject = null;
+		// }
 	}
 
 	@Override
@@ -217,11 +209,43 @@ public class GardenPanel extends JPanel implements MouseInputListener
 	{
 		super.paintComponent(g);
 
+		setOpaque(false);
+
+		// the colour is skyblue
+		GradientPaint gp = new GradientPaint(0, 0, new Color(135, 206, 235), 0, getHeight(), Color.WHITE);
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setPaint(gp);
+		g2.fillRect(0, 0, getWidth(), getHeight());
+
 		for (FlowerViewObject flower : flowers)
 		{
 			flower.paint(g);
 		}
 
+		setOpaque(true);
+
+	}
+
+	/**
+	 * Returns the flower part that is selected. Currently the oldest flower
+	 * part has preference over the other parts. This is not by definition the
+	 * (best) visible flower part.
+	 * 
+	 * @param point
+	 *            The position to check for.
+	 * @return the oldest flower part on the selected point. If no flower part
+	 *         is available
+	 */
+	public FlowerPartViewObject selectedFlowerPart(Point point)
+	{
+
+		for (FlowerViewObject flower : flowers)
+		{
+			if (flower.getSelectedFlowerPart(point) != null)
+				return flower.getSelectedFlowerPart(point);
+		}
+
+		return null;
 	}
 
 }
