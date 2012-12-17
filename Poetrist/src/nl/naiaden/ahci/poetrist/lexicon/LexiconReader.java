@@ -1,11 +1,11 @@
 package nl.naiaden.ahci.poetrist.lexicon;
 import java.io.FileInputStream;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-import nl.naiaden.ahci.poetrist.lexicon.Entry;
-
+import nl.naiaden.ahci.poetrist.backendFunction.WordEmotionAssociation;
+import nl.naiaden.ahci.poetrist.object.Emotion;
+import nl.naiaden.ahci.poetrist.object.Word;
 /**
  * The lexiconreader, used to read in the NRC lexica.
  * The National Research Council Canada (NRC) owns all
@@ -25,7 +25,7 @@ public class LexiconReader {
 	/**
 	 * Little subclass. Might be forked into
 	 * an own java file in the near future.
-	 */
+	 *//*
 	public class Wordlist {
 		private ArrayList<Entry> words;
 		
@@ -78,8 +78,9 @@ public class LexiconReader {
 	}
 	
 	public Wordlist lex_emotion = new Wordlist();
-	public Wordlist lex_colour = new Wordlist();
+	public Wordlist lex_colour = new Wordlist();*/
 	
+	WordEmotionAssociation wea = new WordEmotionAssociation();	
 	/**
 	 * lexiconreader()
 	 * Constructor class, assumes a file emolex.txt.
@@ -101,7 +102,7 @@ public class LexiconReader {
 			StringTokenizer st; 
 			while (sc.hasNext()) {
 				String source = sc.nextLine();
-				Scanner sc2 = new Scanner(source).useDelimiter("\\t");
+				//Scanner sc2 = new Scanner(source).useDelimiter("\\t");
 				st = new StringTokenizer(source);
 				String _name = sc.next();
 				//System.out.println(_name);
@@ -109,10 +110,20 @@ public class LexiconReader {
 				//System.out.println(_emotion);
 				String _association = sc.next();
 				//System.out.println(_association);
-				boolean association = true;
+				/*boolean association = true;
 				if (_association == "0")
 					association = false;
-				lex_emotion.add(_name, _emotion, association);
+				lex_emotion.add(_name, _emotion, association);*/
+				if (_association == "1"){
+					Word word = new Word();
+					word.setName(_name);
+					if (!wea.contains(word)){
+						wea.addWord(word);
+					}
+					Emotion emotion = new Emotion();
+					emotion.setName(_emotion);
+					wea.addEmotionByWord(word, emotion);
+				}
 				line++;
 			}
 			System.out.println("Job done!");
@@ -124,9 +135,9 @@ public class LexiconReader {
 		}
 	}
 	
-	public Wordlist getEmotionLexicon() {
+	/*public Wordlist getEmotionLexicon() {
 		return lex_emotion;
-	}
+	}*/
 
 
 }
