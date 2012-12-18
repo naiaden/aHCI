@@ -43,4 +43,9 @@ public class WordEmotion implements LexiconEntry
 	{
 		return score;
 	}
+
+	public String toString()
+	{
+		return word.toString() + "--" + emotion.toString() + "(" + score + ")";
+	}
 }

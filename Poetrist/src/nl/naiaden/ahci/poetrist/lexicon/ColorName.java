@@ -3,6 +3,8 @@
  */
 package nl.naiaden.ahci.poetrist.lexicon;
 
+import java.awt.Color;
+
 import nl.naiaden.ahci.poetrist.PoetristColor;
 
 /**
@@ -12,14 +14,14 @@ import nl.naiaden.ahci.poetrist.PoetristColor;
  */
 public class ColorName implements LexiconEntry
 {
-	private PoetristColor color;
+	private Color color;
 	
-	public ColorName(String color)
+	public ColorName(String colorName)
 	{
-		//
+		color = PoetristColor.getColor(colorName);
 	}
 	
-	public PoetristColor getColor()
+	public Color getColor()
 	{
 		return color;
 	}
@@ -35,5 +37,10 @@ public class ColorName implements LexiconEntry
 
 		ColorName rhs = (ColorName) obj;
 		return color.equals(rhs.getColor());
+	}
+
+	public String toString()
+	{
+		return PoetristColor.toString(color);
 	}
 }

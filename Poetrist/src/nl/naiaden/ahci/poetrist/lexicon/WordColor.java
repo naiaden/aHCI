@@ -50,4 +50,9 @@ public class WordColor implements LexiconEntry
 	{
 		return totalVotes;
 	}
+
+	public String toString()
+	{
+		return word.toString() + "--" + color.toString() + "[" + votes + "/" + totalVotes + "]";
+	}
 }

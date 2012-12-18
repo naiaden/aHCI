@@ -4,8 +4,8 @@
 package nl.naiaden.ahci.poetrist.lexicon;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
@@ -14,22 +14,34 @@ import java.nio.charset.Charset;
  * @author louis
  *
  */
-public class NRCEmotionLexiconReader
+public class NRCEmotionLexiconReader implements LexiconReader
 {
 
-	/**
-	 * @param args
-	 * @throws IOException
-	 */
-	public static void main(String[] args) throws IOException
+	public static void main(String args[])
 	{
-		FileInputStream fis = new FileInputStream("doc/NRC-emotion-lexicon-wordlevel-alphabetized-v0.92.txt");
-		BufferedReader br = new BufferedReader(new InputStreamReader(fis, Charset.forName("UTF-8")));
+		NRCEmotionLexiconReader emotionLexicon = new NRCEmotionLexiconReader();
 
-		/*
-		 * Each line has the following format:
-		 * TargetWord<tab>AffectCategory<tab>AssociationFlag
-		 */
+		try
+		{
+			emotionLexicon.read(new File("doc/NRC-emotion-lexicon-wordlevel-alphabetized-v0.92.txt"));
+
+			System.out.println("Number of words: " + AssociationFactory.getWords().size());
+			System.out.println("Number of senses: " + AssociationFactory.getSenses().size());
+			System.out.println("Number of colors: " + AssociationFactory.getColors().size());
+
+			System.out.println("Number of emotions: " + AssociationFactory.getEmotions().size());
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public void read(File lexiconFile) throws IOException
+	{
+		FileInputStream fis = new FileInputStream(lexiconFile);
+		BufferedReader br = new BufferedReader(new InputStreamReader(fis, Charset.forName("UTF-8")));
 
 		String line;
 
@@ -50,7 +62,10 @@ public class NRCEmotionLexiconReader
 		while ((line = br.readLine()) != null)
 		{
 			String[] elements = line.split("\t");
-			AssociationFactory.addWordEmotion(new WordEmotion(new Word(elements[0]), new Emotion(elements[1]), Integer.parseInt(elements[2])));
+			if (elements.length > 2)
+			{
+				AssociationFactory.addWordEmotion(new WordEmotion(new Word(elements[0]), new Emotion(elements[1]), Integer.parseInt(elements[2])));
+			}
 		}
 	}
 

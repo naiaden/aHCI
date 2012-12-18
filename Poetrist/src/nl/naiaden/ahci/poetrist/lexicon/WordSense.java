@@ -28,4 +28,9 @@ public class WordSense implements LexiconEntry
 	{
 		return sense;
 	}
+
+	public String toString()
+	{
+		return word.toString() + "--" + sense.toString();
+	}
 }

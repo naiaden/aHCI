@@ -26,6 +26,7 @@ public class AssociationFactory
 	{
 		if (!words.contains(word))
 			words.add(word);
+
 	}
 
 	public static List<Word> getWords()
@@ -140,9 +141,11 @@ public class AssociationFactory
 
 	public static void addWordColor(WordColor wordColor)
 	{
-		words.add(wordColor.getWord());
-		colors.add(wordColor.getColor());
-		wordColors.add(wordColor);
+		addWord(wordColor.getWord());
+		addColor(wordColor.getColor());
+
+		if (!wordColors.contains(wordColor))
+			wordColors.add(wordColor);
 	}
 
 	public static List<WordColor> getWordColors()
@@ -182,9 +185,13 @@ public class AssociationFactory
 
 	public static void addWordEmotion(WordEmotion wordEmotion)
 	{
-		words.add(wordEmotion.getWord());
-		emotions.add(wordEmotion.getEmotion());
-		wordEmotions.add(wordEmotion);
+		addWord(wordEmotion.getWord());
+		addEmotion(wordEmotion.getEmotion());
+
+		if (!wordEmotions.contains(wordEmotion))
+		{
+			wordEmotions.add(wordEmotion);
+		}
 	}
 
 	public static List<WordEmotion> getWordEmotions()
@@ -224,9 +231,13 @@ public class AssociationFactory
 
 	public static void addWordSense(WordSense wordSense)
 	{
-		words.add(wordSense.getWord());
-		senses.add(wordSense.getSense());
-		wordSenses.add(wordSense);
+		addWord(wordSense.getWord());
+		addSense(wordSense.getSense());
+
+		if (!wordSenses.contains(wordSense))
+		{
+			wordSenses.add(wordSense);
+		}
 	}
 
 	public static List<WordSense> getWordSenses()

@@ -23,6 +23,34 @@ public class PoetristColor extends Color
 	public static final PoetristColor purple = new PoetristColor(128, 0, 128);
 	public static final PoetristColor PURPLE = purple;
 	
+	public static String toString(Color color)
+	{
+		if (color.equals(PoetristColor.brown))
+			return "brown";
+		if (color.equals(PoetristColor.magenta))
+			return "pink";
+		if (color.equals(PoetristColor.purple))
+			return "purple";
+		if (color.equals(PoetristColor.black))
+			return "black";
+		if (color.equals(PoetristColor.red))
+			return "red";
+		if (color.equals(PoetristColor.green))
+			return "green";
+		if (color.equals(PoetristColor.blue))
+			return "blue";
+		if (color.equals(PoetristColor.yellow))
+			return "yellow";
+		if (color.equals(PoetristColor.gray))
+			return "grey";
+		if (color.equals(PoetristColor.white))
+			return "white";
+		if (color.equals(PoetristColor.orange))
+			return "orange";
+
+		return null;
+	}
+
 	public static Color getColor(String colorName)
 	{
 		String normalisedColorName = colorName.toLowerCase();

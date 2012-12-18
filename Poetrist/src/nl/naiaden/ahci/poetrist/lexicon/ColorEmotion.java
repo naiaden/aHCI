@@ -27,4 +27,9 @@ public class ColorEmotion
 	{
 		return emotion;
 	}
+
+	public String toString()
+	{
+		return color.toString() + " <--> " + emotion.toString();
+	}
 }
