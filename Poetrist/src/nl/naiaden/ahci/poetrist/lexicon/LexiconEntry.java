@@ -7,7 +7,7 @@ package nl.naiaden.ahci.poetrist.lexicon;
  * @author louis
  *
  */
-public interface LexiconReader
+public interface LexiconEntry
 {
-
+	public String toString();
 }

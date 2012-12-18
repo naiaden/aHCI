@@ -8,7 +8,7 @@ import java.util.Observer;
 
 import javax.swing.JLabel;
 
-import nl.naiaden.ahci.poetrist.lexicon.Word;
+import nl.naiaden.ahci.poetrist.lexicon.OldWord;
 
 /**
  * A seed can spawn a new flower, as words can spawn new emotions.
@@ -23,27 +23,27 @@ public class SeedViewObject extends JLabel implements Observer
 	 * 
 	 */
 	private static final long serialVersionUID = -84023964320703459L;
-	private Word word;
+	private OldWord oldWord;
 
 	/**
-	 * Returns the word, the essence of the seed.
+	 * Returns the oldWord, the essence of the seed.
 	 * 
-	 * @return the word.
+	 * @return the oldWord.
 	 */
-	public Word getWord()
+	public OldWord getWord()
 	{
-		return word;
+		return oldWord;
 	}
 
 	/**
-	 * Creates a new seed bases on a word.
+	 * Creates a new seed bases on a oldWord.
 	 * 
-	 * @param word
-	 *            The word on which the new seed is based.
+	 * @param oldWord
+	 *            The oldWord on which the new seed is based.
 	 */
-	public SeedViewObject(Word word)
+	public SeedViewObject(OldWord oldWord)
 	{
-		this.word = word;
+		this.oldWord = oldWord;
 	}
 
 	@Override

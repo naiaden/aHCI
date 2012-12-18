@@ -3,25 +3,25 @@
  */
 package nl.naiaden.ahci.poetrist.lexicon;
 
-import java.awt.Color;
-import java.io.Serializable;
-
 /**
+ * @author Ding
  * @author louis
- *
+ * 
  */
-public class Word implements Serializable
+public class Word implements LexiconEntry
 {
-	public String word;
-	public Color color;
+	private String word;
 
-	public Word(String word, Color color)
+	public Word(String word)
 	{
 		this.word = word;
-		this.color = color;
 	}
 
-	@Override
+	public String getWord()
+	{
+		return word;
+	}
+
 	public String toString()
 	{
 		return word;

@@ -17,7 +17,7 @@ import nl.naiaden.ahci.poetrist.gui.model.Stigma;
 import nl.naiaden.ahci.poetrist.gui.panel.GardenPanel;
 import nl.naiaden.ahci.poetrist.gui.view.FlowerViewObject;
 import nl.naiaden.ahci.poetrist.gui.view.SeedViewObject;
-import nl.naiaden.ahci.poetrist.lexicon.Word;
+import nl.naiaden.ahci.poetrist.lexicon.OldWord;
 
 /**
  * The drop target listener for the garden.

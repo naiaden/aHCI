@@ -11,7 +11,7 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
 
 import nl.naiaden.ahci.poetrist.gui.view.SeedViewObject;
-import nl.naiaden.ahci.poetrist.lexicon.Word;
+import nl.naiaden.ahci.poetrist.lexicon.OldWord;
 
 /**
  * @author louis
