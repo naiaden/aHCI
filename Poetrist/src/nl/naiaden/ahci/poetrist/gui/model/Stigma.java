@@ -13,7 +13,7 @@ import java.util.Observable;
  * @author louis
  * 
  */
-public class Stigma extends Observable
+public class Stigma extends Observable implements FlowerPart
 {
 	/**
 	 * The colour of the stigma.

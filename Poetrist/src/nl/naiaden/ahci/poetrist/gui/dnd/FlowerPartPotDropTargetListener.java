@@ -12,7 +12,7 @@ import java.awt.dnd.DropTargetDropEvent;
 import javax.swing.JPanel;
 import nl.naiaden.ahci.poetrist.gui.model.Stigma;
 import nl.naiaden.ahci.poetrist.gui.model.Tepal;
-import nl.naiaden.ahci.poetrist.gui.panel.FlowerPartPotPanel;
+import nl.naiaden.ahci.poetrist.gui.panel.BasketPanel;
 import nl.naiaden.ahci.poetrist.gui.view.FlowerPartViewObject;
 import nl.naiaden.ahci.poetrist.gui.view.StigmaViewObject;
 import nl.naiaden.ahci.poetrist.gui.view.TepalViewObject;
@@ -25,14 +25,14 @@ import nl.naiaden.ahci.poetrist.gui.view.TepalViewObject;
  */
 public class FlowerPartPotDropTargetListener extends DropTargetAdapter
 {
-	private final FlowerPartPotPanel dropPanel;
+	private final BasketPanel dropPanel;
 	private final DropTarget dropTarget;
 
 	/**
 	 * Creates a new listener.
 	 * @param panel The basket panel.
 	 */
-	public FlowerPartPotDropTargetListener(FlowerPartPotPanel panel)
+	public FlowerPartPotDropTargetListener(BasketPanel panel)
 	{
 		dropPanel = panel;
 		dropTarget = new DropTarget(dropPanel, DnDConstants.ACTION_COPY, this, true, null);
@@ -63,7 +63,7 @@ public class FlowerPartPotDropTargetListener extends DropTargetAdapter
 
 					System.out.println("Dropped stigma into bucket! [" + stigma.getStigma().getColour() + "]");
 
-					FlowerPartPotPanel fpp = (FlowerPartPotPanel) dropPanel;
+					BasketPanel fpp = (BasketPanel) dropPanel;
 					Stigma originalStigma = stigma.getStigma();
 					StigmaViewObject stigmaCopy = new StigmaViewObject(originalStigma, arg0.getLocation().getX(), arg0.getLocation().getY(), stigma.getRadius());
 					fpp.addFlowerPart(stigmaCopy);
@@ -75,7 +75,7 @@ public class FlowerPartPotDropTargetListener extends DropTargetAdapter
 
 					System.out.println("Dropped tepal into bucket! [" + tepal.getTepal().getColour() + "]");
 
-					FlowerPartPotPanel fpp = (FlowerPartPotPanel) dropPanel;
+					BasketPanel fpp = (BasketPanel) dropPanel;
 					Tepal originalTepal = tepal.getTepal();
 					TepalViewObject tepalCopy = new TepalViewObject(originalTepal, arg0.getLocation().getX(), arg0.getLocation().getY(), tepal.getHeight(), tepal.getWidth(),
 							tepal.getRotation());

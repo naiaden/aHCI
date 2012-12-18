@@ -9,14 +9,19 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class PeotryMakePanel extends JPanel
+/**
+ * 
+ * @author Ding
+ * 
+ */
+public class PoemPanel extends JPanel
 {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -916168874765976242L;
 
-	public PeotryMakePanel(){
+	public PoemPanel(){
 		JTextArea input =  new JTextArea(5,25);
 		JButton submit = new JButton("submit");
 		add(input);

@@ -15,7 +15,7 @@ import java.util.Observable;
  * @author louis
  * 
  */
-public class Tepal extends Observable
+public class Tepal extends Observable implements FlowerPart
 {
 
 	/**
