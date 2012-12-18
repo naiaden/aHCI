@@ -3,6 +3,8 @@
  */
 package nl.naiaden.ahci.poetrist.lexicon;
 
+import nl.naiaden.ahci.poetrist.gui.model.Flower;
+
 /**
  * @author Ding
  * @author louis
@@ -25,5 +27,18 @@ public class Word implements LexiconEntry
 	public String toString()
 	{
 		return word;
+	}
+
+	public boolean equals(Object obj)
+	{
+		if (obj == null)
+			return false;
+		if (obj == this)
+			return true;
+		if (obj.getClass() != getClass())
+			return false;
+
+		Word rhs = (Word) obj;
+		return word.equals(rhs.getWord());
 	}
 }

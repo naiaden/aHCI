@@ -24,7 +24,8 @@ public class AssociationFactory
 
 	public static void addWord(Word word)
 	{
-		words.add(word);
+		if (!words.contains(word))
+			words.add(word);
 	}
 
 	public static List<Word> getWords()
@@ -76,7 +77,8 @@ public class AssociationFactory
 
 	public static void addEmotion(Emotion emotion)
 	{
-		emotions.add(emotion);
+		if (!emotions.contains(emotion))
+			emotions.add(emotion);
 	}
 
 	public static List<Emotion> getEmotions()
@@ -100,7 +102,8 @@ public class AssociationFactory
 
 	public static void addColor(ColorName color)
 	{
-		colors.add(color);
+		if (!colors.contains(color))
+			colors.add(color);
 	}
 
 	public static List<ColorName> getColors()
@@ -124,7 +127,8 @@ public class AssociationFactory
 
 	public static void addSense(Sense sense)
 	{
-		senses.add(sense);
+		if (!senses.contains(sense))
+			senses.add(sense);
 	}
 
 	public static List<Sense> getSenses()
@@ -136,6 +140,8 @@ public class AssociationFactory
 
 	public static void addWordColor(WordColor wordColor)
 	{
+		words.add(wordColor.getWord());
+		colors.add(wordColor.getColor());
 		wordColors.add(wordColor);
 	}
 
@@ -176,6 +182,8 @@ public class AssociationFactory
 
 	public static void addWordEmotion(WordEmotion wordEmotion)
 	{
+		words.add(wordEmotion.getWord());
+		emotions.add(wordEmotion.getEmotion());
 		wordEmotions.add(wordEmotion);
 	}
 
@@ -216,6 +224,8 @@ public class AssociationFactory
 
 	public static void addWordSense(WordSense wordSense)
 	{
+		words.add(wordSense.getWord());
+		senses.add(wordSense.getSense());
 		wordSenses.add(wordSense);
 	}
 
@@ -258,7 +268,7 @@ public class AssociationFactory
 	{
 		List<ColorEmotion> colorEmotions = new ArrayList<ColorEmotion>();
 
-		for(Word word : AssociationFactory.getWords())
+		for (Word word : AssociationFactory.getWords())
 		{
 			List<ColorName> wordColorAssociations = AssociationFactory.getColors(word);
 			List<Emotion> wordEmotionAssocations = AssociationFactory.getEmotions(word);
@@ -271,8 +281,6 @@ public class AssociationFactory
 				}
 			}
 		}
-		
-
 
 		return colorEmotions;
 	}

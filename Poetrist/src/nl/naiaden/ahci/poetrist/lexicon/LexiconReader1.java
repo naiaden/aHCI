@@ -89,7 +89,7 @@ public class LexiconReader1 {
 	 * Provides some error feedback in case anything
 	 * goes wrong.
 	 */
-	public LexiconReader() {
+	public LexiconReader1() {
 		//System.out.println("Hello, I live!");
 		String filename = "emolex.txt";
 		FileInputStream in;

@@ -13,10 +13,22 @@ public class WordColor implements LexiconEntry
 	private final Word word;
 	private final ColorName color;
 
+	private int votes;
+	private int totalVotes;
+
 	public WordColor(Word word, ColorName color)
 	{
 		this.word = word;
 		this.color = color;
+	}
+
+	public WordColor(Word word, ColorName color, int votes, int totalVotes)
+	{
+		this.word = word;
+		this.color = color;
+
+		this.votes = votes;
+		this.totalVotes = totalVotes;
 	}
 
 	public Word getWord()
@@ -27,5 +39,15 @@ public class WordColor implements LexiconEntry
 	public ColorName getColor()
 	{
 		return color;
+	}
+
+	public int getVotes()
+	{
+		return votes;
+	}
+
+	public int getTotalVotes()
+	{
+		return totalVotes;
 	}
 }

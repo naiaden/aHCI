@@ -13,10 +13,20 @@ public class WordEmotion implements LexiconEntry
 	private final Word word;
 	private final Emotion emotion;
 
+	private int score;
+
 	public WordEmotion(Word word, Emotion emotion)
 	{
 		this.word = word;
 		this.emotion = emotion;
+	}
+
+	public WordEmotion(Word word, Emotion emotion, int score)
+	{
+		this.word = word;
+		this.emotion = emotion;
+
+		this.score = score;
 	}
 
 	public Word getWord()
@@ -27,5 +37,10 @@ public class WordEmotion implements LexiconEntry
 	public Emotion getEmotion()
 	{
 		return emotion;
+	}
+
+	public int getScore()
+	{
+		return score;
 	}
 }
