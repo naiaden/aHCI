@@ -30,6 +30,11 @@ public class NRCEmotionLexiconReader implements LexiconReader
 			System.out.println("Number of colors: " + AssociationFactory.getColors().size());
 
 			System.out.println("Number of emotions: " + AssociationFactory.getEmotions().size());
+
+			for (WordEmotion we : AssociationFactory.getWordEmotions())
+			{
+				System.out.println(we.toString());
+			}
 		} catch (IOException e)
 		{
 			// TODO Auto-generated catch block
@@ -64,7 +69,7 @@ public class NRCEmotionLexiconReader implements LexiconReader
 			String[] elements = line.split("\t");
 			if (elements.length > 2)
 			{
-				AssociationFactory.addWordEmotion(new WordEmotion(new Word(elements[0]), new Emotion(elements[1]), Boolean.getBoolean(elements[2])));
+				AssociationFactory.addWordEmotion(new WordEmotion(new Word(elements[0]), new Emotion(elements[1]), elements[2].equals("1") ? true : false));
 			}
 		}
 	}

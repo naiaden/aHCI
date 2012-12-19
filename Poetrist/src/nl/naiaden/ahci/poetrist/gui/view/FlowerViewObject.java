@@ -97,9 +97,14 @@ public class FlowerViewObject implements Observer
 
 		tepals = new ArrayList<TepalViewObject>();
 		int tepalPosition = 0;
+
+		Random r = new Random();
 		for(Tepal tepal : flower.getTepals())
 		{
-			tepals.add(new TepalViewObject(tepal, xPos, yPos, 100, flower.getNumberOfTepalPositions(), 7 * (tepalPosition++ * Math.PI) / flower.getNumberOfTepalPositions()));
+			double widthVariation = r.nextDouble() / 2.0 + 0.75;
+			// double rotationVariation = r.nextDouble() / 6 + 0.83;
+			tepals.add(new TepalViewObject(tepal, xPos, yPos, 100, widthVariation * flower.getNumberOfTepalPositions(), tepalPosition++ * (2 * Math.PI)
+					/ flower.getNumberOfTepalPositions()));
 		}
 		
 		stigma = stigmaViewObject;

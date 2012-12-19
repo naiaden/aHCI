@@ -17,6 +17,7 @@ import nl.naiaden.ahci.poetrist.gui.dnd.GardenDropTargetListener;
 import nl.naiaden.ahci.poetrist.gui.dnd.TransferableFlowerPart;
 import nl.naiaden.ahci.poetrist.gui.event.BasketChangedEvent;
 import nl.naiaden.ahci.poetrist.gui.event.BasketChangedListener;
+import nl.naiaden.ahci.poetrist.gui.panel.GalleryPanel;
 import nl.naiaden.ahci.poetrist.gui.panel.SeedSelectionPanel;
 import nl.naiaden.ahci.poetrist.gui.panel.BasketPanel;
 import nl.naiaden.ahci.poetrist.gui.panel.GardenPanel;
@@ -87,6 +88,8 @@ public class PoetristFrame extends JFrame implements DragGestureListener, Basket
 	private PoemPanel poemPanel = null;
 	private BasketPanel basketBrewingPanel = null;
 
+	private GalleryPanel galleryPanel = null;
+
 	private JTabbedPane stepsInProcesTabPane = null;
 	private JPanel pickingPanel = null;
 	private JPanel brewingPanel = null;
@@ -150,11 +153,17 @@ public class PoetristFrame extends JFrame implements DragGestureListener, Basket
 
 		// Tasting panel
 
-		tastingPanel = new JPanel(new GridBagLayout());
-		GridBagConstraints tastingPanelGBC = new GridBagConstraints();
-		tastingPanelGBC.fill = GridBagConstraints.BOTH;
-		tastingPanelGBC.weightx = 1.0;
-		tastingPanelGBC.weighty = 1.0;
+		// tastingPanel = new JPanel(new GridBagLayout());
+		// GridBagConstraints tastingPanelGBC = new GridBagConstraints();
+		// tastingPanelGBC.fill = GridBagConstraints.BOTH;
+		// tastingPanelGBC.weightx = 1.0;
+		// tastingPanelGBC.weighty = 1.0;
+		//
+		// // tastingPanelGBC.gridx = 0;
+		// // tastingPanelGBC.gridy = 0;
+		// // tastingPanel.add(galleryPanel, tastingPanelGBC);
+		//
+		// stepsInProcesTabPane.add("Tasting", tastingPanel);
 
 		add(stepsInProcesTabPane);
 

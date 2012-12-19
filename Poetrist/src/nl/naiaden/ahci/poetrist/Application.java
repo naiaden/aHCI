@@ -42,6 +42,11 @@ public class Application {
 		{		
 			colorLexiconReader.read(new File("doc/WordColorLexicon_small.txt"));
 			emotionLexiconReader.read(new File("doc/WordEmotionLexicon_small.txt"));
+
+			// colorLexiconReader.read(new
+			// File("doc/NRC-color-lexicon-senselevel-v0.92.txt"));
+			// emotionLexiconReader.read(new
+			// File("doc/NRC-emotion-lexicon-wordlevel-alphabetized-v0.92.txt"));
 			
 			System.out.println(AssociationFactory.getWords().size() + " words");
 			System.out.println(AssociationFactory.getColors().size() + " colors");
