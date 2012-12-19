@@ -20,6 +20,7 @@ import java.util.Observer;
 import java.util.Random;
 
 import nl.naiaden.ahci.poetrist.gui.model.Flower;
+import nl.naiaden.ahci.poetrist.gui.model.Tepal;
 
 /**
  * This class is a representation of the flower.
@@ -65,18 +66,8 @@ public class FlowerViewObject implements Observer
 	 */
 	public FlowerViewObject(Flower flower, double xPos, double yPos, double height, double width)
 	{
-		this.flower = flower;
-		this.xPosition = xPos;
-		this.yPosition = yPos;
-		this.height = height;
-		this.width = width;
-
-		tepals = new ArrayList<TepalViewObject>();
-		stigma = new StigmaViewObject(flower.getStigma(), xPos, yPos, 2 * width);
-
-		stem = new StemViewObject(xPos, yPos, height);
-
-		flower.addObserver(this);
+		this(flower, new StigmaViewObject(flower.getStigma(), xPos, yPos, 2 * width), xPos, yPos, height, width);
+		
 	}
 
 	/**
@@ -105,7 +96,17 @@ public class FlowerViewObject implements Observer
 		this.width = width;
 
 		tepals = new ArrayList<TepalViewObject>();
+		int tepalPosition = 0;
+		for(Tepal tepal : flower.getTepals())
+		{
+			tepals.add(new TepalViewObject(tepal, xPos, yPos, 100, flower.getNumberOfTepalPositions(), 7 * (tepalPosition++ * Math.PI) / flower.getNumberOfTepalPositions()));
+		}
+		
 		stigma = stigmaViewObject;
+		
+		stem = new StemViewObject(xPos, yPos, height);
+		
+		flower.addObserver(this);
 	}
 
 	/**

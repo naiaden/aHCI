@@ -11,6 +11,7 @@ import java.awt.dnd.DropTargetAdapter;
 import java.awt.dnd.DropTargetDropEvent;
 
 import nl.naiaden.ahci.poetrist.gui.model.Flower;
+import nl.naiaden.ahci.poetrist.gui.model.FlowerFactory;
 import nl.naiaden.ahci.poetrist.gui.model.Stigma;
 import nl.naiaden.ahci.poetrist.gui.panel.GardenPanel;
 import nl.naiaden.ahci.poetrist.gui.view.FlowerViewObject;
@@ -65,8 +66,11 @@ public class GardenDropTargetListener extends DropTargetAdapter
 				Point dropLocation = arg0.getLocation();
 
 				System.out.println("[GardenDropTargetListener#drop] Seed (" + seed.getWord().getWord() + ") dropped in Garden!");
-				FlowerViewObject flower = new FlowerViewObject(new Flower(new Stigma(seed.getWord())), dropLocation.getX(), dropLocation.getY(), 150, 7);
+//				FlowerViewObject flower = new FlowerViewObject(new Flower(new Stigma(seed.getWord())), dropLocation.getX(), dropLocation.getY(), 150, 7);
+				FlowerViewObject flower = new FlowerViewObject(FlowerFactory.createFlower(seed.getWord()), dropLocation.getX(), dropLocation.getY(), 150, 7);
 				dropPanel.addFlower(flower);
+				
+				System.out.println("Flower: " + flower.getFlower().getStigma().getWordColor().getWord().getWord() + " [" + flower.getFlower().getTepals().size() + "]");
 
 				arg0.dropComplete(true);
 				return;

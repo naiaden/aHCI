@@ -64,7 +64,7 @@ public class NRCEmotionLexiconReader implements LexiconReader
 			String[] elements = line.split("\t");
 			if (elements.length > 2)
 			{
-				AssociationFactory.addWordEmotion(new WordEmotion(new Word(elements[0]), new Emotion(elements[1]), Integer.parseInt(elements[2])));
+				AssociationFactory.addWordEmotion(new WordEmotion(new Word(elements[0]), new Emotion(elements[1]), Boolean.getBoolean(elements[2])));
 			}
 		}
 	}

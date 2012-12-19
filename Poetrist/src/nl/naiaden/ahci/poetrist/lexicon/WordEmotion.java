@@ -19,7 +19,7 @@ public class WordEmotion implements LexiconEntry, Serializable
 	private final Word word;
 	private final Emotion emotion;
 
-	private int score;
+	private boolean score;
 
 	public WordEmotion(Word word, Emotion emotion)
 	{
@@ -27,7 +27,7 @@ public class WordEmotion implements LexiconEntry, Serializable
 		this.emotion = emotion;
 	}
 
-	public WordEmotion(Word word, Emotion emotion, int score)
+	public WordEmotion(Word word, Emotion emotion, boolean score)
 	{
 		this.word = word;
 		this.emotion = emotion;
@@ -45,7 +45,7 @@ public class WordEmotion implements LexiconEntry, Serializable
 		return emotion;
 	}
 
-	public int getScore()
+	public boolean getScore()
 	{
 		return score;
 	}
