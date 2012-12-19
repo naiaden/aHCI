@@ -1,8 +1,10 @@
 package nl.naiaden.ahci.poetrist.stringtoemotion;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import nl.naiaden.ahci.poetrist.lexicon.Entry;
+import nl.naiaden.ahci.poetrist.lexicon.WordEmotion;
 
 /**
  * contains the magnitude of the emotion in a poem, the order of the magnitude is 
@@ -14,7 +16,7 @@ public class Emotions
 {
 	private double [] magnitudes ;			//the magnitudes for the emotionTypes
 	private double meanMagnitude;			//the mean magnitude if we want to normalize
-	private int numberAddedEmotions;		//how many emotions have been added to this poem
+	private int numberAddedWords;		//how many emotions have been added to this poem
 	public final int nEmotionTypes = 10;
 	
 	public enum EmotionTypes {
@@ -36,7 +38,7 @@ public class Emotions
 	public Emotions() {
 		magnitudes = new double [nEmotionTypes];
 		meanMagnitude = 0;
-		numberAddedEmotions =0;
+		numberAddedWords =0;
 	}
 	
 	//TODO: add een functie waarmee je een hele lijst entries kan geven
@@ -46,17 +48,22 @@ public class Emotions
 	 * @param newMagnitudes: a list of booleans where each index corresponds to the emotion
 	 * in EmotionTypes
 	 */
-	public void addMagnitudes(Entry entry) {
-		ArrayList<Boolean> newMagnitudes = entry.getAssociations();	//TODO: check of deze functie goed de MEAN berekent...
+	public void addMagnitudes(List<WordEmotion> wordEmotions) {
 		double total=0;
-		for(int i=0; i < nEmotionTypes;i++) {
-			if(newMagnitudes.get(i)){
+		for(WordEmotion w:wordEmotions) {
+			if(w.getScore()){
 				total++;
-				magnitudes[i] = (numberAddedEmotions * magnitudes[i] + 1)/(numberAddedEmotions+1);
+				for(int i=0; i < nEmotionTypes;i++)
+				{
+					System.out.println("an emotion: " + w.getEmotion().toString());
+					if(w.getEmotion().toString() == EmotionTypes.values()[i].toString())
+						magnitudes[i] = magnitudes[i] + 1;
+				}
 			}
 		}
-		meanMagnitude = (meanMagnitude*numberAddedEmotions + total)/(numberAddedEmotions+1);
-		numberAddedEmotions++;
+		meanMagnitude = (meanMagnitude*numberAddedWords + total)/(numberAddedWords+1);
+		numberAddedWords++;
+		
 	}
 	
 	/**
@@ -71,8 +78,17 @@ public class Emotions
 	 * returns how many times a word has affected the emotions of the poem
 	 * @return
 	 */
-	public int getAddedEmotions() {
-		return numberAddedEmotions;
+	public int getAddedWords() {
+		return numberAddedWords;
+	}
+	
+	/**
+	 * displays the magnitudes of all the emotions
+	 */
+	public void showMagnitudes()
+	{
+		for(int i=0; i < nEmotionTypes;i++)
+			System.out.println("Magnitude of " + EmotionTypes.values()[i].toString() + ": " + new Double(magnitudes[i]).toString());
 	}
 	
 }
