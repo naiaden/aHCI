@@ -34,10 +34,10 @@ public class NRCColorLexiconReader implements LexiconReader
 			System.out.println("Number of senses: " + AssociationFactory.getSenses().size());
 			System.out.println("Number of colors: " + AssociationFactory.getColors().size());
 
-			emotionLexicon.read(new File("doc/NRC-emotion-lexicon-wordlevel-alphabetized-v0.92.txt"));
-			System.out.println("Number of emotions: " + AssociationFactory.getEmotions().size());
-
-			System.out.println("Number of words: " + AssociationFactory.getWords().size());
+//			emotionLexicon.read(new File("doc/NRC-emotion-lexicon-wordlevel-alphabetized-v0.92.txt"));
+//			System.out.println("Number of emotions: " + AssociationFactory.getEmotions().size());
+//
+//			System.out.println("Number of words: " + AssociationFactory.getWords().size());
 
 			//
 

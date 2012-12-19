@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 
 import nl.naiaden.ahci.poetrist.gui.event.ColorChangedEvent;
 import nl.naiaden.ahci.poetrist.gui.event.ColorChangedListener;
+import nl.naiaden.ahci.poetrist.lexicon.AssociationFactory;
+import nl.naiaden.ahci.poetrist.lexicon.ColorName;
 
 /**
  * 
@@ -71,20 +73,11 @@ class ColorSelectionPanel extends JPanel
 	 */
 	private void initialise()
 	{
-		// just temporarily
 
-		addButton(new ColorSelectionButton(Color.GREEN));
-		addButton(new ColorSelectionButton(Color.BLUE));
-		addButton(new ColorSelectionButton(Color.ORANGE));
-		addButton(new ColorSelectionButton(Color.WHITE));
-		addButton(new ColorSelectionButton(Color.RED));
-		addButton(new ColorSelectionButton(Color.PINK));
-		addButton(new ColorSelectionButton(Color.WHITE));
-		addButton(new ColorSelectionButton(Color.YELLOW));
-		addButton(new ColorSelectionButton(Color.GRAY));
-		addButton(new ColorSelectionButton(Color.BLACK));
-
-		//
+		for(ColorName cn : AssociationFactory.getColors())
+		{
+			addButton(new ColorSelectionButton(cn.getColor()));
+		}
 
 		for (ColorSelectionButton button : buttons)
 		{
