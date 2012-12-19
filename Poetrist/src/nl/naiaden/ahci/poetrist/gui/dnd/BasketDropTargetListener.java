@@ -23,7 +23,7 @@ import nl.naiaden.ahci.poetrist.gui.view.TepalViewObject;
  * @author louis
  * 
  */
-public class FlowerPartPotDropTargetListener extends DropTargetAdapter
+public class BasketDropTargetListener extends DropTargetAdapter
 {
 	private final BasketPanel dropPanel;
 	private final DropTarget dropTarget;
@@ -32,10 +32,10 @@ public class FlowerPartPotDropTargetListener extends DropTargetAdapter
 	 * Creates a new listener.
 	 * @param panel The basket panel.
 	 */
-	public FlowerPartPotDropTargetListener(BasketPanel panel)
+	public BasketDropTargetListener(BasketPanel panel)
 	{
 		dropPanel = panel;
-		dropTarget = new DropTarget(dropPanel, DnDConstants.ACTION_COPY, this, true, null);
+		dropTarget = new DropTarget(dropPanel, DnDConstants.ACTION_MOVE, this, true, null);
 	}
 
 	/*
@@ -47,7 +47,6 @@ public class FlowerPartPotDropTargetListener extends DropTargetAdapter
 	@Override
 	public void drop(DropTargetDropEvent arg0)
 	{
-		System.out.println("[FlowerPartPotDropTargetListener#drop]");
 		try
 		{
 			Transferable tr = arg0.getTransferable();
@@ -55,7 +54,7 @@ public class FlowerPartPotDropTargetListener extends DropTargetAdapter
 			if (arg0.isDataFlavorSupported(TransferableFlowerPart.flowerPartFlavor))
 			{
 				FlowerPartViewObject flowerPart = (FlowerPartViewObject) tr.getTransferData(TransferableFlowerPart.flowerPartFlavor);
-				arg0.acceptDrop(DnDConstants.ACTION_COPY);
+				arg0.acceptDrop(DnDConstants.ACTION_MOVE);
 
 				if (flowerPart instanceof StigmaViewObject)
 				{

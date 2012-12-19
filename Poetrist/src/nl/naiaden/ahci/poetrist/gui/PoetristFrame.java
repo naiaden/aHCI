@@ -8,11 +8,17 @@ import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DragGestureEvent;
 import java.awt.dnd.DragGestureListener;
 import java.awt.dnd.DragSource;
+import java.awt.dnd.DragSourceContext;
+import java.awt.dnd.DragSourceDragEvent;
+import java.awt.dnd.DragSourceDropEvent;
+import java.awt.dnd.DragSourceEvent;
+import java.awt.dnd.DragSourceListener;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import nl.naiaden.ahci.poetrist.gui.dnd.FlowerPartPotDropTargetListener;
+import nl.naiaden.ahci.poetrist.gui.dnd.BasketDropTargetListener;
 import nl.naiaden.ahci.poetrist.gui.dnd.GardenDropTargetListener;
 import nl.naiaden.ahci.poetrist.gui.dnd.TransferableFlowerPart;
 import nl.naiaden.ahci.poetrist.gui.event.BasketChangedEvent;
@@ -67,9 +73,9 @@ public class PoetristFrame extends JFrame implements DragGestureListener, Basket
 	{
 		initialiseFrame();
 
-		new FlowerPartPotDropTargetListener(basketPickingPanel);
+		new BasketDropTargetListener(basketPickingPanel);
 		DragSource gardenPanelDragSource = new DragSource();
-		gardenPanelDragSource.createDefaultDragGestureRecognizer(gardenPanel, DnDConstants.ACTION_COPY, this);
+		gardenPanelDragSource.createDefaultDragGestureRecognizer(gardenPanel, DnDConstants.ACTION_MOVE, this);
 
 		new GardenDropTargetListener(gardenPanel);
 		DragSource colorSelectionPanelDragSource = new DragSource();
@@ -170,8 +176,6 @@ public class PoetristFrame extends JFrame implements DragGestureListener, Basket
 
 	}
 
-
-
 	@Override
 	public void dragGestureRecognized(DragGestureEvent arg0)
 	{
@@ -185,21 +189,21 @@ public class PoetristFrame extends JFrame implements DragGestureListener, Basket
 			Cursor cursor = null;
 			JPanel source = (JPanel) arg0.getComponent();
 
-			if (arg0.getDragAction() == DnDConstants.ACTION_COPY)
-			{
-				cursor = DragSource.DefaultCopyDrop;
-			}
+			// if (arg0.getDragAction() == DnDConstants.ACTION_MOVE)
+			// {
+				cursor = DragSource.DefaultMoveDrop;
+			// }
 
 			arg0.startDrag(cursor, new TransferableFlowerPart(selectedFlowerPart));
 		}
 
 	}
 
+
 	@Override
 	public void handleBasketChangedEvent(BasketChangedEvent e)
 	{
-
-		basketBrewingPanel.changeState(e);
+		basketPickingPanel.changeState(e);
 		basketBrewingPanel.changeState(e);
 	}
 

@@ -11,7 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import nl.naiaden.ahci.poetrist.gui.PaintShape;
 import nl.naiaden.ahci.poetrist.gui.Painting;
+import nl.naiaden.ahci.poetrist.gui.panel.GardenPanel;
 import nl.naiaden.ahci.poetrist.lexicon.AssociationFactory;
 import nl.naiaden.ahci.poetrist.lexicon.ColorName;
 
@@ -22,6 +27,42 @@ import nl.naiaden.ahci.poetrist.lexicon.ColorName;
  */
 public class Painter
 {
+	/**
+	 * Create the GUI and show it.
+	 */
+	private static void createAndShowGUI()
+	{
+		JFrame frame = new JFrame("PainterDemo");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		JPanel panel = new JPanel();
+
+		Painter painter = new Painter();
+		Painting painting = painter.paint(400, 300);
+
+
+
+		frame.setSize(400, 300);
+		frame.setVisible(true);
+
+		frame.getContentPane().add(painting);
+		// painting.show(frame.getContentPane().getGraphics());
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args)
+	{
+		javax.swing.SwingUtilities.invokeLater(new Runnable()
+		{
+			public void run()
+			{
+				createAndShowGUI();
+			}
+		});
+	}
+
 	private List<ColorDistribution> colorDistributions = null;
 
 	public Painter()
@@ -73,7 +114,7 @@ public class Painter
 		return random;
 	}
 
-	public Painting paint(Graphics graphics, double width, double height)
+	public Painting paint(double width, double height)
 	{
 		Painting painting = new Painting(width, height);
 
@@ -89,6 +130,7 @@ public class Painter
 				double w = randomFromTo(width / 6, width / 3);
 				double h = randomFromTo(height / 6, height / 3);
 				Ellipse2D ellipse = new Ellipse2D.Double(x, y, w, h);
+				painting.addPaintInstruction(new PaintShape(ellipse));
 			} else
 			{
 				Polygon quadrilateral = new Polygon();
@@ -96,6 +138,7 @@ public class Painter
 				{
 					quadrilateral.addPoint(r.nextInt((int) width), r.nextInt((int) height));
 				}
+				painting.addPaintInstruction(new PaintShape(quadrilateral));
 			}
 		}
 

@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import nl.naiaden.ahci.poetrist.gui.Painting;
+
 /**
  * @author louis
  *
@@ -28,12 +30,22 @@ public class GalleryPanel extends JPanel
 		return numberOfPaintings;
 	}
 
-	// private List<Painting> paintings = null;
-	//
-	// public GalleryPanel()
-	// {
-	// paintings = new ArrayList<Painting>();
-	// }
+	public boolean addPainting(Painting painting)
+	{
+		return paintings.add(painting);
+	}
+
+	public boolean removePainting(Painting painting)
+	{
+		return paintings.remove(painting);
+	}
+
+	private List<Painting> paintings = null;
+
+	public GalleryPanel()
+	{
+		paintings = new ArrayList<Painting>();
+	}
 
 	/**
 	 * 

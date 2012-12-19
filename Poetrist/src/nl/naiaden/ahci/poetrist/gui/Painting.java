@@ -5,11 +5,15 @@ package nl.naiaden.ahci.poetrist.gui;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.Shape;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import nl.naiaden.ahci.poetrist.PaintInstruction;
 
 import processing.core.PApplet;
 
@@ -22,7 +26,7 @@ public class Painting extends JPanel
 	private double width = 0;
 	private double height = 0;
 
-	private List<Shape> shapes = null;
+	private List<PaintInstruction> paintInstructions = null;
 
 	public double getPaintingWidth()
 	{
@@ -36,18 +40,29 @@ public class Painting extends JPanel
 
 	public Painting(double width, double height)
 	{
-		Graphics g = getGraphics();
-		Graphics2D g2 = (Graphics2D) g;
+		paintInstructions = new ArrayList<PaintInstruction>();
 
-		for (Shape shape : shapes)
+	}
+
+	public void show(Graphics g)
+	{
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+		for (PaintInstruction paintInstruction : paintInstructions)
 		{
-			g2.draw(shape);
+			g2 = paintInstruction.perform(g2);
 		}
 	}
 
-	public boolean addShape(Shape shape)
+	public void paintComponent(Graphics g)
 	{
-		return shapes.add(shape);
+		show(g);
+	}
+
+	public boolean addPaintInstruction(PaintInstruction paintInstruction)
+	{
+		return paintInstructions.add(paintInstruction);
 	}
 
 }
