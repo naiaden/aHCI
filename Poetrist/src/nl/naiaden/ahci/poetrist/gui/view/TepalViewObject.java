@@ -275,4 +275,10 @@ public class TepalViewObject implements FlowerPartViewObject
 		yPosition = location.getY();
 	}
 
+	@Override
+	public String getWord()
+	{
+		return getTepal().getWordColor().getWord().getWord();
+	}
+
 }

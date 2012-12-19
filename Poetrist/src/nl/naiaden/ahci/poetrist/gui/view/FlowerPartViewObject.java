@@ -73,6 +73,14 @@ public interface FlowerPartViewObject extends Observer
 	public boolean setSelectedIfInPosition(Point2D position);
 
 	/**
+	 * The word that the flower part represents.
+	 * 
+	 * @return a one-line one word (or multi-word) representation of the word
+	 *         that is represented by the flower part.
+	 */
+	public String getWord();
+
+	/**
 	 * The string representation of a flower part.
 	 * 
 	 * @return a one-line string representation of the flower part.

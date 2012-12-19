@@ -1,6 +1,7 @@
 package nl.naiaden.ahci.poetrist.gui;
 
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -80,7 +81,6 @@ public class PoetristFrame extends JFrame implements DragGestureListener, Basket
 		new GardenDropTargetListener(gardenPanel);
 		DragSource colorSelectionPanelDragSource = new DragSource();
 		colorSelectionPanelDragSource.createDefaultDragGestureRecognizer(seedSelectionPanel, DnDConstants.ACTION_COPY, this);
-		// new DropTarget(flowerPotPanel, DnDConstants.ACTION_COPY, this);
 
 		this.setSize(700, 700);
 	}

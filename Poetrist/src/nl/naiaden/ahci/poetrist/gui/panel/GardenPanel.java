@@ -1,9 +1,11 @@
 package nl.naiaden.ahci.poetrist.gui.panel;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Label;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -11,8 +13,10 @@ import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import javax.swing.event.MouseInputListener;
 
+import nl.naiaden.ahci.poetrist.gui.FlowerPartToolTip;
 import nl.naiaden.ahci.poetrist.gui.model.Flower;
 import nl.naiaden.ahci.poetrist.gui.model.Stigma;
 import nl.naiaden.ahci.poetrist.gui.model.Tepal;
@@ -70,6 +74,8 @@ public class GardenPanel extends JPanel implements MouseInputListener
 	{
 		flowers = new ArrayList<FlowerViewObject>();
 
+		setPreferredSize(new Dimension(600, 600));
+
 		revalidate();
 		repaint();
 
@@ -119,11 +125,22 @@ public class GardenPanel extends JPanel implements MouseInputListener
 
 	}
 
+	private long lastHover = 0;
+
 	@Override
 	public void mouseMoved(MouseEvent e)
 	{
-		// TODO Auto-generated method stub
+		// lastHover = System.currentTimeMillis();
+		FlowerPartViewObject hoverOnFlower = selectedFlowerPart(e.getPoint());
+		if (hoverOnFlower != null)
+		{
+			toolTip = new FlowerPartToolTip(e.getPoint(), hoverOnFlower);
+		} else
+		{
+			toolTip = null;
+		}
 
+		repaint();
 	}
 
 	@Override
@@ -167,9 +184,16 @@ public class GardenPanel extends JPanel implements MouseInputListener
 			flower.paint(g);
 		}
 
+		if (toolTip != null)
+		{
+			g.drawString(toolTip.getLabel(), (int) toolTip.getPosition().getX(), (int) toolTip.getPosition().getY());
+		}
+
 		setOpaque(true);
 
 	}
+
+	private FlowerPartToolTip toolTip = null;
 
 	/**
 	 * Returns the flower part that is selected. Currently the oldest flower
