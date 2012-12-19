@@ -3,12 +3,18 @@
  */
 package nl.naiaden.ahci.poetrist.lexicon;
 
+import java.io.Serializable;
+
 /**
  * @author louis
  *
  */
-public class ColorEmotion
+public class ColorEmotion implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9176831993163187761L;
 	private final ColorName color;
 	private final Emotion emotion;
 

@@ -3,8 +3,9 @@
  */
 package nl.naiaden.ahci.poetrist.gui.model;
 
-import java.awt.Color;
 import java.util.Observable;
+
+import nl.naiaden.ahci.poetrist.lexicon.WordColor;
 
 /**
  * The stigma is the centre of the flower. The stigma of our metaphorical flower
@@ -18,17 +19,17 @@ public class Stigma extends Observable implements FlowerPart
 	/**
 	 * The colour of the stigma.
 	 */
-	private Color stigmaColour;
+	private WordColor wordColor;
 
 	/**
 	 * Creates a stigma with the given colour.
 	 * 
-	 * @param stigmaColour
+	 * @param wordColor
 	 *            The colour of the stigma.
 	 */
-	public Stigma(Color stigmaColour)
+	public Stigma(WordColor wordColor)
 	{
-		this.stigmaColour = stigmaColour;
+		this.wordColor = wordColor;
 	}
 
 	/**
@@ -51,9 +52,7 @@ public class Stigma extends Observable implements FlowerPart
 			return false;
 
 		Stigma rhs = (Stigma) obj;
-		// temporary fix, as colour will be word-colour later
-		return false;
-		// return stigmaColour.equals(rhs.getColour());
+		 return wordColor.equals(rhs.getWordColor());
 	}
 
 	/**
@@ -61,8 +60,8 @@ public class Stigma extends Observable implements FlowerPart
 	 * 
 	 * @return the colour of the stigma.
 	 */
-	public Color getColour()
+	public WordColor getWordColor()
 	{
-		return stigmaColour;
+		return wordColor;
 	}
 }

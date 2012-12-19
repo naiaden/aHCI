@@ -6,6 +6,8 @@ package nl.naiaden.ahci.poetrist.gui.model;
 import java.awt.Color;
 import java.util.Observable;
 
+import nl.naiaden.ahci.poetrist.lexicon.WordColor;
+
 /**
  * The tepal is either a petal or sepal of the flower. Since we do not
  * distinguish between those two, we use the biological name tepal for them. A
@@ -21,14 +23,14 @@ public class Tepal extends Observable implements FlowerPart
 	/**
 	 * The colour of the tepal.
 	 */
-	private Color tepalColour;
+	private WordColor wordColor;
 
 	/**
 	 * Creates a coloured tepal.
 	 */
-	public Tepal(Color tepalColour)
+	public Tepal(WordColor wordColor)
 	{
-		this.tepalColour = tepalColour;
+		this.wordColor = wordColor;
 	}
 
 	/**
@@ -51,9 +53,7 @@ public class Tepal extends Observable implements FlowerPart
 			return false;
 
 		Tepal rhs = (Tepal) obj;
-		// temporary fix, as colour will be word-colour later
-		return false;
-		// return tepalColour.equals(rhs.getColour());
+		return wordColor.equals(rhs.getWordColor());
 	}
 
 	/**
@@ -61,8 +61,8 @@ public class Tepal extends Observable implements FlowerPart
 	 * 
 	 * @return The tepal colour.
 	 */
-	public Color getColour()
+	public WordColor getWordColor()
 	{
-		return tepalColour;
+		return wordColor;
 	}
 }

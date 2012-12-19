@@ -3,13 +3,19 @@
  */
 package nl.naiaden.ahci.poetrist.lexicon;
 
+import java.io.Serializable;
+
 /**
  * @author Ding
  * @author louis
  * 
  */
-public class WordSense implements LexiconEntry
+public class WordSense implements LexiconEntry, Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -705698695263899059L;
 	private final Word word;
 	private final Sense sense;
 

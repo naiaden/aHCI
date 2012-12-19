@@ -61,7 +61,7 @@ public class FlowerPartPotDropTargetListener extends DropTargetAdapter
 				{
 					StigmaViewObject stigma = (StigmaViewObject) flowerPart;
 
-					System.out.println("Dropped stigma into bucket! [" + stigma.getStigma().getColour() + "]");
+					System.out.println("Dropped stigma into bucket! [" + stigma.getStigma().getWordColor() + "]");
 
 					BasketPanel fpp = (BasketPanel) dropPanel;
 					Stigma originalStigma = stigma.getStigma();
@@ -73,7 +73,7 @@ public class FlowerPartPotDropTargetListener extends DropTargetAdapter
 				{
 					TepalViewObject tepal = (TepalViewObject) flowerPart;
 
-					System.out.println("Dropped tepal into bucket! [" + tepal.getTepal().getColour() + "]");
+					System.out.println("Dropped tepal into bucket! [" + tepal.getTepal().getWordColor() + "]");
 
 					BasketPanel fpp = (BasketPanel) dropPanel;
 					Tepal originalTepal = tepal.getTepal();

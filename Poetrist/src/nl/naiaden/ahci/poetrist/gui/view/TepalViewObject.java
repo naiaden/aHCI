@@ -151,7 +151,7 @@ public class TepalViewObject implements FlowerPartViewObject
 
 		double fadeOut = 40;
 
-		Color tepalColor = tepal.getColour();
+		Color tepalColor = tepal.getWordColor().getColor().getColor();
 
 		GradientPaint gp = new GradientPaint(new Point2D.Double(xPosition, yPosition), tepalColor.darker().darker(), new Point2D.Double(xPosition + fadeOut
 				* Math.cos(rotation + Math.PI * .25), yPosition + fadeOut * Math.sin(rotation + Math.PI * .25)), tepalColor);
@@ -265,7 +265,7 @@ public class TepalViewObject implements FlowerPartViewObject
 	@Override
 	public String toString()
 	{
-		return "Tepal with colour: " + getTepal().getColour();
+		return "Tepal with colour: " + getTepal().getWordColor().toString();
 	}
 
 	@Override

@@ -3,13 +3,19 @@
  */
 package nl.naiaden.ahci.poetrist.lexicon;
 
+import java.io.Serializable;
+
 /**
  * @author Ding
  * @author louis
  * 
  */
-public class Sense
+public class Sense implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2175656299958194271L;
 	private String sense;
 
 	public Sense(String sense)

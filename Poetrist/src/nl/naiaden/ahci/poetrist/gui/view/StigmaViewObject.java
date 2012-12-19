@@ -89,7 +89,7 @@ public class StigmaViewObject implements FlowerPartViewObject
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-		g2.setColor(stigma.getColour());
+		g2.setColor(stigma.getWordColor().getColor().getColor());
 		g2.fill(getShape());
 
 		if (isSelected)
@@ -129,7 +129,7 @@ public class StigmaViewObject implements FlowerPartViewObject
 	@Override
 	public String toString()
 	{
-		return "Stigma with colour: " + getStigma().getColour();
+		return "Stigma with colour: " + getStigma().getWordColor();
 	}
 
 	@Override

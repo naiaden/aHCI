@@ -3,13 +3,19 @@
  */
 package nl.naiaden.ahci.poetrist.lexicon;
 
+import java.io.Serializable;
+
 /**
  * @author Ding
  * @author louis
  * 
  */
-public class WordEmotion implements LexiconEntry
+public class WordEmotion implements LexiconEntry, Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6828962503265719020L;
 	private final Word word;
 	private final Emotion emotion;
 

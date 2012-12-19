@@ -11,7 +11,6 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JList;
 
 import nl.naiaden.ahci.poetrist.gui.view.SeedViewObject;
-import nl.naiaden.ahci.poetrist.lexicon.OldWord;
 
 /**
  * @author louis
@@ -36,8 +35,8 @@ public class SeedCellListRenderer extends DefaultListCellRenderer implements Dra
 	{
 
 		this.seed = (SeedViewObject) value;
-		setText(seed.getWord().word);
-		setBackground(seed.getWord().color);
+		setText(seed.getWord().getWord().toString());
+		setBackground(seed.getWord().getColor().getColor());
 
 		
 		return this;

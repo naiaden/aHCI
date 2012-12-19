@@ -3,15 +3,19 @@
  */
 package nl.naiaden.ahci.poetrist.lexicon;
 
-import nl.naiaden.ahci.poetrist.gui.model.Flower;
+import java.io.Serializable;
 
 /**
  * @author Ding
  * @author louis
  * 
  */
-public class Word implements LexiconEntry
+public class Word implements LexiconEntry, Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7978153224030276938L;
 	private String word;
 
 	public Word(String word)

@@ -3,15 +3,19 @@
  */
 package nl.naiaden.ahci.poetrist.lexicon;
 
-import nl.naiaden.ahci.poetrist.gui.model.Flower;
+import java.io.Serializable;
 
 /**
  * @author Ding
  * @author louis
  * 
  */
-public class Emotion implements LexiconEntry
+public class Emotion implements LexiconEntry, Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2750753478329468836L;
 	private String emotion;
 
 	public Emotion(String emotion)

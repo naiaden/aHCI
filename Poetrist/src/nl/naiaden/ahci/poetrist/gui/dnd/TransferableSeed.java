@@ -11,7 +11,6 @@ import java.io.IOException;
 import javax.swing.JLabel;
 
 import nl.naiaden.ahci.poetrist.gui.view.SeedViewObject;
-import nl.naiaden.ahci.poetrist.lexicon.OldWord;
 
 /**
  * The transfer representation for a seed.

@@ -4,6 +4,7 @@
 package nl.naiaden.ahci.poetrist.lexicon;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 import nl.naiaden.ahci.poetrist.PoetristColor;
 
@@ -12,8 +13,12 @@ import nl.naiaden.ahci.poetrist.PoetristColor;
  * @author louis
  * 
  */
-public class ColorName implements LexiconEntry
+public class ColorName implements LexiconEntry, Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1698591244654907008L;
 	private Color color;
 	
 	public ColorName(String colorName)

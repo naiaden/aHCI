@@ -29,7 +29,9 @@ import nl.naiaden.ahci.poetrist.gui.dnd.TransferableSeed;
 import nl.naiaden.ahci.poetrist.gui.event.ColorChangedEvent;
 import nl.naiaden.ahci.poetrist.gui.event.ColorChangedListener;
 import nl.naiaden.ahci.poetrist.gui.view.SeedViewObject;
-import nl.naiaden.ahci.poetrist.lexicon.OldWord;
+import nl.naiaden.ahci.poetrist.lexicon.ColorName;
+import nl.naiaden.ahci.poetrist.lexicon.Word;
+import nl.naiaden.ahci.poetrist.lexicon.WordColor;
 
 /**
  * The seed list panel shows the content of a color, i.e. all the words that are
@@ -102,58 +104,58 @@ class SeedListPanel extends JPanel implements ColorChangedListener, DragSourceLi
 		// in a later stage these will be requested from the WordColorFactory
 
 		List<SeedViewObject> green = new ArrayList<SeedViewObject>();
-		green.add(new SeedViewObject(new OldWord("garden", Color.GREEN)));
+		green.add(new SeedViewObject(new WordColor(new Word("garden"), new ColorName("green"))));
 		colorWordMap.put(Color.GREEN, green);
 
 		List<SeedViewObject> blue = new ArrayList<SeedViewObject>();
-		blue.add(new SeedViewObject(new OldWord("ditty", Color.BLUE)));
+		blue.add(new SeedViewObject(new WordColor(new Word("ditty"), new ColorName("BLUE"))));
 		colorWordMap.put(Color.BLUE, blue);
 
 		List<SeedViewObject> orange = new ArrayList<SeedViewObject>();
-		orange.add(new SeedViewObject(new OldWord("due", Color.ORANGE)));
+		orange.add(new SeedViewObject(new WordColor(new Word("due"), new ColorName("ORANGE"))));
 		colorWordMap.put(Color.ORANGE, orange);
 
 		List<SeedViewObject> white = new ArrayList<SeedViewObject>();
-		white.add(new SeedViewObject(new OldWord("anterior", Color.WHITE)));
-		white.add(new SeedViewObject(new OldWord("herewith", Color.WHITE)));
-		white.add(new SeedViewObject(new OldWord("transcendental", Color.WHITE)));
-		white.add(new SeedViewObject(new OldWord("tableware", Color.WHITE)));
+		white.add(new SeedViewObject(new WordColor(new Word("anterior"), new ColorName("WHITE"))));
+		white.add(new SeedViewObject(new WordColor(new Word("herewith"), new ColorName("WHITE"))));
+		white.add(new SeedViewObject(new WordColor(new Word("transcendental"), new ColorName("WHITE"))));
+		white.add(new SeedViewObject(new WordColor(new Word("tableware"), new ColorName("WHITE"))));
 		colorWordMap.put(Color.WHITE, white);
 
 		List<SeedViewObject> black = new ArrayList<SeedViewObject>();
-		black.add(new SeedViewObject(new OldWord("motive", Color.BLACK)));
-		black.add(new SeedViewObject(new OldWord("bomer", Color.BLACK)));
-		black.add(new SeedViewObject(new OldWord("regrettable", Color.BLACK)));
-		black.add(new SeedViewObject(new OldWord("curse", Color.BLACK)));
+		black.add(new SeedViewObject(new WordColor(new Word("motive"), new ColorName("BLACK"))));
+		black.add(new SeedViewObject(new WordColor(new Word("bomer"), new ColorName("BLACK"))));
+		black.add(new SeedViewObject(new WordColor(new Word("regrettable"), new ColorName("BLACK"))));
+		black.add(new SeedViewObject(new WordColor(new Word("curse"), new ColorName("BLACK"))));
 		colorWordMap.put(Color.BLACK, black);
 
 		List<SeedViewObject> gray = new ArrayList<SeedViewObject>();
-		gray.add(new SeedViewObject(new OldWord("saucepan", Color.GRAY)));
-		gray.add(new SeedViewObject(new OldWord("coincide", Color.GRAY)));
-		gray.add(new SeedViewObject(new OldWord("aerodynamics", Color.GRAY)));
+		gray.add(new SeedViewObject(new WordColor(new Word("saucepan"), new ColorName("GRAY"))));
+		gray.add(new SeedViewObject(new WordColor(new Word("coincide"), new ColorName("GRAY"))));
+		gray.add(new SeedViewObject(new WordColor(new Word("aerodynamics"), new ColorName("GRAY"))));
 		colorWordMap.put(Color.GRAY, gray);
 
 		List<SeedViewObject> yellow = new ArrayList<SeedViewObject>();
-		yellow.add(new SeedViewObject(new OldWord("motive", Color.YELLOW)));
-		yellow.add(new SeedViewObject(new OldWord("ditty", Color.YELLOW)));
+		yellow.add(new SeedViewObject(new WordColor(new Word("motive"), new ColorName("YELLOW"))));
+		yellow.add(new SeedViewObject(new WordColor(new Word("ditty"), new ColorName("YELLOW"))));
 		colorWordMap.put(Color.YELLOW, yellow);
 
 		List<SeedViewObject> brown = new ArrayList<SeedViewObject>();
 		Color brownColor = new Color(156, 93, 82);
-		brown.add(new SeedViewObject(new OldWord("saddle", brownColor)));
-		brown.add(new SeedViewObject(new OldWord("telephone", brownColor)));
+		brown.add(new SeedViewObject(new WordColor(new Word("saddle"), new ColorName("brown"))));
+		brown.add(new SeedViewObject(new WordColor(new Word("telephone"), new ColorName("brown"))));
 		colorWordMap.put(Color.WHITE, white);
 
 		List<SeedViewObject> pink = new ArrayList<SeedViewObject>();
-		pink.add(new SeedViewObject(new OldWord("coincide", Color.PINK)));
-		pink.add(new SeedViewObject(new OldWord("buss", Color.PINK)));
+		pink.add(new SeedViewObject(new WordColor(new Word("coincide"), new ColorName("PINK"))));
+		pink.add(new SeedViewObject(new WordColor(new Word("buss"), new ColorName("PINK"))));
 		colorWordMap.put(Color.PINK, pink);
 
 		List<SeedViewObject> red = new ArrayList<SeedViewObject>();
-		red.add(new SeedViewObject(new OldWord("assail", Color.RED)));
-		red.add(new SeedViewObject(new OldWord("wrap", Color.RED)));
-		red.add(new SeedViewObject(new OldWord("mangle", Color.RED)));
-		red.add(new SeedViewObject(new OldWord("buss", Color.RED)));
+		red.add(new SeedViewObject(new WordColor(new Word("assail"), new ColorName("RED"))));
+		red.add(new SeedViewObject(new WordColor(new Word("wrap"), new ColorName("RED"))));
+		red.add(new SeedViewObject(new WordColor(new Word("mangle"), new ColorName("RED"))));
+		red.add(new SeedViewObject(new WordColor(new Word("buss"), new ColorName("RED"))));
 		colorWordMap.put(Color.RED, red);
 
 		//

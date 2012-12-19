@@ -3,12 +3,14 @@
  */
 package nl.naiaden.ahci.poetrist.lexicon;
 
+import java.io.Serializable;
+
 /**
  * @author Ding
  * @author louis
  * 
  */
-public class WordColor implements LexiconEntry
+public class WordColor implements LexiconEntry, Serializable
 {
 	private final Word word;
 	private final ColorName color;
