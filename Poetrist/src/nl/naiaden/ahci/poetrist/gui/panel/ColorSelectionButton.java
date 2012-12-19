@@ -39,6 +39,7 @@ public class ColorSelectionButton extends JButton
 
 		setOpaque(true);
 		setBackground(color);
+		setBorderPainted(false);
 	}
 
 	/**
