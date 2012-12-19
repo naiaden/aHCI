@@ -1,4 +1,4 @@
-package nl.naiaden.ahci.poetrist;
+package nl.naiaden.ahci.poetrist.gui.painting;
 
 import java.awt.Color;
 

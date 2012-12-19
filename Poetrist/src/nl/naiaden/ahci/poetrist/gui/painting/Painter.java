@@ -1,10 +1,9 @@
 /**
  * 
  */
-package nl.naiaden.ahci.poetrist;
+package nl.naiaden.ahci.poetrist.gui.painting;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Polygon;
 import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
@@ -14,9 +13,6 @@ import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import nl.naiaden.ahci.poetrist.gui.PaintShape;
-import nl.naiaden.ahci.poetrist.gui.Painting;
-import nl.naiaden.ahci.poetrist.gui.panel.GardenPanel;
 import nl.naiaden.ahci.poetrist.lexicon.AssociationFactory;
 import nl.naiaden.ahci.poetrist.lexicon.ColorName;
 
@@ -46,7 +42,6 @@ public class Painter
 		frame.setVisible(true);
 
 		frame.getContentPane().add(painting);
-		// painting.show(frame.getContentPane().getGraphics());
 	}
 
 	/**
@@ -103,13 +98,13 @@ public class Painter
 		}
 	}
 
-	private double randomFromTo(double from, double to)
+	private float randomFromTo(double from, double to)
 	{
-		double random = new Random().nextDouble();
+		float random = new Random().nextFloat();
 		double difference = Math.abs(to - from);
 
 		random *= difference;
-		random -= Math.min(from, to);
+		random += Math.min(from, to);
 
 		return random;
 	}
@@ -120,8 +115,17 @@ public class Painter
 
 		Random r = new Random();
 
+		int backgroundColor = Color.HSBtoRGB(backgroundHue(), randomFromTo(90, 100), randomFromTo(75, 100));
+		painting.setCanvasColor(new Color(backgroundColor));
+		
 		for (int i = 0; i < 200; ++i)
 		{
+			int fillColor = Color.HSBtoRGB(shapeHue(), randomFromTo(90, 100), randomFromTo(75, 100));
+			painting.addPaintInstruction(new ChangeColor(new Color(fillColor)));
+			
+			float alpha = randomFromTo(90, 100) / 100;
+			painting.addPaintInstruction(new SetTransparency(alpha));
+
 			if (r.nextDouble() < 0.5)
 			{
 
@@ -145,36 +149,39 @@ public class Painter
 		return painting;
 	}
 
-	private double backgroundHue(List<Double> colors, List<Double> perc)
+	private float backgroundHue()
 	{
-		double hue = 0;
+		float hue = 0;
 
-		int numberOfColors = AssociationFactory.getColors().size();
-
-		if (colors.size() == perc.size() && colors.size() == numberOfColors)
+		if (col.length == perc.length)
 		{
-			for (int i = 0; i < numberOfColors; ++i)
+			for (int i = 0; i < col.length; ++i)
 			{
-				hue += (colors.get(i) * perc.get(i));
+				hue += (perc[i] * col[i]);
 			}
 		}
 
 		return hue;
 	}
 
-	private double shapeHue(List<Double> colors, List<Double> perc)
+	private float[] col =
+	{ 0, 45, 90, 135, 180, 225, 270, 315 };
+	private float[] perc =
+	{ 0.125f, 0.125f, 0.125f, 0.125f, 0.125f, 0.125f, 0.125f, 0.125f };
+
+	private float shapeHue()
 	{
 		Random r = new Random();
 		double randomValue = r.nextDouble();
 		
-		if (colors.size() == perc.size())
+		if (col.length == perc.length)
 		{
-			for (int i = 0; i < colors.size(); ++i)
+			for (int i = 0; i < col.length; ++i)
 			{
-				if (randomValue < perc.get(i)) { return colors.get(i); }
+				if (randomValue < perc[i]) { return col[i]; }
 			}
 		}
 		
-		return 0;
+		return 0f;
 	}
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import nl.naiaden.ahci.poetrist.gui.Painting;
+import nl.naiaden.ahci.poetrist.gui.painting.Painting;
 
 /**
  * @author louis
