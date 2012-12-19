@@ -1,8 +1,14 @@
 package nl.naiaden.ahci.poetrist.stringtoemotion;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+import nl.naiaden.ahci.poetrist.lexicon.AssociationFactory;
 import nl.naiaden.ahci.poetrist.lexicon.LexiconReader;
+import nl.naiaden.ahci.poetrist.lexicon.NRCEmotionLexiconReader;
+import nl.naiaden.ahci.poetrist.lexicon.Word;
+import nl.naiaden.ahci.poetrist.lexicon.WordEmotion;
 
 /**
  * accepts the raw poem, filters out the punctuationm and takes all the relevant words and makes an Emotions class which contains
@@ -16,13 +22,15 @@ public class StringToEmotion
 	String [] wordList;
 	Emotions emotions;
 	LexiconReader lr;
+	private  List <Word> words = new ArrayList<Word>();
 	/**
 	 * constructor which is going to be actually used, input is the raw poem
 	 * @param text
 	 */
 	public StringToEmotion(String text) {
 		emotions = new Emotions();
-		lr = new LexiconReader();
+		lr = new NRCEmotionLexiconReader();
+		words = AssociationFactory.getWords();
 		wordList = textToWords(text);
 		determineEmotions();
 	}
@@ -31,12 +39,14 @@ public class StringToEmotion
 	 * a testing constructor with a preset proem, simply for testing
 	 */
 	public StringToEmotion() 	{
-		String text = "There once was an abbreviated donut, it was lonesome. Future work into a random poem, madness and uncertainty";
+		String text = "firstborn iniquity";
 		
 		emotions = new Emotions();
-		lr = new LexiconReader();
+		lr = new NRCEmotionLexiconReader();
+		words = AssociationFactory.getWords();
 		wordList = textToWords(text);
 		determineEmotions();
+		emotions.showMagnitudes();
 		
 	}
 	
@@ -57,12 +67,17 @@ public class StringToEmotion
 	 * emotions class.
 	 */
 	private void determineEmotions() {
+		System.out.println("determining emotions");
 		for(String word:wordList)
-			if(lr.lex_emotion.contains(word))
-			{
-				System.out.println("A relevant word: " + word);
-				emotions.addMagnitudes(lr.lex_emotion.get(word));
-			}
+			for(Word w: words)
+				if(word.equals(w.getWord()))
+				{
+					System.out.println("A relevant word: " + word);
+					emotions.addMagnitudes(AssociationFactory.getWordEmotions(w));
+					for(WordEmotion ww: AssociationFactory.getWordEmotions(w))
+						System.out.println(ww.toString());
+					
+				}
 			
 	}
 	
