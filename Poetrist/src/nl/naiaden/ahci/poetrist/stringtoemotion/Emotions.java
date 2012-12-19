@@ -3,6 +3,7 @@ package nl.naiaden.ahci.poetrist.stringtoemotion;
 import java.util.ArrayList;
 import java.util.List;
 
+import nl.naiaden.ahci.poetrist.lexicon.Emotion;
 import nl.naiaden.ahci.poetrist.lexicon.Entry;
 import nl.naiaden.ahci.poetrist.lexicon.WordEmotion;
 
@@ -20,16 +21,16 @@ public class Emotions
 	public final int nEmotionTypes = 10;
 	
 	public enum EmotionTypes {
-		ANGER, 
-		ANTICIPATION, 
-		DISGUST, 
-		FEAR, 
-		JOY, 
-		NEGATIVE,
-		POSITIVE,
-		SADNESS,
-		SURPRISE,
-		TRUST
+		anger, 
+		anticipation, 
+		disgust, 
+		fear, 
+		joy, 
+		negative,
+		positive,
+		sadness,
+		surprise,
+		trust
 	}
 	
 	/**
@@ -54,11 +55,8 @@ public class Emotions
 			if(w.getScore()){
 				total++;
 				for(int i=0; i < nEmotionTypes;i++)
-				{
-					System.out.println("an emotion: " + w.getEmotion().toString());
-					if(w.getEmotion().toString() == EmotionTypes.values()[i].toString())
+					if(w.getEmotion().toString().equals( EmotionTypes.values()[i].toString()))
 						magnitudes[i] = magnitudes[i] + 1;
-				}
 			}
 		}
 		meanMagnitude = (meanMagnitude*numberAddedWords + total)/(numberAddedWords+1);
@@ -87,8 +85,25 @@ public class Emotions
 	 */
 	public void showMagnitudes()
 	{
+		System.out.println("Mean magnitude = " + new Double(meanMagnitude).toString());
 		for(int i=0; i < nEmotionTypes;i++)
 			System.out.println("Magnitude of " + EmotionTypes.values()[i].toString() + ": " + new Double(magnitudes[i]).toString());
+	}
+	
+	public double[] getMagnitudes() {
+		return magnitudes;
+	}
+	
+	/**
+	 * returns the magnitude of the type of emotion which is inputted
+	 * @param emotion
+	 * @return
+	 */
+	public double getMagnitude(EmotionTypes emotion) {
+		for(int i=0; i < EmotionTypes.values().length; i++)
+			if(EmotionTypes.values()[i].equals(emotion))
+				return magnitudes[i];
+		return (Double) null;
 	}
 	
 }
