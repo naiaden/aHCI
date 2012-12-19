@@ -12,7 +12,6 @@ import nl.naiaden.ahci.poetrist.gui.PoetristFrame;
 import nl.naiaden.ahci.poetrist.lexicon.AssociationFactory;
 import nl.naiaden.ahci.poetrist.lexicon.NRCColorLexiconReader;
 import nl.naiaden.ahci.poetrist.lexicon.NRCEmotionLexiconReader;
-import nl.naiaden.ahci.poetrist.stringtoemotion.StringToEmotion;
 
 /**
  * @author louis

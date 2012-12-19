@@ -1,4 +1,4 @@
-package nl.naiaden.ahci.poetrist.stringtoemotion;
+package nl.naiaden.ahci.poetrist.assocations;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,13 +1,16 @@
 package nl.naiaden.ahci.poetrist.gui.panel;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.JTextPane;
+
+import nl.naiaden.ahci.poetrist.assocations.Emotions;
+import nl.naiaden.ahci.poetrist.assocations.StringToEmotion;
 
 /**
  * 
@@ -21,21 +24,32 @@ public class PoemPanel extends JPanel
 	 */
 	private static final long serialVersionUID = -916168874765976242L;
 
-	public PoemPanel(){
-		JTextArea input =  new JTextArea(5,25);
-		JButton submit = new JButton("submit");
-		add(input);
-		add(submit);
-	}
-	public class TextFieldListener implements ActionListener{
+	private JTextPane inputPane = null;
+	private JButton submitButton = null;
 
-		@Override
-		public void actionPerformed(ActionEvent arg0)
+	public PoemPanel()
+	{
+
+		setLayout(new BorderLayout());
+		setPreferredSize(new Dimension(300, 200));
+
+		inputPane = new JTextPane();
+		submitButton = new JButton("submit");
+		submitButton.addActionListener(new ActionListener()
 		{
-			// TODO Auto-generated method stub
 			
-		}
-		
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				StringToEmotion emotionAnalyzer = new StringToEmotion(inputPane.getText());
+				
+				Emotions emotions = emotionAnalyzer.getEmotions();
+
+			}
+		});
+
+		add(inputPane, BorderLayout.CENTER);
+		add(submitButton, BorderLayout.SOUTH);
 	}
-	
+
 }
