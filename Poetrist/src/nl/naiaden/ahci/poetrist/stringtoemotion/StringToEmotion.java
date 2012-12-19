@@ -19,8 +19,8 @@ import nl.naiaden.ahci.poetrist.lexicon.WordEmotion;
 public class StringToEmotion
 {
 	//the list of words that are in the poem
-	String [] wordList;
-	Emotions emotions;
+	private String [] wordList;
+	private Emotions emotions;
 	LexiconReader lr;
 	private  List <Word> words = new ArrayList<Word>();
 	/**
@@ -39,15 +39,14 @@ public class StringToEmotion
 	 * a testing constructor with a preset proem, simply for testing
 	 */
 	public StringToEmotion() 	{
-		String text = "firstborn iniquity";
+		String text = "firstborn iniquity loyalty stab";
 		
 		emotions = new Emotions();
 		lr = new NRCEmotionLexiconReader();
 		words = AssociationFactory.getWords();
 		wordList = textToWords(text);
 		determineEmotions();
-		emotions.showMagnitudes();
-		
+		//emotions.showMagnitudes();
 	}
 	
 	/**
@@ -72,10 +71,10 @@ public class StringToEmotion
 			for(Word w: words)
 				if(word.equals(w.getWord()))
 				{
-					System.out.println("A relevant word: " + word);
+					//System.out.println("A relevant word: " + word);	//for visualizing which words get chosen
 					emotions.addMagnitudes(AssociationFactory.getWordEmotions(w));
-					for(WordEmotion ww: AssociationFactory.getWordEmotions(w))
-						System.out.println(ww.toString());
+					//for(WordEmotion ww: AssociationFactory.getWordEmotions(w))
+					//	System.out.println(ww.toString());
 					
 				}
 			
@@ -87,5 +86,13 @@ public class StringToEmotion
 	 */
 	public String [] getText()	{
 		return wordList;
+	}
+	
+	/**
+	 * returns the emotions class which holds all the information about the magnitudes.
+	 * @return
+	 */
+	public Emotions getEmotions() {
+		return emotions;
 	}
 }
