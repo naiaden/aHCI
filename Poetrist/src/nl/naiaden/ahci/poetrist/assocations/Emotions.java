@@ -8,31 +8,25 @@ import nl.naiaden.ahci.poetrist.lexicon.Entry;
 import nl.naiaden.ahci.poetrist.lexicon.WordEmotion;
 
 /**
- * contains the magnitude of the emotion in a poem, the order of the magnitude is 
- * the same as the order in the enumeration and data set.
+ * contains the magnitude of the emotion in a poem, the order of the magnitude
+ * is the same as the order in the enumeration and data set.
+ * 
  * @author Stef Janssen
- *
+ * 
  */
 public class Emotions
 {
 	// private double [] magnitudes ; //the magnitudes for the emotionTypes
 	private List<WeightedEmotion> weightedEmotions = null;
-	private double meanMagnitude;			//the mean magnitude if we want to normalize
-	private int numberAddedWords;		//how many emotions have been added to this poem
-	
-	public enum EmotionType {
-		anger, 
-		anticipation, 
-		disgust, 
-		fear, 
-		joy, 
-		negative,
-		positive,
-		sadness,
-		surprise,
-		trust
+	private double meanMagnitude; // the mean magnitude if we want to normalize
+	private int numberAddedWords; // how many emotions have been added to this
+									// poem
+
+	public enum EmotionType
+	{
+		anger, anticipation, disgust, fear, joy, negative, positive, sadness, surprise, trust
 	}
-	
+
 	public List<WeightedEmotion> getWeightedEmotions()
 	{
 		return weightedEmotions;
@@ -41,15 +35,16 @@ public class Emotions
 	/**
 	 * constructor of class
 	 */
-	public Emotions() {
+	public Emotions()
+	{
 		weightedEmotions = new ArrayList<WeightedEmotion>();
 		// magnitudes = new double [nEmotionTypes];
 		meanMagnitude = 0;
-		numberAddedWords =0;
+		numberAddedWords = 0;
 	}
-	
-	//TODO: add een functie waarmee je een hele lijst entries kan geven
-	
+
+	// TODO: add een functie waarmee je een hele lijst entries kan geven
+
 	private WeightedEmotion getWeightedEmotion(EmotionType emotion)
 	{
 		for (WeightedEmotion we : weightedEmotions)
@@ -61,20 +56,23 @@ public class Emotions
 	}
 
 	/**
-	 * adds a new word to the list of magnitudes 
-	 * @param newMagnitudes: a list of booleans where each index corresponds to the emotion
-	 * in EmotionType
+	 * adds a new word to the list of magnitudes
+	 * 
+	 * @param newMagnitudes
+	 *            : a list of booleans where each index corresponds to the
+	 *            emotion in EmotionType
 	 */
-	public void addMagnitudes(List<WordEmotion> wordEmotions) {
-		
-		double total=0;
-		
-		for(WordEmotion we: wordEmotions)
+	public void addMagnitudes(List<WordEmotion> wordEmotions)
+	{
+
+		double total = 0;
+
+		for (WordEmotion we : wordEmotions)
 		{
-			if(we.getScore())
+			if (we.getScore())
 			{
 				++total;
-				for(EmotionType emotion : EmotionType.values())
+				for (EmotionType emotion : EmotionType.values())
 				{
 					WeightedEmotion weightedEmotion = getWeightedEmotion(emotion);
 					if (weightedEmotion != null)
@@ -84,8 +82,7 @@ public class Emotions
 				}
 			}
 		}
-		
-		
+
 		// for(WordEmotion w:wordEmotions) {
 		// if(w.getScore()){
 		// total++;
@@ -98,49 +95,62 @@ public class Emotions
 		// }
 		// }
 		// }
-		meanMagnitude = (meanMagnitude*numberAddedWords + total)/(numberAddedWords+1);
+		meanMagnitude = (meanMagnitude * numberAddedWords + total) / (numberAddedWords + 1);
 		numberAddedWords++;
-		
+
 	}
-	
+
 	/**
-	 * returns the mean  of the magnitudes of the emotions
+	 * returns the mean of the magnitudes of the emotions
+	 * 
 	 * @return
 	 */
-	public double getMeanMagnitude() {
+	public double getMeanMagnitude()
+	{
 		return meanMagnitude;
 	}
-	
+
 	/**
 	 * returns how many times a word has affected the emotions of the poem
+	 * 
 	 * @return
 	 */
-	public int getAddedWords() {
+	public int getAddedWords()
+	{
 		return numberAddedWords;
 	}
-	
-	// /**
-	// * displays the magnitudes of all the emotions
-	// */
-	// public void showMagnitudes()
-	// {
-	// System.out.println("Mean magnitude = " + new
-	// Double(meanMagnitude).toString());
-	// for(int i=0; i < nEmotionTypes;i++)
-	// System.out.println("Magnitude of " + EmotionType.values()[i].toString() +
-	// ": " + new Double(magnitudes[i]).toString());
-	// }
-	
+
+	/**
+	 * displays the magnitudes of all the emotions
+	 */
+	public void showMagnitudes()
+	{
+		System.out.println("Mean magnitude = " + new Double(meanMagnitude).toString());
+
+		for (EmotionType et : EmotionType.values())
+		{
+			if (et != null)
+			{
+				WeightedEmotion weightedEmotion = getWeightedEmotion(et);
+				if (weightedEmotion != null)
+					System.out.println("Magnitude of " + et.toString() + ": " + weightedEmotion.getWeight());
+			}
+		}
+
+	}
+
 	// public double[] getMagnitudes() {
 	// return magnitudes;
 	// }
-	
+
 	/**
 	 * returns the magnitude of the type of emotion which is inputted
+	 * 
 	 * @param emotion
 	 * @return
 	 */
-	public double getMagnitude(EmotionType emotion) {
+	public double getMagnitude(EmotionType emotion)
+	{
 		for (WeightedEmotion we : weightedEmotions)
 		{
 			if (we.getEmotionType().equals(emotion)) { return we.getWeight(); }
@@ -151,5 +161,5 @@ public class Emotions
 		// return magnitudes[i];
 		return (Double) null;
 	}
-	
+
 }

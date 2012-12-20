@@ -82,6 +82,7 @@ public class StringToEmotion
 					// System.out.println("A relevant word: " + word); //for
 					// visualizing which words get chosen
 					emotions.addMagnitudes(AssociationFactory.getWordEmotions(w));
+					emotions.showMagnitudes();
 					// for(WordEmotion ww:
 					// AssociationFactory.getWordEmotions(w))
 					// System.out.println(ww.toString());
