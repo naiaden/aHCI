@@ -4,16 +4,13 @@
 package nl.naiaden.ahci.poetrist.assocations;
 
 import java.awt.Color;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.plaf.ListUI;
-
 import nl.naiaden.ahci.poetrist.PoetristColor;
-import nl.naiaden.ahci.poetrist.assocations.Emotions.EmotionTypes;
+import nl.naiaden.ahci.poetrist.assocations.Emotions.EmotionType;
+import nl.naiaden.ahci.poetrist.lexicon.AssociationFactory;
+import nl.naiaden.ahci.poetrist.lexicon.ColorName;
 
 /**
  * @author louis
@@ -22,48 +19,207 @@ import nl.naiaden.ahci.poetrist.assocations.Emotions.EmotionTypes;
 public class EmotionsToColors
 {
 
-	private static double[][] feelingxcolor =
+	public class EmotionColorWeight
 	{
-	{ 2.1, 30.7, 32.4, 5, 5, 2.4, 6.6, 0.5, 2.3, 2.5, 9.9 },
-	{ 4.5, 31.8, 25, 3.5, 6.9, 3, 6.1, 1.3, 2.3, 3.3, 11.8 },
-	{ 16.2, 7.5, 11.5, 16.2, 10.7, 9.5, 5.7, 5.9, 3.1, 4.9, 8.4 },
-	{ 22, 6.3, 8.4, 14.2, 8.3, 14.4, 5.9, 5.5, 4.9, 3.8, 5.8 },
-	{ 11, 13.4, 21, 8.3, 13.5, 5.2, 3.4, 5.2, 4.1, 5.6, 8.8 },
-	{ 3, 36, 18.6, 3.4, 5.4, 5.8, 7.1, 0.5, 1.4, 2.1, 16.1 },
-	{ 21.8, 2.2, 7.4, 14.1, 13.4, 11.3, 3.1, 11.1, 6.3, 5.8, 2.8 },
-	{ 2, 33.7, 24.9, 4.8, 5.5, 1.9, 9.7, 1.1, 1.8, 3.5, 10.5 },
-	{ 2.9, 28.3, 21.6, 4.7, 6.9, 4.1, 9.4, 1.2, 2.5, 3.8, 14.1 },
-	{ 20.1, 3.9, 8, 15.5, 10.8, 12, 4.8, 7.8, 5.7, 5.4, 5.7 } };
+		private EmotionType emotion;
+		private Color color;
+		private double weight;
 
-	private EmotionTypes[] emotionTypes =
-	{ EmotionTypes.anger, EmotionTypes.fear, EmotionTypes.anticipation, EmotionTypes.trust, EmotionTypes.surprise, EmotionTypes.sadness, EmotionTypes.joy, EmotionTypes.disgust,
-			EmotionTypes.positive, EmotionTypes.negative };
-
-	private Color[] colors =
-	{ Color.white, Color.black, Color.red, Color.green, Color.yellow, Color.blue, PoetristColor.brown, PoetristColor.pink, PoetristColor.purple, Color.orange, Color.gray };
-
-	public EmotionsToColors(Emotions emotions)
-	{
-		List<WeightedColor> weightedColors = new ArrayList<WeightedColor>();
-
-		double[] weights = emotions.getMagnitudes();
-		double sumWeights = 0;
-		for (double d : weights)
+		public EmotionColorWeight(EmotionType emotion, Color color, double weight)
 		{
-			sumWeights += d;
+			this.emotion = emotion;
+			this.color = color;
+			this.weight = weight;
 		}
 
-		for (int j = 0; j < feelingxcolor[0].length; j++)
+		public EmotionType getEmotionType()
+		{
+			return emotion;
+		}
+
+		public Color getColor()
+		{
+			return color;
+		}
+
+		public double getWeight()
+		{
+			return weight;
+		}
+
+	}
+	
+	private List<EmotionColorWeight> emcWeights = null;
+	
+	private void initialiseWeights()
+	{
+		emcWeights.add(new EmotionColorWeight(EmotionType.anger, Color.white, 2.1));
+		emcWeights.add(new EmotionColorWeight(EmotionType.anger, Color.black, 30.7));
+		emcWeights.add(new EmotionColorWeight(EmotionType.anger, Color.red, 32.4));
+		emcWeights.add(new EmotionColorWeight(EmotionType.anger, Color.green, 5));
+		emcWeights.add(new EmotionColorWeight(EmotionType.anger, Color.yellow, 5));
+		emcWeights.add(new EmotionColorWeight(EmotionType.anger, Color.blue, 2.4));
+		emcWeights.add(new EmotionColorWeight(EmotionType.anger, PoetristColor.brown, 6.6));
+		emcWeights.add(new EmotionColorWeight(EmotionType.anger, Color.pink, 0.5));
+		emcWeights.add(new EmotionColorWeight(EmotionType.anger, PoetristColor.purple, 2.3));
+		emcWeights.add(new EmotionColorWeight(EmotionType.anger, Color.orange, 2.5));
+		emcWeights.add(new EmotionColorWeight(EmotionType.anger, Color.gray, 9.9));
+		emcWeights.add(new EmotionColorWeight(EmotionType.fear, Color.white, 4.5));
+		emcWeights.add(new EmotionColorWeight(EmotionType.fear, Color.black, 31.8));
+		emcWeights.add(new EmotionColorWeight(EmotionType.fear, Color.red, 25));
+		emcWeights.add(new EmotionColorWeight(EmotionType.fear, Color.green, 3.5));
+		emcWeights.add(new EmotionColorWeight(EmotionType.fear, Color.yellow, 6.9));
+		emcWeights.add(new EmotionColorWeight(EmotionType.fear, Color.blue, 3));
+		emcWeights.add(new EmotionColorWeight(EmotionType.fear, PoetristColor.brown, 6.1));
+		emcWeights.add(new EmotionColorWeight(EmotionType.fear, Color.pink, 1.3));
+		emcWeights.add(new EmotionColorWeight(EmotionType.fear, PoetristColor.purple, 2.3));
+		emcWeights.add(new EmotionColorWeight(EmotionType.fear, Color.orange, 3.3));
+		emcWeights.add(new EmotionColorWeight(EmotionType.fear, Color.gray, 11.8));
+		emcWeights.add(new EmotionColorWeight(EmotionType.anticipation, Color.white, 		16.2));
+		emcWeights.add(new EmotionColorWeight(EmotionType.anticipation, Color.black, 		7.5 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.anticipation, Color.red, 			11.5));
+		emcWeights.add(new EmotionColorWeight(EmotionType.anticipation, Color.green, 		16.2));
+		emcWeights.add(new EmotionColorWeight(EmotionType.anticipation, Color.yellow, 		10.7));
+		emcWeights.add(new EmotionColorWeight(EmotionType.anticipation, Color.blue, 		9.5 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.anticipation, PoetristColor.brown,5.7 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.anticipation, Color.pink, 		5.9 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.anticipation,PoetristColor.purple,3.1 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.anticipation, Color.orange, 		4.9 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.anticipation, Color.gray, 		8.4 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.trust, Color.white, 				22  ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.trust, Color.black, 				6.3 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.trust, Color.red, 				8.4 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.trust, Color.green, 				14.2));
+		emcWeights.add(new EmotionColorWeight(EmotionType.trust, Color.yellow, 				8.3 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.trust, Color.blue, 				14.4));
+		emcWeights.add(new EmotionColorWeight(EmotionType.trust, PoetristColor.brown, 		5.9 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.trust, Color.pink, 				5.5 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.trust, PoetristColor.purple, 		4.9 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.trust, Color.orange, 				3.8 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.trust, Color.gray, 				5.8 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.surprise, Color.white, 			11  ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.surprise, Color.black, 			13.4));
+		emcWeights.add(new EmotionColorWeight(EmotionType.surprise, Color.red, 				21  ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.surprise, Color.green, 			8.3 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.surprise, Color.yellow, 			13.5));
+		emcWeights.add(new EmotionColorWeight(EmotionType.surprise, Color.blue, 			5.2 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.surprise, PoetristColor.brown, 	3.4 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.surprise, Color.pink, 			5.2 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.surprise, PoetristColor.purple, 	4.1 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.surprise, Color.orange, 			5.6 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.surprise, Color.gray, 			8.8 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.sadness, Color.white, 			3   ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.sadness, Color.black, 			36  ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.sadness, Color.red, 				18.6));
+		emcWeights.add(new EmotionColorWeight(EmotionType.sadness, Color.green,				3.4 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.sadness, Color.yellow, 			5.4 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.sadness, Color.blue, 				5.8 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.sadness, PoetristColor.brown, 	7.1 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.sadness, Color.pink, 				0.5 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.sadness, PoetristColor.purple,	1.4 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.sadness, Color.orange, 			2.1 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.sadness, Color.gray, 				16.1));
+		emcWeights.add(new EmotionColorWeight(EmotionType.joy, Color.white, 				21.8));
+		emcWeights.add(new EmotionColorWeight(EmotionType.joy, Color.black, 				2.2 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.joy, Color.red, 					7.4 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.joy, Color.green, 				14.1));
+		emcWeights.add(new EmotionColorWeight(EmotionType.joy, Color.yellow, 				13.4));
+		emcWeights.add(new EmotionColorWeight(EmotionType.joy, Color.blue, 					11.3));
+		emcWeights.add(new EmotionColorWeight(EmotionType.joy, PoetristColor.brown, 		3.1 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.joy, Color.pink, 					11.1));
+		emcWeights.add(new EmotionColorWeight(EmotionType.joy, PoetristColor.purple, 		6.3 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.joy, Color.orange, 				5.8 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.joy, Color.gray, 					2.8 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.disgust, Color.white, 			2   ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.disgust, Color.black, 			33.7));
+		emcWeights.add(new EmotionColorWeight(EmotionType.disgust, Color.red, 				24.9));
+		emcWeights.add(new EmotionColorWeight(EmotionType.disgust, Color.green, 			4.8 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.disgust, Color.yellow,			5.5 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.disgust, Color.blue, 				1.9 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.disgust, PoetristColor.brown,		9.7 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.disgust, Color.pink, 				1.1 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.disgust, PoetristColor.purple, 	1.8 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.disgust, Color.orange, 			3.5 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.disgust, Color.gray, 				10.5));
+		emcWeights.add(new EmotionColorWeight(EmotionType.positive, Color.white, 			2.9 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.positive, Color.black, 			28.3));
+		emcWeights.add(new EmotionColorWeight(EmotionType.positive, Color.red, 				21.6));
+		emcWeights.add(new EmotionColorWeight(EmotionType.positive, Color.green, 			4.7 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.positive, Color.yellow, 			6.9 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.positive, Color.blue, 			4.1 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.positive, PoetristColor.brown, 	9.4 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.positive, Color.pink, 			1.2 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.positive, PoetristColor.purple, 	2.5 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.positive, Color.orange, 			3.8 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.positive, Color.gray, 			14.1));
+		emcWeights.add(new EmotionColorWeight(EmotionType.negative, Color.white, 			20.1));
+		emcWeights.add(new EmotionColorWeight(EmotionType.negative, Color.black, 			3.9 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.negative, Color.red, 				8   ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.negative, Color.green, 			15.5));
+		emcWeights.add(new EmotionColorWeight(EmotionType.negative, Color.yellow,			10.8));
+		emcWeights.add(new EmotionColorWeight(EmotionType.negative, Color.blue, 			12  ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.negative, PoetristColor.brown, 	4.8 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.negative, Color.pink, 			7.8 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.negative, PoetristColor.purple, 	5.7 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.negative, Color.orange, 			5.4 ));
+		emcWeights.add(new EmotionColorWeight(EmotionType.negative, Color.gray, 			5.7 ));
+	}
+
+	private double getEMCWeight(EmotionType emotion, Color color)
+	{
+		for(EmotionColorWeight emc : emcWeights)
+		{
+			if(emc.getEmotionType().equals(emotion) && emc.getColor().equals(color))
+			{
+				return emc.getWeight();
+			}
+		}
+		
+		return 0;
+	}
+	
+	private double getEmotionWeight(EmotionType emotion)
+	{
+		for(WeightedEmotion we : weightedEmotions)
+		{
+			if(we.getEmotionType().equals(emotion))
+			{
+				return we.getWeight();
+			}
+		}
+		
+		return 0;
+	}
+	
+	List<WeightedColor> weightedColors = null;
+	List<WeightedEmotion> weightedEmotions = null;
+	
+	public EmotionsToColors(List<WeightedEmotion> weightedEmotions)
+	{
+		
+		emcWeights = new ArrayList<EmotionsToColors.EmotionColorWeight>();
+		weightedColors = new ArrayList<WeightedColor>();
+		this.weightedEmotions = weightedEmotions;
+
+		initialiseWeights();
+		
+		double sumWeights = 0;
+		for (WeightedEmotion we : weightedEmotions)
+		{
+			sumWeights += we.getWeight();
+		}
+
+		for (ColorName colorName : AssociationFactory.getColors())
 		{
 			double sum = 0;
-			for (int z = 0; z < feelingxcolor.length; z++)
+			for (EmotionType emotionType : EmotionType.values())
 			{
-				sum += feelingxcolor[z][j] * weights[z];
+				sum += getEMCWeight(emotionType, colorName.getColor()) * getEmotionWeight(emotionType);
 			}
-
-			weightedColors.add(new WeightedColor(colors[j], (sum / sumWeights)));
-
+			
+			weightedColors.add(new WeightedColor(colorName.getColor(), (sum / sumWeights)));
 		}
+
 
 	}
 

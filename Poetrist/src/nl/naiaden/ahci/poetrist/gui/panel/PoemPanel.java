@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
 import nl.naiaden.ahci.poetrist.assocations.Emotions;
+import nl.naiaden.ahci.poetrist.assocations.EmotionsToColors;
 import nl.naiaden.ahci.poetrist.assocations.StringToEmotion;
 
 /**
@@ -44,6 +45,7 @@ public class PoemPanel extends JPanel
 				StringToEmotion emotionAnalyzer = new StringToEmotion(inputPane.getText());
 				
 				Emotions emotions = emotionAnalyzer.getEmotions();
+				EmotionsToColors etc = new EmotionsToColors(emotions.getWeightedEmotions());
 
 			}
 		});

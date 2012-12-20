@@ -15,12 +15,12 @@ import nl.naiaden.ahci.poetrist.lexicon.WordEmotion;
  */
 public class Emotions
 {
-	private double [] magnitudes ;			//the magnitudes for the emotionTypes
+	// private double [] magnitudes ; //the magnitudes for the emotionTypes
+	private List<WeightedEmotion> weightedEmotions = null;
 	private double meanMagnitude;			//the mean magnitude if we want to normalize
 	private int numberAddedWords;		//how many emotions have been added to this poem
-	public final int nEmotionTypes = 10;
 	
-	public enum EmotionTypes {
+	public enum EmotionType {
 		anger, 
 		anticipation, 
 		disgust, 
@@ -33,32 +33,71 @@ public class Emotions
 		trust
 	}
 	
+	public List<WeightedEmotion> getWeightedEmotions()
+	{
+		return weightedEmotions;
+	}
+
 	/**
 	 * constructor of class
 	 */
 	public Emotions() {
-		magnitudes = new double [nEmotionTypes];
+		weightedEmotions = new ArrayList<WeightedEmotion>();
+		// magnitudes = new double [nEmotionTypes];
 		meanMagnitude = 0;
 		numberAddedWords =0;
 	}
 	
 	//TODO: add een functie waarmee je een hele lijst entries kan geven
 	
+	private WeightedEmotion getWeightedEmotion(EmotionType emotion)
+	{
+		for (WeightedEmotion we : weightedEmotions)
+		{
+			if (we.getEmotionType().equals(emotion)) { return we; }
+		}
+
+		return null;
+	}
+
 	/**
 	 * adds a new word to the list of magnitudes 
 	 * @param newMagnitudes: a list of booleans where each index corresponds to the emotion
-	 * in EmotionTypes
+	 * in EmotionType
 	 */
 	public void addMagnitudes(List<WordEmotion> wordEmotions) {
+		
 		double total=0;
-		for(WordEmotion w:wordEmotions) {
-			if(w.getScore()){
-				total++;
-				for(int i=0; i < nEmotionTypes;i++)
-					if(w.getEmotion().toString().equals( EmotionTypes.values()[i].toString()))
-						magnitudes[i] = magnitudes[i] + 1;
+		
+		for(WordEmotion we: wordEmotions)
+		{
+			if(we.getScore())
+			{
+				++total;
+				for(EmotionType emotion : EmotionType.values())
+				{
+					WeightedEmotion weightedEmotion = getWeightedEmotion(emotion);
+					if (weightedEmotion != null)
+					{
+						weightedEmotion.setWeight(weightedEmotion.getWeight() + 1);
+					}
+				}
 			}
 		}
+		
+		
+		// for(WordEmotion w:wordEmotions) {
+		// if(w.getScore()){
+		// total++;
+		// for(int i=0; i < nEmotionTypes;i++)
+		// if(w.getEmotion().toString().equals(
+		// EmotionType.values()[i].toString()))
+		// {
+		// // magnitudes[i] = magnitudes[i] + 1;
+		// weightedEmotions.get(index)
+		// }
+		// }
+		// }
 		meanMagnitude = (meanMagnitude*numberAddedWords + total)/(numberAddedWords+1);
 		numberAddedWords++;
 		
@@ -80,29 +119,36 @@ public class Emotions
 		return numberAddedWords;
 	}
 	
-	/**
-	 * displays the magnitudes of all the emotions
-	 */
-	public void showMagnitudes()
-	{
-		System.out.println("Mean magnitude = " + new Double(meanMagnitude).toString());
-		for(int i=0; i < nEmotionTypes;i++)
-			System.out.println("Magnitude of " + EmotionTypes.values()[i].toString() + ": " + new Double(magnitudes[i]).toString());
-	}
+	// /**
+	// * displays the magnitudes of all the emotions
+	// */
+	// public void showMagnitudes()
+	// {
+	// System.out.println("Mean magnitude = " + new
+	// Double(meanMagnitude).toString());
+	// for(int i=0; i < nEmotionTypes;i++)
+	// System.out.println("Magnitude of " + EmotionType.values()[i].toString() +
+	// ": " + new Double(magnitudes[i]).toString());
+	// }
 	
-	public double[] getMagnitudes() {
-		return magnitudes;
-	}
+	// public double[] getMagnitudes() {
+	// return magnitudes;
+	// }
 	
 	/**
 	 * returns the magnitude of the type of emotion which is inputted
 	 * @param emotion
 	 * @return
 	 */
-	public double getMagnitude(EmotionTypes emotion) {
-		for(int i=0; i < EmotionTypes.values().length; i++)
-			if(EmotionTypes.values()[i].equals(emotion))
-				return magnitudes[i];
+	public double getMagnitude(EmotionType emotion) {
+		for (WeightedEmotion we : weightedEmotions)
+		{
+			if (we.getEmotionType().equals(emotion)) { return we.getWeight(); }
+		}
+
+		// for(int i=0; i < EmotionType.values().length; i++)
+		// if(EmotionType.values()[i].equals(emotion))
+		// return magnitudes[i];
 		return (Double) null;
 	}
 	
