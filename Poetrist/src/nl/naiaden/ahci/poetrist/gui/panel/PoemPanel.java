@@ -46,7 +46,6 @@ public class PoemPanel extends JPanel
 				
 				Emotions emotions = emotionAnalyzer.getEmotions();
 				EmotionsToColors etc = new EmotionsToColors(emotions.getWeightedEmotions());
-
 			}
 		});
 
