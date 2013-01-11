@@ -3,7 +3,9 @@
  */
 package nl.naiaden.ahci.poetrist.gui;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.color.ColorSpace;
 import java.awt.dnd.DragGestureEvent;
 import java.awt.dnd.DragGestureListener;
 
@@ -36,7 +38,9 @@ public class SeedCellListRenderer extends DefaultListCellRenderer implements Dra
 
 		this.seed = (SeedViewObject) value;
 		setText(seed.getWord().getWord().toString());
-		setBackground(seed.getWord().getColor().getColor());
+//		setBackground(seed.getWord().getColor().getColor());
+		Color color = seed.getWord().getColor().getColor();
+		setBackground(new Color(color.getRed(), color.getGreen(), color.getBlue(), 96));
 
 		
 		return this;
