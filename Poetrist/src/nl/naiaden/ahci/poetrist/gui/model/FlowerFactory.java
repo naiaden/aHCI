@@ -20,8 +20,7 @@ public class FlowerFactory
 	public static Flower createFlower(WordColor seed)
 	{
 		Flower flower = new Flower(new Stigma(seed), 8);
-		
-//		List<WordColor> wordColors = AssociationFactory.getWordColors();
+
 		Random r = new Random();
 		
 		List<Word> similarWords = AssociationFactory.getNSimilarWords(seed.getWord(), 8);
