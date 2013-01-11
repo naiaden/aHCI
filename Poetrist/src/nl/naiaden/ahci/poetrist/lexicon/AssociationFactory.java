@@ -22,6 +22,21 @@ public class AssociationFactory
 	private static List<WordEmotion> wordEmotions = new ArrayList<WordEmotion>();
 	private static List<WordSense> wordSenses = new ArrayList<WordSense>();
 
+	/**
+	 * Returns the n most similar words to a given word.
+	 * @param word The input word.
+	 * @param n The number of returned similar words. If n is greater than the total number of words, n is considered to be the number of words.
+	 * @return A list of size n with words similar to the input word, sorted descendingly.
+	 */
+	public static List<Word> getNSimilarWords(Word word, int n)
+	{
+		List<Word> similarWords = new ArrayList<Word>();
+		
+		// TODO: Jan!
+		
+		return similarWords;
+	}
+	
 	public static void addWord(Word word)
 	{
 		if (!words.contains(word))
