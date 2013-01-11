@@ -1,6 +1,7 @@
 package nl.naiaden.ahci.poetrist.gui.panel;
 
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -10,10 +11,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
+import nl.naiaden.ahci.poetrist.gui.FlowerPartToolTip;
 import nl.naiaden.ahci.poetrist.gui.event.BasketChangedEvent;
 import nl.naiaden.ahci.poetrist.gui.event.BasketChangedListener;
 import nl.naiaden.ahci.poetrist.gui.event.BasketChangedEvent.EventType;
 import nl.naiaden.ahci.poetrist.gui.view.FlowerPartViewObject;
+import nl.naiaden.ahci.poetrist.gui.view.FlowerViewObject;
 
 /**
  * This class represents your metaphorical basket. The tepals you ripped of the
@@ -26,6 +29,7 @@ import nl.naiaden.ahci.poetrist.gui.view.FlowerPartViewObject;
 public class BasketPanel extends JPanel implements MouseInputListener
 {
 
+	
 	private List<BasketChangedListener> basketChangedListeners = null;
 
 	public synchronized void addEventListener(BasketChangedListener listener)
@@ -161,6 +165,16 @@ public class BasketPanel extends JPanel implements MouseInputListener
 		{
 			selectedObject.setLocation(arg0.getPoint());
 			fireEvent(selectedObject, EventType.MOVED);
+			
+			FlowerPartViewObject hoverOnFlowerPart = selectedFlowerPart(arg0.getPoint());
+			if (hoverOnFlowerPart != null)
+			{
+				toolTip = new FlowerPartToolTip(arg0.getPoint(), hoverOnFlowerPart);
+			} else
+			{
+				toolTip = null;
+			}
+			
 			revalidate();
 			repaint();
 		}
@@ -181,11 +195,48 @@ public class BasketPanel extends JPanel implements MouseInputListener
 
 	}
 
+	private FlowerPartToolTip toolTip = null;
+	
+	/**
+	 * Returns the flower part that is selected. Currently the oldest flower
+	 * part has preference over the other parts. This is not by definition the
+	 * (best) visible flower part.
+	 * 
+	 * @param point
+	 *            The position to check for.
+	 * @return the oldest flower part on the selected point. If no flower part
+	 *         is available
+	 */
+	public FlowerPartViewObject selectedFlowerPart(Point point)
+	{
+
+		for (FlowerPartViewObject flowerPart : flowerParts)
+		{
+			if(flowerPart.positionInShape(point))
+			{
+				return flowerPart;
+			}
+			
+//			if (flower.getSelectedFlowerPart(point) != null)
+//				return flower.getSelectedFlowerPart(point);
+		}
+
+		return null;
+	}
+	
 	@Override
 	public void mouseMoved(MouseEvent arg0)
 	{
-		// if()
+		FlowerPartViewObject hoverOnFlowerPart = selectedFlowerPart(arg0.getPoint());
+		if (hoverOnFlowerPart != null)
+		{
+			toolTip = new FlowerPartToolTip(arg0.getPoint(), hoverOnFlowerPart);
+		} else
+		{
+			toolTip = null;
+		}
 
+		repaint();
 	}
 
 	@Override
@@ -222,6 +273,11 @@ public class BasketPanel extends JPanel implements MouseInputListener
 			flowerPart.paint(g);
 		}
 
+		if (toolTip != null)
+		{
+			toolTip.paint(g, this);
+		}
+		
 	}
 
 }

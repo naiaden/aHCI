@@ -186,7 +186,6 @@ public class GardenPanel extends JPanel implements MouseInputListener
 
 		if (toolTip != null)
 		{
-//			g.drawString(toolTip.getLabel(), (int) toolTip.getPosition().getX(), (int) toolTip.getPosition().getY());
 			toolTip.paint(g, this);
 		}
 
