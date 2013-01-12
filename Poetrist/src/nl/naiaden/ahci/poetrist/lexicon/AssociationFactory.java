@@ -30,11 +30,124 @@ public class AssociationFactory
 	 */
 	public static List<Word> getNSimilarWords(Word word, int n)
 	{
+		if ( n > words.size() )
+			n = words.size();
 		List<Word> similarWords = new ArrayList<Word>();
 		
-		// TODO: Jan!
-		// This is just a comment.
+		List<WordColor> targetColors 		= new ArrayList<WordColor>();
+		List<WordEmotion> targetEmotions 	= new ArrayList<WordEmotion>();
+		List<WordSense> targetSense 		= new ArrayList<WordSense>();
+		List<WordColor> queryColors 		= new ArrayList<WordColor>();
+		List<WordEmotion> queryEmotions 	= new ArrayList<WordEmotion>();
+		List<WordSense> querySense 		= new ArrayList<WordSense>();
+		
+		targetColors	= getWordColors(word);
+		targetEmotions	= getWordEmotions(word);
+		targetSense		= getWordSenses(word);
+		
+		int counter = words.indexOf(word);
+		if (counter == -1)
+			counter = 0;
+		
+		ArrayList<Double> similarities = new ArrayList<Double>();
+		for (int i = 0; i < words.size(); i++) {
+			double simcount = 0;
+			int size = similarities.size()-1;
+			if (i != counter) {
+				queryColors 	= getWordColors(words.get(i));
+				simcount 		= similarityWordColors(targetColors, queryColors);
+				queryEmotions	= getWordEmotions(words.get(i));
+				simcount		+= similarityWordEmotions(targetEmotions, queryEmotions);
+				querySense		= getWordSenses(words.get(i));
+				simcount 		+= similarityWordSenses(targetSense, querySense);
+			}
+			
+			if (simcount != 0)
+				if (similarities.size() > 0) {
+					if (simcount > similarities.get(0)) {
+							if (size > n) {
+								similarities.remove(0);
+								similarWords.remove(0);
+							}
+							similarities.add(simcount);
+							similarWords.add(words.get(i));
+							similarities = sort(similarities);
+							similarWords = sort(similarWords);
+					}
+				}
+				else {
+					similarities.add(simcount);
+					similarWords.add(words.get(i));
+				}
+				
+		}
+		// TODO: Test this
 		return similarWords;
+	}
+	
+	private static ArrayList<Double> sort (ArrayList<Double> list) {
+		Double dummy = list.get(list.size()-1);
+		for (int i = list.size(); i > 1; i--) 
+			list.set(i,list.get(i-1)); 
+		list.set(0, dummy);
+		return list;
+	}
+	
+	private static List<Word> sort (List<Word> list) {
+		Word dummy = list.get(list.size()-1);
+		for (int i = list.size(); i > 1; i--) 
+			list.set(i,list.get(i-1)); 
+		list.set(0, dummy);
+		return list;
+	}
+	private static double similarityWordColors (List<WordColor> list1, List<WordColor> list2) {
+		double counter = 0;
+		int max = Math.max(list1.size(), list2.size());
+		
+		if (list1.size() > list2.size()) { 
+			for ( Object x : list1) 
+				if (list2.contains(x))
+					counter++;
+		}
+		else { 
+			for (Object x : list2) 
+				if (list1.contains(x))
+					counter++;
+		}
+		return counter/max; 
+	}
+	private static double similarityWordEmotions (List<WordEmotion> list1, List<WordEmotion> list2) {
+		double counter = 0;
+		int max = Math.max(list1.size(), list2.size());
+		
+		if (list1.size() > list2.size()) { 
+			for ( Object x : list1) 
+				if (list2.contains(x))
+					counter++;
+		}
+		else { 
+			for (Object x : list2) 
+				if (list1.contains(x))
+					counter++;
+		}
+		return counter/max; 
+	}
+	 
+	private static double similarityWordSenses (List<WordSense> list1, List<WordSense> list2) {
+		double counter = 0;
+		int max = Math.max(list1.size(), list2.size());
+		
+		if (list1.size() > list2.size()) { 
+			for ( Object x : list1) 
+				if (list2.contains(x))
+					counter++;
+		}
+		else { 
+			for (Object x : list2) 
+				if (list1.contains(x))
+					counter++;
+		}
+		return counter/max; 
 	}
 	
 	public static void addWord(Word word)
