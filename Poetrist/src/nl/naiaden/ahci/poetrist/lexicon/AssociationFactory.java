@@ -33,7 +33,7 @@ public class AssociationFactory
 		List<Word> similarWords = new ArrayList<Word>();
 		
 		// TODO: Jan!
-		
+		// This is just a comment.
 		return similarWords;
 	}
 	
