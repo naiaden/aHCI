@@ -55,11 +55,11 @@ public class AssociationFactory
 			int size = similarities.size()-1;
 			if (i != counter) {
 				queryColors 	= getWordColors(words.get(i));
-				simcount 		= similarityWordColors(targetColors, queryColors);
+				simcount 		= similarity(targetColors, queryColors);
 				queryEmotions	= getWordEmotions(words.get(i));
-				simcount		+= similarityWordEmotions(targetEmotions, queryEmotions);
+				simcount		+= similarity(targetEmotions, queryEmotions);
 				querySense		= getWordSenses(words.get(i));
-				simcount 		+= similarityWordSenses(targetSense, querySense);
+				simcount 		+= similarity(targetSense, querySense);
 			}
 			
 			if (simcount != 0)
@@ -100,50 +100,17 @@ public class AssociationFactory
 		list.set(0, dummy);
 		return list;
 	}
-	private static double similarityWordColors (List<WordColor> list1, List<WordColor> list2) {
+	private static <T> double similarity (List<T> list1, List<T> list2) {
 		double counter = 0;
 		int max = Math.max(list1.size(), list2.size());
 		
 		if (list1.size() > list2.size()) { 
-			for ( Object x : list1) 
+			for ( T x : list1) 
 				if (list2.contains(x))
 					counter++;
 		}
 		else { 
-			for (Object x : list2) 
-				if (list1.contains(x))
-					counter++;
-		}
-		return counter/max; 
-	}
-	private static double similarityWordEmotions (List<WordEmotion> list1, List<WordEmotion> list2) {
-		double counter = 0;
-		int max = Math.max(list1.size(), list2.size());
-		
-		if (list1.size() > list2.size()) { 
-			for ( Object x : list1) 
-				if (list2.contains(x))
-					counter++;
-		}
-		else { 
-			for (Object x : list2) 
-				if (list1.contains(x))
-					counter++;
-		}
-		return counter/max; 
-	}
-	 
-	private static double similarityWordSenses (List<WordSense> list1, List<WordSense> list2) {
-		double counter = 0;
-		int max = Math.max(list1.size(), list2.size());
-		
-		if (list1.size() > list2.size()) { 
-			for ( Object x : list1) 
-				if (list2.contains(x))
-					counter++;
-		}
-		else { 
-			for (Object x : list2) 
+			for (T x : list2) 
 				if (list1.contains(x))
 					counter++;
 		}
