@@ -51,21 +51,21 @@ public class AssociationFactory
 		
 		ArrayList<Double> similarities = new ArrayList<Double>();
 		for (int i = 0; i < words.size(); i++) {
-			double simcount = 0;
+			double simcount = 0;												//measures the similarity
 			int size = similarities.size()-1;
-			if (i != counter) {
+			if (i != counter) {	// a word is always 100% similar to itself, so we keep it out
 				queryColors 	= getWordColors(words.get(i));
-				simcount 		= similarityWordColors(targetColors, queryColors);
+				simcount 		= similarity(targetColors, queryColors);
 				queryEmotions	= getWordEmotions(words.get(i));
-				simcount		+= similarityWordEmotions(targetEmotions, queryEmotions);
+				simcount		+= similarity(targetEmotions, queryEmotions);
 				querySense		= getWordSenses(words.get(i));
-				simcount 		+= similarityWordSenses(targetSense, querySense);
+				simcount 		+= similarity(targetSense, querySense);
 			}
 			
-			if (simcount != 0)
-				if (similarities.size() > 0) {
-					if (simcount > similarities.get(0)) {
-							if (size > n) {
+			if (simcount != 0)	// if the words are at all similar
+				if (similarities.size() > 0) {	// if the list of similar worlds is non-empty
+					if (simcount > similarities.get(0)) {	// if the count is higher then the first word in the list
+							if (size > n) {					// assumption: list sorted from lowest to highest similarity
 								similarities.remove(0);
 								similarWords.remove(0);
 							}
@@ -75,7 +75,7 @@ public class AssociationFactory
 							similarWords = sort(similarWords);
 					}
 				}
-				else {
+				else {	// if the list of similar worlds is empty
 					similarities.add(simcount);
 					similarWords.add(words.get(i));
 				}
@@ -85,7 +85,12 @@ public class AssociationFactory
 		return similarWords;
 	}
 	
-	private static ArrayList<Double> sort (ArrayList<Double> list) {
+	/**
+	 * Gets a list, sorts it from lowest to highest value
+	 * @param the list we want to sort
+	 * @return the sorted list
+	 */
+	private static ArrayList<Double> sort (ArrayList<Double> list) {	
 		Double dummy = list.get(list.size()-1);
 		for (int i = list.size(); i > 1; i--) 
 			list.set(i,list.get(i-1)); 
@@ -100,50 +105,17 @@ public class AssociationFactory
 		list.set(0, dummy);
 		return list;
 	}
-	private static double similarityWordColors (List<WordColor> list1, List<WordColor> list2) {
+	private static <T> double similarity (List<T> list1, List<T> list2) {
 		double counter = 0;
 		int max = Math.max(list1.size(), list2.size());
 		
 		if (list1.size() > list2.size()) { 
-			for ( Object x : list1) 
+			for ( T x : list1) 
 				if (list2.contains(x))
 					counter++;
 		}
 		else { 
-			for (Object x : list2) 
-				if (list1.contains(x))
-					counter++;
-		}
-		return counter/max; 
-	}
-	private static double similarityWordEmotions (List<WordEmotion> list1, List<WordEmotion> list2) {
-		double counter = 0;
-		int max = Math.max(list1.size(), list2.size());
-		
-		if (list1.size() > list2.size()) { 
-			for ( Object x : list1) 
-				if (list2.contains(x))
-					counter++;
-		}
-		else { 
-			for (Object x : list2) 
-				if (list1.contains(x))
-					counter++;
-		}
-		return counter/max; 
-	}
-	 
-	private static double similarityWordSenses (List<WordSense> list1, List<WordSense> list2) {
-		double counter = 0;
-		int max = Math.max(list1.size(), list2.size());
-		
-		if (list1.size() > list2.size()) { 
-			for ( Object x : list1) 
-				if (list2.contains(x))
-					counter++;
-		}
-		else { 
-			for (Object x : list2) 
+			for (T x : list2) 
 				if (list1.contains(x))
 					counter++;
 		}
