@@ -12,6 +12,7 @@ import nl.naiaden.ahci.poetrist.gui.PoetristFrame;
 import nl.naiaden.ahci.poetrist.lexicon.AssociationFactory;
 import nl.naiaden.ahci.poetrist.lexicon.NRCColorLexiconReader;
 import nl.naiaden.ahci.poetrist.lexicon.NRCEmotionLexiconReader;
+import nl.naiaden.ahci.poetrist.lexicon.Word;
 
 /**
  * @author louis
@@ -41,6 +42,10 @@ public class Application {
 		{		
 			colorLexiconReader.read(new File("doc/WordColorLexicon_small.txt"));
 			emotionLexiconReader.read(new File("doc/WordEmotionLexicon_small.txt"));
+
+			// AssociationFactory.printFeatureSpace();
+			AssociationFactory.getNSimilarWords(new Word("promise"), 5);
+			System.out.println(AssociationFactory.getNSimilarWords(new Word("promise"), 5));
 
 			// colorLexiconReader.read(new
 			// File("doc/NRC-color-lexicon-senselevel-v0.92.txt"));

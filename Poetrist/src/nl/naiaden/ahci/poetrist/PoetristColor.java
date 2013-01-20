@@ -1,6 +1,8 @@
 package nl.naiaden.ahci.poetrist;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 /**
  * Extended version of java.awt.Color
  * Needed since the original had no
@@ -13,9 +15,69 @@ import java.awt.Color;
 public class PoetristColor extends Color
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7204127456902593384L;
+
 	public PoetristColor(int r, int g, int b)
 	{
 		super(r, g, b);
+	}
+
+	public static List<Color> getPoetristColors()
+	{
+		List<Color> colors = new ArrayList<Color>();
+		colors.add(PoetristColor.orange);
+		colors.add(PoetristColor.brown);
+		colors.add(PoetristColor.magenta);
+		colors.add(PoetristColor.purple);
+		colors.add(PoetristColor.black);
+		colors.add(PoetristColor.red);
+		colors.add(PoetristColor.green);
+		colors.add(PoetristColor.blue);
+		colors.add(PoetristColor.yellow);
+		colors.add(PoetristColor.gray);
+		colors.add(PoetristColor.white);
+
+
+		return colors;
+	}
+
+	public static int getNumberOfColors()
+	{
+		return 11;
+	}
+
+	public static int getColorPosition(Color color)
+	{
+		int position = -1;
+
+		if (color.equals(PoetristColor.orange))
+			return 0;
+		if (color.equals(PoetristColor.brown))
+			return 1;
+		if (color.equals(PoetristColor.magenta))
+			return 2;
+		if (color.equals(PoetristColor.purple))
+			return 3;
+		if (color.equals(PoetristColor.black))
+			return 4;
+		if (color.equals(PoetristColor.red))
+			return 5;
+		if (color.equals(PoetristColor.green))
+			return 6;
+		if (color.equals(PoetristColor.blue))
+			return 7;
+		if (color.equals(PoetristColor.yellow))
+			return 8;
+		if (color.equals(PoetristColor.gray))
+			return 9;
+		if (color.equals(PoetristColor.white))
+			return 10;
+
+
+		return position;
 	}
 
 	public static final PoetristColor brown = new PoetristColor(150, 75, 0);

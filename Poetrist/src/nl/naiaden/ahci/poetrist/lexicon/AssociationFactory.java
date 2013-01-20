@@ -4,7 +4,9 @@
 package nl.naiaden.ahci.poetrist.lexicon;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
 
 /**
  * @author Ding (I replaced some of his classes)
@@ -30,103 +32,33 @@ public class AssociationFactory
 	 */
 	public static List<Word> getNSimilarWords(Word word, int n)
 	{
-		if ( n > words.size() )
-			n = words.size();
 		List<Word> similarWords = new ArrayList<Word>();
-		
-		List<WordColor> targetColors 		= new ArrayList<WordColor>();
-		List<WordEmotion> targetEmotions 	= new ArrayList<WordEmotion>();
-		List<WordSense> targetSense 		= new ArrayList<WordSense>();
-		List<WordColor> queryColors 		= new ArrayList<WordColor>();
-		List<WordEmotion> queryEmotions 	= new ArrayList<WordEmotion>();
-		List<WordSense> querySense 		= new ArrayList<WordSense>();
-		
-		targetColors	= getWordColors(word);
-		targetEmotions	= getWordEmotions(word);
-		targetSense		= getWordSenses(word);
-		
-		int counter = words.indexOf(word);
-		if (counter == -1)
-			counter = 0;
-		
-		ArrayList<Double> similarities = new ArrayList<Double>();
-		for (int i = 0; i < words.size(); i++) {
-			double simcount = 0;												//measures the similarity
-			int size = similarities.size()-1;
-			if (i != counter) {	// a word is always 100% similar to itself, so we keep it out
-				queryColors 	= getWordColors(words.get(i));
-				simcount 		= similarity(targetColors, queryColors);
-				queryEmotions	= getWordEmotions(words.get(i));
-				simcount		+= similarity(targetEmotions, queryEmotions);
-				querySense		= getWordSenses(words.get(i));
-				simcount 		+= similarity(targetSense, querySense);
-			}
-			
-			if (simcount != 0)	// if the words are at all similar
-				if (similarities.size() > 0) {	// if the list of similar worlds is non-empty
-					if (simcount > similarities.get(0)) {	// if the count is higher then the first word in the list
-							if (size > n) {					// assumption: list sorted from lowest to highest similarity
-								similarities.remove(0);
-								similarWords.remove(0);
-							}
-							similarities.add(simcount);
-							similarWords.add(words.get(i));
-							similarities = sort(similarities);
-							similarWords = sort(similarWords);
-					}
-				}
-				else {	// if the list of similar worlds is empty
-					similarities.add(simcount);
-					similarWords.add(words.get(i));
-				}
-				
+
+		List<WordSimilarity> wordSimilarityList = wcfvs.getSimilarityList(word);
+
+		Collections.sort(wordSimilarityList, new WordSimilarityComparator());
+		wordSimilarityList = wordSimilarityList.subList(wordSimilarityList.size() - n, wordSimilarityList.size());
+
+		for (WordSimilarity ws : wordSimilarityList)
+		{
+			similarWords.add(ws.lhs);
 		}
-		// TODO: Test this
+
 		return similarWords;
 	}
-	
-	/**
-	 * Gets a list, sorts it from lowest to highest value
-	 * @param the list we want to sort
-	 * @return the sorted list
-	 */
-	private static ArrayList<Double> sort (ArrayList<Double> list) {	
-		Double dummy = list.get(list.size()-1);
-		for (int i = list.size(); i > 1; i--) 
-			list.set(i,list.get(i-1)); 
-		list.set(0, dummy);
-		return list;
-	}
-	
-	private static List<Word> sort (List<Word> list) {
-		Word dummy = list.get(list.size()-1);
-		for (int i = list.size(); i > 1; i--) 
-			list.set(i,list.get(i-1)); 
-		list.set(0, dummy);
-		return list;
-	}
-	private static <T> double similarity (List<T> list1, List<T> list2) {
-		double counter = 0;
-		int max = Math.max(list1.size(), list2.size());
-		
-		if (list1.size() > list2.size()) { 
-			for ( T x : list1) 
-				if (list2.contains(x))
-					counter++;
-		}
-		else { 
-			for (T x : list2) 
-				if (list1.contains(x))
-					counter++;
-		}
-		return counter/max; 
-	}
-	
+
 	public static void addWord(Word word)
 	{
 		if (!words.contains(word))
 			words.add(word);
 
+	}
+
+	private static WordColorFeatureVectorSpace wcfvs = new WordColorFeatureVectorSpace();
+
+	public static void printFeatureSpace()
+	{
+		wcfvs.printFeatureSpace();
 	}
 
 	public static List<Word> getWords()
@@ -243,6 +175,8 @@ public class AssociationFactory
 	{
 		addWord(wordColor.getWord());
 		addColor(wordColor.getColor());
+
+		wcfvs.add(wordColor);
 
 		if (!wordColors.contains(wordColor))
 			wordColors.add(wordColor);

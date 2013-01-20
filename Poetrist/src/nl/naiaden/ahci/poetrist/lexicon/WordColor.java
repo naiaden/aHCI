@@ -48,6 +48,11 @@ public class WordColor implements LexiconEntry, Serializable
 		return votes;
 	}
 
+	public double getConfidence()
+	{
+		return Double.valueOf(((double) votes) / totalVotes);
+	}
+
 	public int getTotalVotes()
 	{
 		return totalVotes;
