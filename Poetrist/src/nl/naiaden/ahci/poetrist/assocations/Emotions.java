@@ -38,6 +38,11 @@ public class Emotions
 	public Emotions()
 	{
 		weightedEmotions = new ArrayList<WeightedEmotion>();
+		for (EmotionType et : EmotionType.values())
+		{
+			weightedEmotions.add(new WeightedEmotion(et, 0));
+		}
+
 		// magnitudes = new double [nEmotionTypes];
 		meanMagnitude = 0;
 		numberAddedWords = 0;
