@@ -37,6 +37,11 @@ public class AssociationFactory
 		List<WordSimilarity> wordSimilarityList = wcfvs.getSimilarityList(word);
 
 		Collections.sort(wordSimilarityList, new WordSimilarityComparator());
+
+		if(n > wordSimilarityList.size())
+		{
+			return similarWords;
+		}
 		wordSimilarityList = wordSimilarityList.subList(wordSimilarityList.size() - n, wordSimilarityList.size());
 
 		for (WordSimilarity ws : wordSimilarityList)

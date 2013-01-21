@@ -44,8 +44,9 @@ public class Application {
 			emotionLexiconReader.read(new File("doc/WordEmotionLexicon_small.txt"));
 
 			// AssociationFactory.printFeatureSpace();
-			AssociationFactory.getNSimilarWords(new Word("promise"), 5);
-			System.out.println(AssociationFactory.getNSimilarWords(new Word("promise"), 5));
+//			AssociationFactory.getNSimilarWords(new Word("p"), 5);
+			System.out.println(AssociationFactory.getNSimilarWords(new Word("love"), 5));
+			System.out.println(AssociationFactory.getNSimilarWords(new Word("adore"), 5));
 
 			// colorLexiconReader.read(new
 			// File("doc/NRC-color-lexicon-senselevel-v0.92.txt"));
