@@ -18,8 +18,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+
+import nl.naiaden.ahci.poetrist.gui.model.FlowerFactory;
+import nl.naiaden.ahci.poetrist.gui.view.FlowerViewObject;
 import nl.naiaden.ahci.poetrist.lexicon.AssociationFactory;
 import nl.naiaden.ahci.poetrist.lexicon.Word;
+import nl.naiaden.ahci.poetrist.lexicon.WordColor;
 
 
 /**
@@ -34,6 +38,8 @@ public class WordSearchPanel extends JPanel
 	 */
 	private static final long serialVersionUID = 8371817152276515360L;
 	
+	private GardenPanel dropPanel = new GardenPanel();
+	
 	private Word searchWord = null;
 	private int number = 10;
 	
@@ -45,6 +51,7 @@ public class WordSearchPanel extends JPanel
 	private JLabel wordsResult = null;
 	
 	private JScrollPane scrollPane = null;
+	
 	private JList similarWords = null;
 	private DefaultListModel similarWordsModel = new DefaultListModel();
 	private GridBagLayout layout = null;
@@ -127,6 +134,10 @@ public class WordSearchPanel extends JPanel
 					String selectedWord = similarWords.getSelectedValue().toString();
 					JOptionPane.showMessageDialog(similarWords, "Word  " + "\"" + selectedWord + 
 							"\"" + "  has been picked into the garden");
+					WordColor seed = AssociationFactory.getWordColors(new Word(selectedWord)).get(0);
+					FlowerViewObject flower = new FlowerViewObject(FlowerFactory.createFlower(seed),251,250,150,7);
+					System.out.println(flower);
+					dropPanel.addFlower(flower);
 				}
 			}
 		});

@@ -36,7 +36,7 @@ public class PoemPanel extends JPanel
 	{
 
 		setLayout(new BorderLayout());
-		setPreferredSize(new Dimension(300, 200));
+		setPreferredSize(new Dimension(250, 200));
 
 		textArea = new JTextArea("You can type your peotry here...");
 		textArea.setFont(new Font("Serif",Font.ITALIC, 16));
