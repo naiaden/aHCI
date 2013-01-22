@@ -67,7 +67,6 @@ public class WordSearchPanel extends JPanel
 		
 		c.fill = GridBagConstraints.BOTH;
 		
-		
 		numberFieldLabel = new JLabel("Number of similar words:  ");
 		numberFieldLabel.setLabelFor(numberField);
 		
@@ -84,7 +83,6 @@ public class WordSearchPanel extends JPanel
 		c.ipadx = 30;
 		add(numberField,c);
 		
-		
 		searchFieldLabel = new JLabel("Word:  ");
 		searchFieldLabel.setLabelFor(searchField);
 		
@@ -98,7 +96,6 @@ public class WordSearchPanel extends JPanel
 		c.gridx = 1;
 		c.gridy = 1;
 		add(searchField,c);
-		
 		
 		wordsResult = new JLabel("Similar words list:  ");
 		wordsResult.setLabelFor(searchField);
@@ -133,8 +130,6 @@ public class WordSearchPanel extends JPanel
 		{
 			public void mouseClicked(MouseEvent evt)
 			{
-				System.out.println("Mouse clicked event: " + evt.getClickCount());
-
 				if (gardenPanel != null)
 				{
 					if (evt.getClickCount() == 2)
@@ -142,8 +137,11 @@ public class WordSearchPanel extends JPanel
 						String selectedWord = similarWords.getSelectedValue().toString();
 						JOptionPane.showMessageDialog(similarWords, "Word  " + "\"" + selectedWord + "\"" + "  has been picked into the garden");
 						WordColor seed = AssociationFactory.getWordColors(new Word(selectedWord)).get(0);
-						FlowerViewObject flower = new FlowerViewObject(FlowerFactory.createFlower(seed), 251, 250, 150, 7);
-						System.out.println(flower);
+						
+						int posX = (int)(Math.random()*(235));
+						int posY = (int)(Math.random()*(308));
+						
+						FlowerViewObject flower = new FlowerViewObject(FlowerFactory.createFlower(seed), posX, posY, 150, 7);
 
 						gardenPanel.addFlower(flower);
 					}

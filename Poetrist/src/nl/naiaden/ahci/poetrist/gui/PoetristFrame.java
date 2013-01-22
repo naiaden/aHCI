@@ -94,7 +94,7 @@ public class PoetristFrame extends JFrame implements DragGestureListener, Basket
 	private BasketPanel basketPickingPanel = null;
 
 	private PoemPanel poemPanel = null;
-	private WordSearchPanel wordSearchPanelForTest= null;
+	private WordSearchPanel wordSearchPanel= null;
 	private BasketPanel basketBrewingPanel = null;
 
 	private GalleryPanel galleryPanel = null;
@@ -117,8 +117,8 @@ public class PoetristFrame extends JFrame implements DragGestureListener, Basket
 		basketPickingPanel.addEventListener(this);
 
 		poemPanel = new PoemPanel();
-		wordSearchPanelForTest = new WordSearchPanel();
-		wordSearchPanelForTest.setGardenPanel(gardenPanel);
+		wordSearchPanel = new WordSearchPanel();
+		wordSearchPanel.setGardenPanel(gardenPanel);
 		basketBrewingPanel = new BasketPanel();
 		basketBrewingPanel.addEventListener(this);
 
@@ -158,7 +158,7 @@ public class PoetristFrame extends JFrame implements DragGestureListener, Basket
 		
 		brewingPanelGBC.gridx = 1;
 		brewingPanelGBC.gridy = 0;
-		brewingPanel.add(wordSearchPanelForTest, brewingPanelGBC);
+		brewingPanel.add(wordSearchPanel, brewingPanelGBC);
 
 		brewingPanelGBC.gridx = 0;
 		brewingPanelGBC.gridy = 1;
