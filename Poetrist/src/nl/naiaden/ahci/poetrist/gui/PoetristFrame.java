@@ -30,7 +30,7 @@ import nl.naiaden.ahci.poetrist.gui.panel.BasketPanel;
 import nl.naiaden.ahci.poetrist.gui.panel.GardenPanel;
 import nl.naiaden.ahci.poetrist.gui.panel.PoemPanel;
 import nl.naiaden.ahci.poetrist.gui.panel.WordSearchPanel;
-import nl.naiaden.ahci.poetrist.gui.panel.WordSearchPanelForTest;
+import nl.naiaden.ahci.poetrist.gui.panel.WordSearchPanel;
 import nl.naiaden.ahci.poetrist.gui.view.FlowerPartViewObject;
 
 /**
@@ -94,7 +94,7 @@ public class PoetristFrame extends JFrame implements DragGestureListener, Basket
 	private BasketPanel basketPickingPanel = null;
 
 	private PoemPanel poemPanel = null;
-	private WordSearchPanelForTest wordSearchPanelForTest= null;
+	private WordSearchPanel wordSearchPanelForTest= null;
 	private BasketPanel basketBrewingPanel = null;
 
 	private GalleryPanel galleryPanel = null;
@@ -117,7 +117,7 @@ public class PoetristFrame extends JFrame implements DragGestureListener, Basket
 		basketPickingPanel.addEventListener(this);
 
 		poemPanel = new PoemPanel();
-		wordSearchPanelForTest = new WordSearchPanelForTest();
+		wordSearchPanelForTest = new WordSearchPanel();
 		basketBrewingPanel = new BasketPanel();
 		basketBrewingPanel.addEventListener(this);
 
