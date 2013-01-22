@@ -4,12 +4,15 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -65,7 +68,7 @@ public class WordSearchPanel extends JPanel
 		c.gridy = 0;
 		add(numberFieldLabel,c);
 		
-		numberField = new JTextField();
+		numberField = new JTextField("10");
 		numberField.addActionListener(new InputFieldTextActionListener());
 		numberField.getDocument().addDocumentListener(new InputTextFieldDocumentListener());
 		
@@ -118,6 +121,15 @@ public class WordSearchPanel extends JPanel
 	
 	public void initialise(){
 		similarWords.setModel(similarWordsModel);
+		similarWords.addMouseListener(new MouseAdapter(){
+			public void mouseClicked(MouseEvent evt){
+				if (evt.getClickCount() ==2){
+					String selectedWord = similarWords.getSelectedValue().toString();
+					JOptionPane.showMessageDialog(similarWords, "Word  " + "\"" + selectedWord + 
+							"\"" + "  has been picked into the garden");
+				}
+			}
+		});
 	}
 	
 	public class InputFieldTextActionListener implements ActionListener{
