@@ -38,7 +38,7 @@ public class WordSearchPanel extends JPanel
 	 */
 	private static final long serialVersionUID = 8371817152276515360L;
 	
-	private GardenPanel dropPanel = new GardenPanel();
+	private GardenPanel gardenPanel = null;
 	
 	private Word searchWord = null;
 	private int number = 10;
@@ -126,18 +126,27 @@ public class WordSearchPanel extends JPanel
 		initialise();
 	}
 	
-	public void initialise(){
+	public void initialise()
+	{
 		similarWords.setModel(similarWordsModel);
-		similarWords.addMouseListener(new MouseAdapter(){
-			public void mouseClicked(MouseEvent evt){
-				if (evt.getClickCount() ==2){
-					String selectedWord = similarWords.getSelectedValue().toString();
-					JOptionPane.showMessageDialog(similarWords, "Word  " + "\"" + selectedWord + 
-							"\"" + "  has been picked into the garden");
-					WordColor seed = AssociationFactory.getWordColors(new Word(selectedWord)).get(0);
-					FlowerViewObject flower = new FlowerViewObject(FlowerFactory.createFlower(seed),251,250,150,7);
-					System.out.println(flower);
-					dropPanel.addFlower(flower);
+		similarWords.addMouseListener(new MouseAdapter()
+		{
+			public void mouseClicked(MouseEvent evt)
+			{
+				System.out.println("Mouse clicked event: " + evt.getClickCount());
+
+				if (gardenPanel != null)
+				{
+					if (evt.getClickCount() == 2)
+					{
+						String selectedWord = similarWords.getSelectedValue().toString();
+						JOptionPane.showMessageDialog(similarWords, "Word  " + "\"" + selectedWord + "\"" + "  has been picked into the garden");
+						WordColor seed = AssociationFactory.getWordColors(new Word(selectedWord)).get(0);
+						FlowerViewObject flower = new FlowerViewObject(FlowerFactory.createFlower(seed), 251, 250, 150, 7);
+						System.out.println(flower);
+
+						gardenPanel.addFlower(flower);
+					}
 				}
 			}
 		});
@@ -188,5 +197,11 @@ public class WordSearchPanel extends JPanel
 			}
 		}
 		
+	}
+
+	public void setGardenPanel(GardenPanel gardenPanel)
+	{
+		this.gardenPanel = gardenPanel;
+
 	}
 }

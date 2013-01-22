@@ -118,6 +118,7 @@ public class PoetristFrame extends JFrame implements DragGestureListener, Basket
 
 		poemPanel = new PoemPanel();
 		wordSearchPanelForTest = new WordSearchPanel();
+		wordSearchPanelForTest.setGardenPanel(gardenPanel);
 		basketBrewingPanel = new BasketPanel();
 		basketBrewingPanel.addEventListener(this);
 
