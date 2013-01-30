@@ -122,6 +122,9 @@ public class PoetristFrame extends JFrame implements DragGestureListener, Basket
 		basketBrewingPanel = new BasketPanel();
 		basketBrewingPanel.addEventListener(this);
 
+		galleryPanel = new GalleryPanel();
+		poemPanel.setGalleryPanel(galleryPanel);
+
 		// Picking panel
 
 		pickingPanel = new JPanel(new GridBagLayout());
@@ -168,17 +171,20 @@ public class PoetristFrame extends JFrame implements DragGestureListener, Basket
 
 		// Tasting panel
 
-		// tastingPanel = new JPanel(new GridBagLayout());
-		// GridBagConstraints tastingPanelGBC = new GridBagConstraints();
-		// tastingPanelGBC.fill = GridBagConstraints.BOTH;
-		// tastingPanelGBC.weightx = 1.0;
-		// tastingPanelGBC.weighty = 1.0;
+		tastingPanel = new JPanel(new GridBagLayout());
+		GridBagConstraints tastingPanelGBC = new GridBagConstraints();
+		tastingPanelGBC.fill = GridBagConstraints.BOTH;
+		tastingPanelGBC.weightx = 1.0;
+		tastingPanelGBC.weighty = 1.0;
+
+		tastingPanelGBC.gridx = 0;
+		tastingPanelGBC.gridy = 0;
+		tastingPanel.add(galleryPanel, tastingPanelGBC);
+
+		stepsInProcesTabPane.add("Tasting", tastingPanel);
+		// stepsInProcesTabPane.add("TASDJAKSD", galleryPanel);
+
 		//
-		// // tastingPanelGBC.gridx = 0;
-		// // tastingPanelGBC.gridy = 0;
-		// // tastingPanel.add(galleryPanel, tastingPanelGBC);
-		//
-		// stepsInProcesTabPane.add("Tasting", tastingPanel);
 
 		add(stepsInProcesTabPane);
 

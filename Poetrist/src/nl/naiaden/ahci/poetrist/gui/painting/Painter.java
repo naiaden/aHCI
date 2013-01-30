@@ -84,7 +84,7 @@ public class Painter
 		for (int i = 0; i < weightedColors.size(); ++i)
 		{
 			WeightedColor weC = weightedColors.get(i);
-			System.out.println("  " + ctr);
+			// System.out.println("  " + ctr);
 			if (randomNumber < ctr) { return weightedColors.get(i - 1).getColor(); }
 			ctr += weC.getWeight();
 		}
@@ -108,7 +108,7 @@ public class Painter
 		for (int i = 0; i < weightedColors.size(); ++i)
 		{
 			WeightedColor weC = weightedColors.get(i);
-			System.out.println("  " + ctr);
+			// System.out.println("  " + ctr);
 			if (randomNumber < ctr) { return i - 1; }
 			ctr += weC.getWeight();
 		}

@@ -40,13 +40,13 @@ public class Application {
 		
 		try
 		{		
-			// colorLexiconReader.read(new
-			// File("doc/WordColorLexicon_small.txt"));
-			// emotionLexiconReader.read(new
-			// File("doc/WordEmotionLexicon_small.txt"));
+			colorLexiconReader.read(new File("doc/WordColorLexicon_small.txt"));
+			emotionLexiconReader.read(new File("doc/WordEmotionLexicon_small.txt"));
 
-			colorLexiconReader.read(new File("doc/NRC-color-lexicon-senselevel-v0.92.txt"));
-			emotionLexiconReader.read(new File("doc/NRC-emotion-lexicon-wordlevel-alphabetized-v0.92.txt"));
+			// colorLexiconReader.read(new
+			// File("doc/NRC-color-lexicon-senselevel-v0.92.txt"));
+			// emotionLexiconReader.read(new
+			// File("doc/NRC-emotion-lexicon-wordlevel-alphabetized-v0.92.txt"));
 
 			// // AssociationFactory.printFeatureSpace();
 			// // AssociationFactory.getNSimilarWords(new Word("p"), 5);

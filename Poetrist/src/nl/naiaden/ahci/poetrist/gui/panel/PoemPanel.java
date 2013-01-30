@@ -34,7 +34,14 @@ public class PoemPanel extends JPanel
 	private JTextArea textArea = null;
 	private JButton submitButton = null;
 
+	private GalleryPanel galleryPanel = null;
+
 	private boolean initialText = true;
+
+	public void setGalleryPanel(GalleryPanel galleryPanel)
+	{
+		this.galleryPanel = galleryPanel;
+	}
 
 	public PoemPanel()
 	{
@@ -75,7 +82,13 @@ public class PoemPanel extends JPanel
 			{
 				StringToEmotion emotionAnalyzer = new StringToEmotion(textArea.getText());
 				EmotionsToColors etc = new EmotionsToColors(emotionAnalyzer.getWeightedEmotions());
-				etc.getWeightedColors();
+
+
+				if (galleryPanel != null)
+				{
+					System.out.println("HERE WE GO!!!");
+					galleryPanel.createGallery(etc.getWeightedColors());
+				}
 
 				// Emotions emotions = emotionAnalyzer.getEmotions();
 				// EmotionsToColors etc = new

@@ -139,13 +139,14 @@ public class StringToEmotion
 
 
 		weightedEmotions = emotions.getWeightedEmotions();
-		for (WeightedEmotion we : weightedEmotions)
-		{
-			if (we.getAverageWeight() > 0)
-			{
-				System.out.println("+++ " + we.getEmotionType() + ": " + we.getAverageWeight());
-			}
-		}
+		// for (WeightedEmotion we : weightedEmotions)
+		// {
+		// if (we.getAverageWeight() > 0)
+		// {
+		// System.out.println("+++ " + we.getEmotionType() + ": " +
+		// we.getAverageWeight());
+		// }
+		// }
 
 	}
 
