@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import nl.naiaden.ahci.poetrist.gui.painting.Painter;
+import nl.naiaden.ahci.poetrist.gui.painting.Painting;
 import nl.naiaden.ahci.poetrist.lexicon.AssociationFactory;
 import nl.naiaden.ahci.poetrist.lexicon.Emotion;
 import nl.naiaden.ahci.poetrist.lexicon.LexiconReader;
@@ -54,6 +59,19 @@ public class StringToEmotion
 
 			StringToEmotion ste = new StringToEmotion(input);
 			EmotionsToColors etc = new EmotionsToColors(ste.getWeightedEmotions());
+
+			JFrame frame = new JFrame("PainterDemo");
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+			JPanel panel = new JPanel();
+
+			Painter painter = new Painter(etc.getWeightedColors());
+			Painting painting = painter.paint(400, 300);
+
+			frame.setSize(400, 300);
+			frame.setVisible(true);
+
+			frame.getContentPane().add(painting);
 		} catch (IOException e)
 		{
 			// TODO Auto-generated catch block

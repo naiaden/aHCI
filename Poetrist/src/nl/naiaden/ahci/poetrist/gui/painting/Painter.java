@@ -13,6 +13,7 @@ import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import nl.naiaden.ahci.poetrist.assocations.WeightedColor;
 import nl.naiaden.ahci.poetrist.lexicon.AssociationFactory;
 import nl.naiaden.ahci.poetrist.lexicon.ColorName;
 
@@ -33,38 +34,130 @@ public class Painter
 
 		JPanel panel = new JPanel();
 
-		Painter painter = new Painter();
-		Painting painting = painter.paint(400, 300);
+		// Painter painter = new Painter();
+		// Painting painting = painter.paint(400, 300);
 
 
 
 		frame.setSize(400, 300);
 		frame.setVisible(true);
 
-		frame.getContentPane().add(painting);
+		// frame.getContentPane().add(painting);
 	}
 
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args)
-	{
-		javax.swing.SwingUtilities.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-				createAndShowGUI();
-			}
-		});
-	}
+	// public static void main(String[] args)
+	// {
+	// javax.swing.SwingUtilities.invokeLater(new Runnable()
+	// {
+	// public void run()
+	// {
+	// createAndShowGUI();
+	// }
+	// });
+	// }
 
 	private List<ColorDistribution> colorDistributions = null;
+	List<WeightedColor> weightedColors = null;
 
-	public Painter()
+
+	public Painter(List<WeightedColor> colorDistribution)
 	{
-		colorDistributions = new ArrayList<ColorDistribution>();
-		initialiseDistributions();
+		weightedColors = colorDistribution;
 	}
+
+	private Color takeProportionalColor()
+	{
+		Random r = new Random();
+
+		double sum = 0;
+		for (WeightedColor weC : weightedColors)
+		{
+			sum += weC.getWeight();
+		}
+
+		double randomNumber = r.nextDouble() * sum;
+
+		double ctr = 0;
+		for (int i = 0; i < weightedColors.size(); ++i)
+		{
+			WeightedColor weC = weightedColors.get(i);
+			System.out.println("  " + ctr);
+			if (randomNumber < ctr) { return weightedColors.get(i - 1).getColor(); }
+			ctr += weC.getWeight();
+		}
+
+		return Color.white;
+	}
+
+	private int takeProportionalPosition()
+	{
+		Random r = new Random();
+
+		double sum = 0;
+		for (WeightedColor weC : weightedColors)
+		{
+			sum += weC.getWeight();
+		}
+
+		double randomNumber = r.nextDouble() * sum;
+
+		double ctr = 0;
+		for (int i = 0; i < weightedColors.size(); ++i)
+		{
+			WeightedColor weC = weightedColors.get(i);
+			System.out.println("  " + ctr);
+			if (randomNumber < ctr) { return i - 1; }
+			ctr += weC.getWeight();
+		}
+
+		return weightedColors.size();
+	}
+
+	public Painting paint(double width, double height)
+	{
+		Painting painting = new Painting(width, height);
+
+		Random r = new Random();
+
+		int backgroundColor = Color.HSBtoRGB(backgroundHue(), randomFromTo(90, 100), randomFromTo(75, 100));
+		painting.setCanvasColor(new Color(backgroundColor));
+
+		for (int i = 0; i < 10; ++i)
+		{
+			// int fillColor = Color.HSBtoRGB(shapeHue(), randomFromTo(90, 100),
+			// randomFromTo(75, 100));
+			int fillColor = takeProportionalColor().getRGB();
+			painting.addPaintInstruction(new ChangeColor(new Color(fillColor)));
+
+			float alpha = randomFromTo(90, 100) / 100;
+			painting.addPaintInstruction(new SetTransparency(alpha));
+
+			if (r.nextDouble() < 0.5)
+			{
+
+				double x = randomFromTo(width / 8, ((width / 8) * 7));
+				double y = randomFromTo(height / 8, ((height / 8) * 7));
+				double w = randomFromTo(width / 6, width / 3);
+				double h = randomFromTo(height / 6, height / 3);
+				Ellipse2D ellipse = new Ellipse2D.Double(x, y, w, h);
+				painting.addPaintInstruction(new PaintShape(ellipse));
+			} else
+			{
+				Polygon quadrilateral = new Polygon();
+				for (int j = 0; j < 4; ++j)
+				{
+					quadrilateral.addPoint(r.nextInt((int) width), r.nextInt((int) height));
+				}
+				painting.addPaintInstruction(new PaintShape(quadrilateral));
+			}
+		}
+
+		return painting;
+	}
+
 
 	public List<ColorDistribution> getColorDistributions()
 	{
@@ -109,45 +202,47 @@ public class Painter
 		return random;
 	}
 
-	public Painting paint(double width, double height)
-	{
-		Painting painting = new Painting(width, height);
-
-		Random r = new Random();
-
-		int backgroundColor = Color.HSBtoRGB(backgroundHue(), randomFromTo(90, 100), randomFromTo(75, 100));
-		painting.setCanvasColor(new Color(backgroundColor));
-		
-		for (int i = 0; i < 200; ++i)
-		{
-			int fillColor = Color.HSBtoRGB(shapeHue(), randomFromTo(90, 100), randomFromTo(75, 100));
-			painting.addPaintInstruction(new ChangeColor(new Color(fillColor)));
-			
-			float alpha = randomFromTo(90, 100) / 100;
-			painting.addPaintInstruction(new SetTransparency(alpha));
-
-			if (r.nextDouble() < 0.5)
-			{
-
-				double x = randomFromTo(width / 8, ((width / 8) * 7));
-				double y = randomFromTo(height / 8, ((height / 8) * 7));
-				double w = randomFromTo(width / 6, width / 3);
-				double h = randomFromTo(height / 6, height / 3);
-				Ellipse2D ellipse = new Ellipse2D.Double(x, y, w, h);
-				painting.addPaintInstruction(new PaintShape(ellipse));
-			} else
-			{
-				Polygon quadrilateral = new Polygon();
-				for (int j = 0; j < 4; ++j)
-				{
-					quadrilateral.addPoint(r.nextInt((int) width), r.nextInt((int) height));
-				}
-				painting.addPaintInstruction(new PaintShape(quadrilateral));
-			}
-		}
-
-		return painting;
-	}
+	// public Painting paint(double width, double height)
+	// {
+	// Painting painting = new Painting(width, height);
+	//
+	// Random r = new Random();
+	//
+	// int backgroundColor = Color.HSBtoRGB(backgroundHue(), randomFromTo(90,
+	// 100), randomFromTo(75, 100));
+	// painting.setCanvasColor(new Color(backgroundColor));
+	//
+	// for (int i = 0; i < 200; ++i)
+	// {
+	// int fillColor = Color.HSBtoRGB(shapeHue(), randomFromTo(90, 100),
+	// randomFromTo(75, 100));
+	// painting.addPaintInstruction(new ChangeColor(new Color(fillColor)));
+	//
+	// float alpha = randomFromTo(90, 100) / 100;
+	// painting.addPaintInstruction(new SetTransparency(alpha));
+	//
+	// if (r.nextDouble() < 0.5)
+	// {
+	//
+	// double x = randomFromTo(width / 8, ((width / 8) * 7));
+	// double y = randomFromTo(height / 8, ((height / 8) * 7));
+	// double w = randomFromTo(width / 6, width / 3);
+	// double h = randomFromTo(height / 6, height / 3);
+	// Ellipse2D ellipse = new Ellipse2D.Double(x, y, w, h);
+	// painting.addPaintInstruction(new PaintShape(ellipse));
+	// } else
+	// {
+	// Polygon quadrilateral = new Polygon();
+	// for (int j = 0; j < 4; ++j)
+	// {
+	// quadrilateral.addPoint(r.nextInt((int) width), r.nextInt((int) height));
+	// }
+	// painting.addPaintInstruction(new PaintShape(quadrilateral));
+	// }
+	// }
+	//
+	// return painting;
+	// }
 
 	private float backgroundHue()
 	{
