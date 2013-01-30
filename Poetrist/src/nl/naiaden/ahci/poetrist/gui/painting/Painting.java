@@ -15,6 +15,8 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import nl.naiaden.ahci.poetrist.Application;
+
 /**
  * Based on William's code.
  * 
@@ -31,11 +33,18 @@ public class Painting extends JPanel
 	private double height = 0;
 	private Color canvasColor;
 
+	private final int number = Application.GetPaintingNumber();
+
 	private List<PaintInstruction> paintInstructions = null;
 
 	public void setCanvasColor(Color color)
 	{
 		canvasColor = color;
+	}
+
+	public int getNumber()
+	{
+		return number;
 	}
 
 	public double getPaintingWidth()
@@ -48,14 +57,51 @@ public class Painting extends JPanel
 		return height;
 	}
 
-	public boolean containsPoint(Point p)
-	{
-		return contains(p);
-	}
+	// public boolean containsPoint(Point p)
+	// {
+	// return contains(p);
+	// }
 
 	public Painting(double width, double height)
 	{
 		paintInstructions = new ArrayList<PaintInstruction>();
+
+		addMouseListener(new MouseListener()
+		{
+
+			@Override
+			public void mouseReleased(MouseEvent e)
+			{
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e)
+			{
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e)
+			{
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e)
+			{
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				Application.LOGWRITER.system("Clicked on PAINTING " + number);
+			}
+		});
 	}
 
 	public void show(Graphics g)
