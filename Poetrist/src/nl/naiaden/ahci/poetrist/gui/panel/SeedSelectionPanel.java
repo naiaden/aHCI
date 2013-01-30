@@ -3,7 +3,11 @@
  */
 package nl.naiaden.ahci.poetrist.gui.panel;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+
+import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -57,14 +61,32 @@ public class SeedSelectionPanel extends JPanel
 
 	public SeedSelectionPanel()
 	{
-		GridLayout layout = new GridLayout(1, 3);
-		setLayout(layout);
+		// GridLayout layout = new GridLayout(1, 3);
+		// GridBagLayout gbl = new GridBagLayout();
+		// setLayout(layout);
 
+		setLayout(new GridBagLayout());
+		GridBagConstraints gbc = new GridBagConstraints();
+
+		gbc.anchor = GridBagConstraints.NORTH;
+
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.weightx = 0.5;
+		gbc.weighty = 1;
+		gbc.fill = GridBagConstraints.BOTH;
 		colorSelectionPanel = new ColorSelectionPanel();
-		seedListPanel = new SeedListPanel();
+		add(colorSelectionPanel, gbc);
 
-		add(colorSelectionPanel);
-		add(seedListPanel);
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		gbc.weightx = 1;
+		gbc.weighty = 1;
+		gbc.fill = GridBagConstraints.BOTH;
+		seedListPanel = new SeedListPanel();
+		add(seedListPanel, gbc);
+
+		setBorder(BorderFactory.createCompoundBorder(BorderFactory.createTitledBorder("Seed Cabinet"), BorderFactory.createEmptyBorder(5, 5, 5, 5)));
 
 		colorSelectionPanel.addEventListener(seedListPanel);
 	}
