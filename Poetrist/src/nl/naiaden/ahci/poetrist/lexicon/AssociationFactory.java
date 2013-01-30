@@ -3,6 +3,12 @@
  */
 package nl.naiaden.ahci.poetrist.lexicon;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,8 +19,12 @@ import java.util.List;
  * @author louis
  * 
  */
-public class AssociationFactory
+public class AssociationFactory implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5437278390525951601L;
 	private static List<Word> words = new ArrayList<Word>();
 	private static List<Emotion> emotions = new ArrayList<Emotion>();
 	private static List<ColorName> colors = new ArrayList<ColorName>();
@@ -23,6 +33,101 @@ public class AssociationFactory
 	private static List<WordColor> wordColors = new ArrayList<WordColor>();
 	private static List<WordEmotion> wordEmotions = new ArrayList<WordEmotion>();
 	private static List<WordSense> wordSenses = new ArrayList<WordSense>();
+
+	private static WordColorFeatureVectorSpace wcfvs = new WordColorFeatureVectorSpace();
+
+	public static boolean readDataFromFile()
+	 {
+		 try
+	      {
+			ObjectInputStream wordsIn = new ObjectInputStream(new FileInputStream("AssocationFactory.words.ser"));
+			words = (List<Word>) wordsIn.readObject();
+			wordsIn.close();
+
+			ObjectInputStream emotionsIn = new ObjectInputStream(new FileInputStream("AssocationFactory.emotions.ser"));
+			emotions = (List<Emotion>) emotionsIn.readObject();
+			emotionsIn.close();
+
+			ObjectInputStream colorsIn = new ObjectInputStream(new FileInputStream("AssocationFactory.colors.ser"));
+			colors = (List<ColorName>) colorsIn.readObject();
+			colorsIn.close();
+
+			ObjectInputStream sensesIn = new ObjectInputStream(new FileInputStream("AssocationFactory.senses.ser"));
+			senses = (List<Sense>) sensesIn.readObject();
+			sensesIn.close();
+
+			ObjectInputStream wordColorsIn = new ObjectInputStream(new FileInputStream("AssocationFactory.wordColors.ser"));
+			wordColors = (List<WordColor>) wordColorsIn.readObject();
+			wordColorsIn.close();
+
+			ObjectInputStream wordEmotionsIn = new ObjectInputStream(new FileInputStream("AssocationFactory.wordEmotions.ser"));
+			wordEmotions = (List<WordEmotion>) wordEmotionsIn.readObject();
+			wordEmotionsIn.close();
+	         
+			ObjectInputStream wordSensesIn = new ObjectInputStream(new FileInputStream("AssocationFactory.wordSenses.ser"));
+			wordSenses = (List<WordSense>) wordSensesIn.readObject();
+			wordSensesIn.close();
+
+			ObjectInputStream wcfvsIn = new ObjectInputStream(new FileInputStream("AssocationFactory.wcfvs.ser"));
+			wcfvs = (WordColorFeatureVectorSpace) wcfvsIn.readObject();
+			wcfvsIn.close();
+	         
+			return true;
+	      }catch(IOException i)
+	      {
+	         i.printStackTrace();
+			return false;
+	      }catch(ClassNotFoundException c)
+	      {
+	         c.printStackTrace();
+			return false;
+	      }
+	 }
+
+	public static boolean saveDataToFile()
+	{
+		try
+		{
+			ObjectOutputStream wordsOut = new ObjectOutputStream(new FileOutputStream("AssocationFactory.words.ser"));
+			wordsOut.writeObject(words);
+			wordsOut.close();
+
+			ObjectOutputStream emotionsOut = new ObjectOutputStream(new FileOutputStream("AssocationFactory.emotions.ser"));
+			emotionsOut.writeObject(emotions);
+			emotionsOut.close();
+
+			ObjectOutputStream colorsOut = new ObjectOutputStream(new FileOutputStream("AssocationFactory.colors.ser"));
+			colorsOut.writeObject(colors);
+			colorsOut.close();
+
+			ObjectOutputStream sensesOut = new ObjectOutputStream(new FileOutputStream("AssocationFactory.senses.ser"));
+			sensesOut.writeObject(senses);
+			sensesOut.close();
+
+			ObjectOutputStream wordColorsOut = new ObjectOutputStream(new FileOutputStream("AssocationFactory.wordColors.ser"));
+			wordColorsOut.writeObject(wordColors);
+			wordColorsOut.close();
+
+			ObjectOutputStream wordSensesOut = new ObjectOutputStream(new FileOutputStream("AssocationFactory.wordSenses.ser"));
+			wordSensesOut.writeObject(wordSenses);
+			wordSensesOut.close();
+
+			ObjectOutputStream wordEmotionsOut = new ObjectOutputStream(new FileOutputStream("AssocationFactory.wordEmotions.ser"));
+			wordEmotionsOut.writeObject(wordEmotions);
+			wordEmotionsOut.close();
+
+			ObjectOutputStream wcfvsOut = new ObjectOutputStream(new FileOutputStream("AssocationFactory.wcfvs.ser"));
+			wcfvsOut.writeObject(wcfvs);
+			wcfvsOut.close();
+
+			return true;
+		} catch (IOException i)
+		{
+			i.printStackTrace();
+		}
+
+		return false;
+	}
 
 	/**
 	 * Returns the n most similar words to a given word.
@@ -59,7 +164,7 @@ public class AssociationFactory
 
 	}
 
-	private static WordColorFeatureVectorSpace wcfvs = new WordColorFeatureVectorSpace();
+
 
 	public static void printFeatureSpace()
 	{

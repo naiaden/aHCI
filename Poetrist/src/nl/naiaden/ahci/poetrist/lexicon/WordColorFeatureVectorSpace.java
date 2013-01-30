@@ -1,12 +1,17 @@
 package nl.naiaden.ahci.poetrist.lexicon;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class WordColorFeatureVectorSpace
+public class WordColorFeatureVectorSpace implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8628958143626409046L;
 	private List<WordColorFeatureVector> featureVectors = new ArrayList<WordColorFeatureVector>();
 
 	public void add(WordColor wordColor)

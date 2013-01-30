@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 
+import nl.naiaden.ahci.poetrist.Application;
 import nl.naiaden.ahci.poetrist.assocations.Emotions;
 import nl.naiaden.ahci.poetrist.assocations.EmotionsToColors;
 import nl.naiaden.ahci.poetrist.assocations.StringToEmotion;
@@ -80,6 +81,10 @@ public class PoemPanel extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
+				Application.LOGWRITER.print("--- BEGIN POEM ");
+				Application.LOGWRITER.print(textArea.getText());
+				Application.LOGWRITER.print("--- END POEM ");
+
 				StringToEmotion emotionAnalyzer = new StringToEmotion(textArea.getText());
 				EmotionsToColors etc = new EmotionsToColors(emotionAnalyzer.getWeightedEmotions());
 

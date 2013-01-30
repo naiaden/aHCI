@@ -22,7 +22,7 @@ import nl.naiaden.ahci.poetrist.lexicon.ColorName;
  * @author louis
  * 
  */
-public class AbstractPainter
+public class AbstractPainter implements Painter
 {
 	// /**
 	// * Create the GUI and show it.

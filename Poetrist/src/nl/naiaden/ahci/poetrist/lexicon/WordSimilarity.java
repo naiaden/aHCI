@@ -1,6 +1,8 @@
 package nl.naiaden.ahci.poetrist.lexicon;
 
-public class WordSimilarity
+import java.io.Serializable;
+
+public class WordSimilarity implements Serializable
 {
 	Word lhs;
 	Word rhs;

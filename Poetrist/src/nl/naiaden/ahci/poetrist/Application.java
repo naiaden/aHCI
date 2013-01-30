@@ -29,19 +29,41 @@ public class Application {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 	}
+
+	public static final LogWriter LOGWRITER = new LogWriter();
 	
 	/**
 	 * @param args The input parameters.
 	 */
 	public static void main(String[] args) {
 		
+		Runtime.getRuntime().addShutdownHook(new Thread() {
+		      public void run() {
+				System.err.println("Shutting down");
+				LOGWRITER.close();
+		      }
+		});
+
 		NRCColorLexiconReader colorLexiconReader = new NRCColorLexiconReader();
 		NRCEmotionLexiconReader emotionLexiconReader = new NRCEmotionLexiconReader();
 		
 		try
-		{		
-			colorLexiconReader.read(new File("doc/WordColorLexicon_small.txt"));
-			emotionLexiconReader.read(new File("doc/WordEmotionLexicon_small.txt"));
+		{
+
+			if (!AssociationFactory.readDataFromFile())
+			{
+				// colorLexiconReader.read(new
+				// File("doc/WordColorLexicon_small.txt"));
+				// emotionLexiconReader.read(new
+				// File("doc/WordEmotionLexicon_small.txt"));
+
+				colorLexiconReader.read(new File("doc/NRC-color-lexicon-senselevel-v0.92.txt"));
+				emotionLexiconReader.read(new File("doc/NRC-emotion-lexicon-wordlevel-alphabetized-v0.92.txt"));
+
+				AssociationFactory.saveDataToFile();
+			}
+
+
 
 			// colorLexiconReader.read(new
 			// File("doc/NRC-color-lexicon-senselevel-v0.92.txt"));
@@ -61,6 +83,10 @@ public class Application {
 			// //
 			// File("doc/NRC-emotion-lexicon-wordlevel-alphabetized-v0.92.txt"));
 			
+			Application.LOGWRITER.system(AssociationFactory.getWords().size() + " words");
+			Application.LOGWRITER.system(AssociationFactory.getColors().size() + " colors");
+			Application.LOGWRITER.system(AssociationFactory.getEmotions().size() + " emotions");
+
 			System.out.println(AssociationFactory.getWords().size() + " words");
 			System.out.println(AssociationFactory.getColors().size() + " colors");
 			System.out.println(AssociationFactory.getEmotions().size() + " emotions");

@@ -8,14 +8,18 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import nl.naiaden.ahci.poetrist.Application;
 import nl.naiaden.ahci.poetrist.assocations.WeightedColor;
 import nl.naiaden.ahci.poetrist.gui.painting.AbstractPainter;
 import nl.naiaden.ahci.poetrist.gui.painting.Painting;
@@ -125,6 +129,49 @@ public class GalleryPanel extends JPanel
 	{
 		paintings = new ArrayList<Painting>(galleryHeight * galleryWidth);
 
+		addMouseListener(new MouseListener()
+		{
+
+			@Override
+			public void mouseReleased(MouseEvent e)
+			{
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e)
+			{
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e)
+			{
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e)
+			{
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				for (int i = 0; i < paintings.size(); ++i)
+				{
+					if (paintings.get(i).containsPoint(e.getPoint()))
+					{
+						System.out.println("Painting " + (i + 1));
+					}
+				}
+			}
+		});
+
 		initialise();
 
 
@@ -134,34 +181,30 @@ public class GalleryPanel extends JPanel
 	public void createGallery(List<WeightedColor> weightedColors)
 	{
 		AbstractPainter abstractPainter = new AbstractPainter(weightedColors);
-		RandomPainter rPainter = new RandomPainter(weightedColors);
+		RandomPainter rPainter = new RandomPainter();
 
 		paintings = new ArrayList<Painting>(galleryHeight * galleryWidth);
 
+		Random r = new Random();
+		int randomPosition = r.nextInt(numberOfPaintings);
+
 		for (int i = 0; i < numberOfPaintings; ++i)
 		{
-
-			// JFrame frame = new JFrame("PainterDemo");
-			// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			//
-			// JPanel panel = new JPanel();
-			//
-			// Painting painting = painter.paint(400, 300);
-			//
-			// frame.setSize(400, 300);
-			// frame.setVisible(true);
-			//
-			// frame.getContentPane().add(painting);
-
-			if (i == 0)
+			if (i == randomPosition)
 			{
-			addPainting(abstractPainter.paint(400, 300));
+				Application.LOGWRITER.system("Generated painting on " + i + " of " + numberOfPaintings);
+				addPainting(abstractPainter.paint(400, 300));
 			}
 			else
 			{
 				addPainting(rPainter.paint(400, 300));
 			}
 		}
+
+		// for(int p = 0; p < paintings.size(); ++p)
+		// {
+		// Application.LOGWRITER.writeImage()
+		// }
 
 		initialise();
 

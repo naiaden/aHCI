@@ -1,13 +1,14 @@
 package nl.naiaden.ahci.poetrist.lexicon;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
 
 import nl.naiaden.ahci.poetrist.PoetristColor;
 
-public class WordColorFeatureVector
+public class WordColorFeatureVector implements Serializable
 {
 	final Word word;
 	List<Double> featureVector = new ArrayList<Double>(PoetristColor.getNumberOfColors());

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
+import nl.naiaden.ahci.poetrist.Application;
 import nl.naiaden.ahci.poetrist.PoetristColor;
 
 /**
@@ -56,6 +57,8 @@ public class NRCColorLexiconReader implements LexiconReader
 
 	public void read(File lexiconFile) throws IOException
 	{
+		Application.LOGWRITER.system("Reading lexicon file: " + lexiconFile.getAbsolutePath());
+
 		FileInputStream fis = new FileInputStream(lexiconFile);
 		BufferedReader br = new BufferedReader(new InputStreamReader(fis, Charset.forName("UTF-8")));
 

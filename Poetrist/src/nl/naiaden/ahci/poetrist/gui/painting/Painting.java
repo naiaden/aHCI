@@ -6,7 +6,10 @@ package nl.naiaden.ahci.poetrist.gui.painting;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.RenderingHints;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,10 +48,14 @@ public class Painting extends JPanel
 		return height;
 	}
 
+	public boolean containsPoint(Point p)
+	{
+		return contains(p);
+	}
+
 	public Painting(double width, double height)
 	{
 		paintInstructions = new ArrayList<PaintInstruction>();
-
 	}
 
 	public void show(Graphics g)
