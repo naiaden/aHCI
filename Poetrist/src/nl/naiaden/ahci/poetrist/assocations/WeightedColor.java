@@ -5,6 +5,8 @@ package nl.naiaden.ahci.poetrist.assocations;
 
 import java.awt.Color;
 
+import nl.naiaden.ahci.poetrist.PoetristColor;
+
 /**
  * @author louis
  *
@@ -12,12 +14,22 @@ import java.awt.Color;
 public class WeightedColor
 {
 	private Color color;
-	private double weight;
+	private double weight = 0;
+	private double normalisation = 0;
 
-	public WeightedColor(Color color, double weight)
+	public WeightedColor(Color color, double aWeight)
 	{
 		this.color = color;
-		this.weight = weight;
+		this.weight = aWeight;
+	}
+
+	public void add(double aWeight)
+	{
+		// System.out.println("Adding " + aWeight + " to " + this.weight + " = "
+		// + (aWeight + this.weight));
+		this.weight += aWeight;
+
+		++normalisation;
 	}
 
 	public Color getColor()
@@ -28,5 +40,10 @@ public class WeightedColor
 	public double getWeight()
 	{
 		return weight;
+	}
+
+	public String toString()
+	{
+		return PoetristColor.toString(color) + ": " + weight;
 	}
 }

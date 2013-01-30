@@ -37,10 +37,8 @@ public class StringToEmotion
 
 		try
 		{
-			// colorLexiconReader.read(new
-			// File("doc/WordColorLexicon_small.txt"));
-			// emotionLexiconReader.read(new
-			// File("doc/WordEmotionLexicon_small.txt"));
+			colorLexiconReader.read(new File("doc/WordColorLexicon_small.txt"));
+			emotionLexiconReader.read(new File("doc/WordEmotionLexicon_small.txt"));
 
 			// +++ anger: 0.3125
 			// +++ disgust: 0.375
@@ -49,10 +47,13 @@ public class StringToEmotion
 			// +++ sadness: 0.4375
 			// +++ surprise: 0.125
 
-			colorLexiconReader.read(new File("doc/NRC-color-lexicon-senselevel-v0.92.txt"));
-			emotionLexiconReader.read(new File("doc/NRC-emotion-lexicon-wordlevel-alphabetized-v0.92.txt"));
+			// colorLexiconReader.read(new
+			// File("doc/NRC-color-lexicon-senselevel-v0.92.txt"));
+			// emotionLexiconReader.read(new
+			// File("doc/NRC-emotion-lexicon-wordlevel-alphabetized-v0.92.txt"));
 
 			StringToEmotion ste = new StringToEmotion(input);
+			EmotionsToColors etc = new EmotionsToColors(ste.getWeightedEmotions());
 		} catch (IOException e)
 		{
 			// TODO Auto-generated catch block
@@ -90,7 +91,18 @@ public class StringToEmotion
 		determineEmotions(wordsInLexicon);
 	}
 
-	void determineEmotions(List<Word> words)
+	private List<WeightedEmotion> weightedEmotions = null;
+
+	public List<WeightedEmotion> getWeightedEmotions()
+	{
+		if (weightedEmotions == null)
+		{
+			System.err.println("DETERMINE EMOTIONS FIRST");
+		}
+		return weightedEmotions;
+	}
+
+	private void determineEmotions(List<Word> words)
 	{
 		for (Word word : words)
 		{
@@ -107,7 +119,8 @@ public class StringToEmotion
 
 		}
 
-		List<WeightedEmotion> weightedEmotions = emotions.getWeightedEmotions();
+
+		weightedEmotions = emotions.getWeightedEmotions();
 		for (WeightedEmotion we : weightedEmotions)
 		{
 			if (we.getAverageWeight() > 0)
@@ -162,4 +175,5 @@ public class StringToEmotion
 	{
 		return emotions;
 	}
+
 }

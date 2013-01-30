@@ -40,6 +40,11 @@ public class WeightedEmotion
 		return weight / normalisation;
 	}
 
+	public double getRawWeight()
+	{
+		return weight;
+	}
+
 	public String toString()
 	{
 		return "[" + emotion + "]: " + weight;
