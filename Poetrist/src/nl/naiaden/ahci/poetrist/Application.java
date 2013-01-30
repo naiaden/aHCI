@@ -105,4 +105,11 @@ public class Application {
 		});
 	}
 
+	private static int paintingNumber = 0;
+
+	public static int GetPaintingNumber()
+	{
+		return paintingNumber++;
+	}
+
 }

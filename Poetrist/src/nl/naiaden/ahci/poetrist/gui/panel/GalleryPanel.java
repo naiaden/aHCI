@@ -129,49 +129,6 @@ public class GalleryPanel extends JPanel
 	{
 		paintings = new ArrayList<Painting>(galleryHeight * galleryWidth);
 
-		addMouseListener(new MouseListener()
-		{
-
-			@Override
-			public void mouseReleased(MouseEvent e)
-			{
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e)
-			{
-
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e)
-			{
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e)
-			{
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent e)
-			{
-				for (int i = 0; i < paintings.size(); ++i)
-				{
-					if (paintings.get(i).containsPoint(e.getPoint()))
-					{
-						System.out.println("Painting " + (i + 1));
-					}
-				}
-			}
-		});
-
 		initialise();
 
 
@@ -192,8 +149,9 @@ public class GalleryPanel extends JPanel
 		{
 			if (i == randomPosition)
 			{
-				Application.LOGWRITER.system("Generated painting on " + i + " of " + numberOfPaintings);
-				addPainting(abstractPainter.paint(400, 300));
+				Painting p = abstractPainter.paint(400, 300);
+				Application.LOGWRITER.system("Generated painting (" + p.getNumber() + ") on " + i + " of " + numberOfPaintings);
+				addPainting(p);
 			}
 			else
 			{
