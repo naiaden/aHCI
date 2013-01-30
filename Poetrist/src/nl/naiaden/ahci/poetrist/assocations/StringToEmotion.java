@@ -9,7 +9,7 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import nl.naiaden.ahci.poetrist.gui.painting.Painter;
+import nl.naiaden.ahci.poetrist.gui.painting.AbstractPainter;
 import nl.naiaden.ahci.poetrist.gui.painting.Painting;
 import nl.naiaden.ahci.poetrist.lexicon.AssociationFactory;
 import nl.naiaden.ahci.poetrist.lexicon.Emotion;
@@ -65,8 +65,8 @@ public class StringToEmotion
 
 			JPanel panel = new JPanel();
 
-			Painter painter = new Painter(etc.getWeightedColors());
-			Painting painting = painter.paint(400, 300);
+			AbstractPainter abstractPainter = new AbstractPainter(etc.getWeightedColors());
+			Painting painting = abstractPainter.paint(400, 300);
 
 			frame.setSize(400, 300);
 			frame.setVisible(true);

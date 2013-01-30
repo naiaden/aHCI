@@ -17,7 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import nl.naiaden.ahci.poetrist.assocations.WeightedColor;
-import nl.naiaden.ahci.poetrist.gui.painting.Painter;
+import nl.naiaden.ahci.poetrist.gui.painting.AbstractPainter;
 import nl.naiaden.ahci.poetrist.gui.painting.Painting;
 import nl.naiaden.ahci.poetrist.gui.painting.RandomPainter;
 
@@ -133,7 +133,7 @@ public class GalleryPanel extends JPanel
 
 	public void createGallery(List<WeightedColor> weightedColors)
 	{
-		Painter painter = new Painter(weightedColors);
+		AbstractPainter abstractPainter = new AbstractPainter(weightedColors);
 		RandomPainter rPainter = new RandomPainter(weightedColors);
 
 		paintings = new ArrayList<Painting>(galleryHeight * galleryWidth);
@@ -155,7 +155,7 @@ public class GalleryPanel extends JPanel
 
 			if (i == 0)
 			{
-			addPainting(painter.paint(400, 300));
+			addPainting(abstractPainter.paint(400, 300));
 			}
 			else
 			{

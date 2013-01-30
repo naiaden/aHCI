@@ -22,7 +22,7 @@ import nl.naiaden.ahci.poetrist.lexicon.ColorName;
  * @author louis
  * 
  */
-public class Painter
+public class AbstractPainter
 {
 	// /**
 	// * Create the GUI and show it.
@@ -34,7 +34,7 @@ public class Painter
 	//
 	// JPanel panel = new JPanel();
 	//
-	// // Painter painter = new Painter();
+	// // AbstractPainter painter = new AbstractPainter();
 	// // Painting painting = painter.paint(400, 300);
 	//
 	//
@@ -63,7 +63,7 @@ public class Painter
 	List<WeightedColor> weightedColors = null;
 
 
-	public Painter(List<WeightedColor> colorDistribution)
+	public AbstractPainter(List<WeightedColor> colorDistribution)
 	{
 		weightedColors = colorDistribution;
 	}

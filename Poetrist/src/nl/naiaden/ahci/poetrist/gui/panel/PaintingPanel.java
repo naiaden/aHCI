@@ -9,7 +9,7 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import nl.naiaden.ahci.poetrist.gui.painting.Painter;
+import nl.naiaden.ahci.poetrist.gui.painting.AbstractPainter;
 import nl.naiaden.ahci.poetrist.gui.painting.Painting;
 
 /**
@@ -42,7 +42,7 @@ public class PaintingPanel extends JPanel
 	// {
 	// setLayout(new GridBagLayout());
 	//
-	// Painter painter = new Painter(etc.getWeightedColors());
+	// AbstractPainter painter = new AbstractPainter(etc.getWeightedColors());
 	// Painting painting = painter.paint(400, 300);
 	//
 	// GridBagConstraints gbc = new GridBagConstraints();
