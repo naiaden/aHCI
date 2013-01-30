@@ -39,6 +39,7 @@ public class WordSearchPanel extends JPanel
 	private static final long serialVersionUID = 8371817152276515360L;
 	
 	private GardenPanel gardenPanel = null;
+	private PoemPanel poemPanel = null;
 	
 	private Word searchWord = null;
 	private int number = 10;
@@ -144,6 +145,9 @@ public class WordSearchPanel extends JPanel
 						FlowerViewObject flower = new FlowerViewObject(FlowerFactory.createFlower(seed), posX, posY, 150, 7);
 
 						gardenPanel.addFlower(flower);
+						
+						//append the word to the poem created
+						poemPanel.appendWord(selectedWord);
 					}
 				}
 			}
@@ -201,5 +205,9 @@ public class WordSearchPanel extends JPanel
 	{
 		this.gardenPanel = gardenPanel;
 
+	}
+	
+	public void setPoemPanel(PoemPanel poemPanel){
+		this.poemPanel = poemPanel;
 	}
 }
