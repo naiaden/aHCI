@@ -44,6 +44,11 @@ public class PoemPanel extends JPanel
 		this.galleryPanel = galleryPanel;
 	}
 
+	public void appendWord(String word){
+		String poem = textArea.getText();
+		String newPoem = poem + " " + word;
+		textArea.setText(newPoem);
+	}
 	public PoemPanel()
 	{
 
