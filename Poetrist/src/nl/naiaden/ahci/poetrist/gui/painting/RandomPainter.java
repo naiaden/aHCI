@@ -18,102 +18,15 @@ import nl.naiaden.ahci.poetrist.lexicon.AssociationFactory;
 import nl.naiaden.ahci.poetrist.lexicon.ColorName;
 
 /**
- * @author William
  * @author louis
  * 
  */
-public class Painter
+public class RandomPainter
 {
-	// /**
-	// * Create the GUI and show it.
-	// */
-	// private static void createAndShowGUI()
-	// {
-	// JFrame frame = new JFrame("PainterDemo");
-	// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	//
-	// JPanel panel = new JPanel();
-	//
-	// // Painter painter = new Painter();
-	// // Painting painting = painter.paint(400, 300);
-	//
-	//
-	//
-	// frame.setSize(400, 300);
-	// frame.setVisible(true);
-	//
-	// // frame.getContentPane().add(painting);
-	// }
-	//
-	// /**
-	// * @param args
-	// */
-	// public static void main(String[] args)
-	// {
-	// javax.swing.SwingUtilities.invokeLater(new Runnable()
-	// {
-	// public void run()
-	// {
-	// createAndShowGUI();
-	// }
-	// });
-	// }
 
-	private List<ColorDistribution> colorDistributions = null;
-	List<WeightedColor> weightedColors = null;
-
-
-	public Painter(List<WeightedColor> colorDistribution)
+	public RandomPainter(List<WeightedColor> colorDistribution)
 	{
-		weightedColors = colorDistribution;
-	}
 
-	private Color takeProportionalColor()
-	{
-		Random r = new Random();
-
-		double sum = 0;
-		for (WeightedColor weC : weightedColors)
-		{
-			sum += weC.getWeight();
-		}
-
-		double randomNumber = r.nextDouble() * sum;
-
-		double ctr = 0;
-		for (int i = 0; i < weightedColors.size(); ++i)
-		{
-			WeightedColor weC = weightedColors.get(i);
-			// System.out.println("  " + ctr);
-			if (randomNumber < ctr) { return weightedColors.get(i - 1).getColor(); }
-			ctr += weC.getWeight();
-		}
-
-		return Color.white;
-	}
-
-	private int takeProportionalPosition()
-	{
-		Random r = new Random();
-
-		double sum = 0;
-		for (WeightedColor weC : weightedColors)
-		{
-			sum += weC.getWeight();
-		}
-
-		double randomNumber = r.nextDouble() * sum;
-
-		double ctr = 0;
-		for (int i = 0; i < weightedColors.size(); ++i)
-		{
-			WeightedColor weC = weightedColors.get(i);
-			// System.out.println("  " + ctr);
-			if (randomNumber < ctr) { return i - 1; }
-			ctr += weC.getWeight();
-		}
-
-		return weightedColors.size();
 	}
 
 	public Painting paint(double width, double height)
@@ -129,8 +42,8 @@ public class Painter
 		{
 			// int fillColor = Color.HSBtoRGB(shapeHue(), randomFromTo(90, 100),
 			// randomFromTo(75, 100));
-			int fillColor = takeProportionalColor().getRGB();
-			painting.addPaintInstruction(new ChangeColor(new Color(fillColor)));
+			// int fillColor = r.nextInt(255);
+			painting.addPaintInstruction(new ChangeColor(new Color(r.nextInt(255), r.nextInt(255), r.nextInt(255))));
 
 			float alpha = randomFromTo(90, 100) / 100;
 			painting.addPaintInstruction(new SetTransparency(alpha));
@@ -159,37 +72,7 @@ public class Painter
 	}
 
 
-	public List<ColorDistribution> getColorDistributions()
-	{
-		return colorDistributions;
-	}
 
-	public boolean setColorDistribution(Color color, double percentage)
-	{
-
-		for (ColorDistribution cd : colorDistributions)
-		{
-			if (cd.getColor().equals(color))
-			{
-				cd.setPercentage(percentage);
-
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	private void initialiseDistributions()
-	{
-		List<ColorName> colors = AssociationFactory.getColors();
-		double numberOfColors = colors.size();
-
-		for (ColorName colorName : colors)
-		{
-			colorDistributions.add(new ColorDistribution(colorName.getColor(), 1.0 / numberOfColors));
-		}
-	}
 
 	private float randomFromTo(double from, double to)
 	{
@@ -268,7 +151,7 @@ public class Painter
 	{
 		Random r = new Random();
 		double randomValue = r.nextDouble();
-		
+
 		if (col.length == perc.length)
 		{
 			for (int i = 0; i < col.length; ++i)
@@ -276,7 +159,7 @@ public class Painter
 				if (randomValue < perc[i]) { return col[i]; }
 			}
 		}
-		
+
 		return 0f;
 	}
 }

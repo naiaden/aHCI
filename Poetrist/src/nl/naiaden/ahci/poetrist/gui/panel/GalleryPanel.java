@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import nl.naiaden.ahci.poetrist.assocations.WeightedColor;
 import nl.naiaden.ahci.poetrist.gui.painting.Painter;
 import nl.naiaden.ahci.poetrist.gui.painting.Painting;
+import nl.naiaden.ahci.poetrist.gui.painting.RandomPainter;
 
 /**
  * @author louis
@@ -27,7 +28,7 @@ import nl.naiaden.ahci.poetrist.gui.painting.Painting;
 public class GalleryPanel extends JPanel
 {
 
-	private int numberOfPaintings = 3;
+	private int numberOfPaintings = 6;
 
 	public void setNumberOfPaintings(int numberOfPaintings)
 	{
@@ -95,7 +96,7 @@ public class GalleryPanel extends JPanel
 		gbc.weighty = 1;
 		gbc.fill = GridBagConstraints.BOTH;
 
-		System.out.println("Paintings: " + paintings.size());
+		// System.out.println("Paintings: " + paintings.size());
 		for (int l = 0; l < paintings.size(); ++l)
 		{
 			int w = l % galleryWidth;
@@ -105,7 +106,7 @@ public class GalleryPanel extends JPanel
 
 			if (paintings.get(w + galleryWidth * h) != null)
 			{
-				System.out.println("Processing (" + w + "," + h + ")");
+				// System.out.println("Processing (" + w + "," + h + ")");
 
 
 				bgPanel.add(paintings.get(w + galleryWidth * h), gbc);
@@ -133,8 +134,11 @@ public class GalleryPanel extends JPanel
 	public void createGallery(List<WeightedColor> weightedColors)
 	{
 		Painter painter = new Painter(weightedColors);
+		RandomPainter rPainter = new RandomPainter(weightedColors);
 
-		for (int i = 0; i < 3; ++i)
+		paintings = new ArrayList<Painting>(galleryHeight * galleryWidth);
+
+		for (int i = 0; i < numberOfPaintings; ++i)
 		{
 
 			// JFrame frame = new JFrame("PainterDemo");
@@ -149,7 +153,14 @@ public class GalleryPanel extends JPanel
 			//
 			// frame.getContentPane().add(painting);
 
+			if (i == 0)
+			{
 			addPainting(painter.paint(400, 300));
+			}
+			else
+			{
+				addPainting(rPainter.paint(400, 300));
+			}
 		}
 
 		initialise();
