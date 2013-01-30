@@ -13,6 +13,7 @@ import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import nl.naiaden.ahci.poetrist.Application;
 import nl.naiaden.ahci.poetrist.assocations.WeightedColor;
 import nl.naiaden.ahci.poetrist.lexicon.AssociationFactory;
 import nl.naiaden.ahci.poetrist.lexicon.ColorName;
@@ -70,7 +71,6 @@ public class AbstractPainter implements Painter
 
 	private Color takeProportionalColor()
 	{
-		Random r = new Random();
 
 		double sum = 0;
 		for (WeightedColor weC : weightedColors)
@@ -78,7 +78,7 @@ public class AbstractPainter implements Painter
 			sum += weC.getWeight();
 		}
 
-		double randomNumber = r.nextDouble() * sum;
+		double randomNumber = Application.RANDOMGEN.nextDouble() * sum;
 
 		double ctr = 0;
 		for (int i = 0; i < weightedColors.size(); ++i)
@@ -94,7 +94,6 @@ public class AbstractPainter implements Painter
 
 	private int takeProportionalPosition()
 	{
-		Random r = new Random();
 
 		double sum = 0;
 		for (WeightedColor weC : weightedColors)
@@ -102,7 +101,7 @@ public class AbstractPainter implements Painter
 			sum += weC.getWeight();
 		}
 
-		double randomNumber = r.nextDouble() * sum;
+		double randomNumber = Application.RANDOMGEN.nextDouble() * sum;
 
 		double ctr = 0;
 		for (int i = 0; i < weightedColors.size(); ++i)
@@ -120,7 +119,6 @@ public class AbstractPainter implements Painter
 	{
 		Painting painting = new Painting(width, height);
 
-		Random r = new Random();
 
 		int backgroundColor = Color.HSBtoRGB(backgroundHue(), randomFromTo(90, 100), randomFromTo(75, 100));
 		painting.setCanvasColor(new Color(backgroundColor));
@@ -135,7 +133,7 @@ public class AbstractPainter implements Painter
 			float alpha = randomFromTo(90, 100) / 100;
 			painting.addPaintInstruction(new SetTransparency(alpha));
 
-			if (r.nextDouble() < 0.5)
+			if (Application.RANDOMGEN.nextDouble() < 0.5)
 			{
 
 				double x = randomFromTo(width / 8, ((width / 8) * 7));
@@ -149,7 +147,7 @@ public class AbstractPainter implements Painter
 				Polygon quadrilateral = new Polygon();
 				for (int j = 0; j < 4; ++j)
 				{
-					quadrilateral.addPoint(r.nextInt((int) width), r.nextInt((int) height));
+					quadrilateral.addPoint(Application.RANDOMGEN.nextInt((int) width), Application.RANDOMGEN.nextInt((int) height));
 				}
 				painting.addPaintInstruction(new PaintShape(quadrilateral));
 			}
@@ -193,7 +191,7 @@ public class AbstractPainter implements Painter
 
 	private float randomFromTo(double from, double to)
 	{
-		float random = new Random().nextFloat();
+		float random = Application.RANDOMGEN.nextFloat();
 		double difference = Math.abs(to - from);
 
 		random *= difference;
@@ -266,8 +264,7 @@ public class AbstractPainter implements Painter
 
 	private float shapeHue()
 	{
-		Random r = new Random();
-		double randomValue = r.nextDouble();
+		double randomValue = Application.RANDOMGEN.nextDouble();
 		
 		if (col.length == perc.length)
 		{

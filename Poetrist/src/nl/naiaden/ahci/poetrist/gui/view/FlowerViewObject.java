@@ -19,6 +19,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
 
+import nl.naiaden.ahci.poetrist.Application;
 import nl.naiaden.ahci.poetrist.gui.model.Flower;
 import nl.naiaden.ahci.poetrist.gui.model.Tepal;
 
@@ -98,10 +99,9 @@ public class FlowerViewObject implements Observer
 		tepals = new ArrayList<TepalViewObject>();
 		int tepalPosition = 0;
 
-		Random r = new Random();
 		for(Tepal tepal : flower.getTepals())
 		{
-			double widthVariation = r.nextDouble() / 2.0 + 0.75;
+			double widthVariation = Application.RANDOMGEN.nextDouble() / 2.0 + 0.75;
 			// double rotationVariation = r.nextDouble() / 6 + 0.83;
 			tepals.add(new TepalViewObject(tepal, xPos, yPos, 100, widthVariation * flower.getNumberOfTepalPositions(), tepalPosition++ * (2 * Math.PI)
 					/ flower.getNumberOfTepalPositions()));
@@ -246,9 +246,8 @@ class StemViewObject
 		this.yPosition = yPos;
 		this.height = height;
 
-		Random r = new Random();
-		xSwingTop = r.nextGaussian() * 15;
-		xSwingBottom = r.nextGaussian() * 7;
+		xSwingTop = Application.RANDOMGEN.nextGaussian() * 15;
+		xSwingBottom = Application.RANDOMGEN.nextGaussian() * 7;
 	}
 
 	/**

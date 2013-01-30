@@ -13,6 +13,7 @@ import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import nl.naiaden.ahci.poetrist.Application;
 import nl.naiaden.ahci.poetrist.assocations.WeightedColor;
 import nl.naiaden.ahci.poetrist.lexicon.AssociationFactory;
 import nl.naiaden.ahci.poetrist.lexicon.ColorName;
@@ -33,9 +34,7 @@ public class RandomPainter implements Painter
 	{
 		Painting painting = new Painting(width, height);
 
-		Random r = new Random();
-
-		int backgroundColor = Color.HSBtoRGB(r.nextFloat(), randomFromTo(90, 100), randomFromTo(75, 100));
+		int backgroundColor = Color.HSBtoRGB(Application.RANDOMGEN.nextFloat(), randomFromTo(90, 100), randomFromTo(75, 100));
 		painting.setCanvasColor(new Color(backgroundColor));
 
 		for (int i = 0; i < 10; ++i)
@@ -43,12 +42,12 @@ public class RandomPainter implements Painter
 			// int fillColor = Color.HSBtoRGB(shapeHue(), randomFromTo(90, 100),
 			// randomFromTo(75, 100));
 			// int fillColor = r.nextInt(255);
-			painting.addPaintInstruction(new ChangeColor(new Color(r.nextInt(255), r.nextInt(255), r.nextInt(255))));
+			painting.addPaintInstruction(new ChangeColor(new Color(Application.RANDOMGEN.nextInt(255), Application.RANDOMGEN.nextInt(255), Application.RANDOMGEN.nextInt(255))));
 
 			float alpha = randomFromTo(90, 100) / 100;
 			painting.addPaintInstruction(new SetTransparency(alpha));
 
-			if (r.nextDouble() < 0.5)
+			if (Application.RANDOMGEN.nextDouble() < 0.5)
 			{
 
 				double x = randomFromTo(width / 8, ((width / 8) * 7));
@@ -62,7 +61,7 @@ public class RandomPainter implements Painter
 				Polygon quadrilateral = new Polygon();
 				for (int j = 0; j < 4; ++j)
 				{
-					quadrilateral.addPoint(r.nextInt((int) width), r.nextInt((int) height));
+					quadrilateral.addPoint(Application.RANDOMGEN.nextInt((int) width), Application.RANDOMGEN.nextInt((int) height));
 				}
 				painting.addPaintInstruction(new PaintShape(quadrilateral));
 			}
@@ -76,7 +75,7 @@ public class RandomPainter implements Painter
 
 	private float randomFromTo(double from, double to)
 	{
-		float random = new Random().nextFloat();
+		float random = Application.RANDOMGEN.nextFloat();
 		double difference = Math.abs(to - from);
 
 		random *= difference;

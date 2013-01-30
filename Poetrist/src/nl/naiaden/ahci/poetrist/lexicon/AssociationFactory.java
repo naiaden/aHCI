@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import nl.naiaden.ahci.poetrist.Application;
+
 
 /**
  * @author Ding (I replaced some of his classes)
@@ -72,6 +74,8 @@ public class AssociationFactory implements Serializable
 			wcfvs = (WordColorFeatureVectorSpace) wcfvsIn.readObject();
 			wcfvsIn.close();
 	         
+			Application.LOGWRITER.system("Reading from cache");
+
 			return true;
 	      }catch(IOException i)
 	      {
@@ -119,6 +123,8 @@ public class AssociationFactory implements Serializable
 			ObjectOutputStream wcfvsOut = new ObjectOutputStream(new FileOutputStream("AssocationFactory.wcfvs.ser"));
 			wcfvsOut.writeObject(wcfvs);
 			wcfvsOut.close();
+
+			Application.LOGWRITER.system("Writing to cache");
 
 			return true;
 		} catch (IOException i)

@@ -5,6 +5,7 @@ package nl.naiaden.ahci.poetrist;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.swing.JFrame;
 
@@ -32,11 +33,20 @@ public class Application {
 
 	public static final LogWriter LOGWRITER = new LogWriter();
 	
+	public static final boolean deterministic = true;
+	public static Random RANDOMGEN = new Random();
+
 	/**
 	 * @param args The input parameters.
 	 */
 	public static void main(String[] args) {
 		
+		if (Application.deterministic)
+		{
+			Application.LOGWRITER.system("Deterministic experiment started!");
+			RANDOMGEN = new Random(1234);
+		}
+
 		Runtime.getRuntime().addShutdownHook(new Thread() {
 		      public void run() {
 				System.err.println("Shutting down");
