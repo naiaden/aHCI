@@ -60,50 +60,88 @@ public class Emotions
 		return null;
 	}
 
-	/**
-	 * adds a new word to the list of magnitudes
-	 * 
-	 * @param newMagnitudes
-	 *            : a list of booleans where each index corresponds to the
-	 *            emotion in EmotionType
-	 */
-	public void addMagnitudes(List<WordEmotion> wordEmotions)
+	// public void add(Emotion emotion)
+	// {
+	// for (WeightedEmotion we : weightedEmotions)
+	// {
+	// if (emotion.getEmotion().equals(we.getEmotionType().toString()))
+	// {
+	// // System.out.println(">" + we);
+	// }
+	// }
+	// }
+
+	public void add(List<WordEmotion> wordEmotions)
 	{
-
-		double total = 0;
-
-		for (WordEmotion we : wordEmotions)
+		for (WordEmotion woE : wordEmotions)
 		{
-			if (we.getScore())
+			for (WeightedEmotion weE : weightedEmotions)
 			{
-				++total;
-				for (EmotionType emotion : EmotionType.values())
+				if (woE.getEmotion().toString().equals(weE.getEmotionType().toString()))
 				{
-					WeightedEmotion weightedEmotion = getWeightedEmotion(emotion);
-					if (weightedEmotion != null)
-					{
-						weightedEmotion.setWeight(weightedEmotion.getWeight() + 1);
-					}
+					weE.add(woE.getScore() ? 1.0 : 0.0);
+					// System.out.println(">(" + weightedEmotions.size() + ")>"
+					// + weE);
 				}
 			}
 		}
 
-		// for(WordEmotion w:wordEmotions) {
-		// if(w.getScore()){
-		// total++;
-		// for(int i=0; i < nEmotionTypes;i++)
-		// if(w.getEmotion().toString().equals(
-		// EmotionType.values()[i].toString()))
+		// for (WeightedEmotion weE : weightedEmotions)
 		// {
-		// // magnitudes[i] = magnitudes[i] + 1;
-		// weightedEmotions.get(index)
+		// System.out.println("OOO " + weE);
 		// }
-		// }
-		// }
-		meanMagnitude = (meanMagnitude * numberAddedWords + total) / (numberAddedWords + 1);
-		numberAddedWords++;
-
 	}
+
+	// /**
+	// * adds a new word to the list of magnitudes
+	// *
+	// * @param newMagnitudes
+	// * : a list of booleans where each index corresponds to the
+	// * emotion in EmotionType
+	// */
+	// public void addMagnitudes(List<WordEmotion> wordEmotions)
+	// {
+	//
+	// double total = 0;
+	//
+	// for (WordEmotion we : wordEmotions)
+	// {
+	// if (we.getScore())
+	// {
+	// ++total;
+	// for (EmotionType emotion : EmotionType.values())
+	// {
+	// WeightedEmotion weightedEmotion = getWeightedEmotion(emotion);
+	// if (weightedEmotion != null)
+	// {
+	// weightedEmotion.setWeight(weightedEmotion.getAverageWeight() + 1);
+	// }
+	// }
+	// }
+	// }
+	//
+	// for (WeightedEmotion we : weightedEmotions)
+	// {
+	// System.out.println(we);
+	// }
+	//
+	// // for(WordEmotion w:wordEmotions) {
+	// // if(w.getScore()){
+	// // total++;
+	// // for(int i=0; i < nEmotionTypes;i++)
+	// // if(w.getEmotion().toString().equals(
+	// // EmotionType.values()[i].toString()))
+	// // {
+	// // // magnitudes[i] = magnitudes[i] + 1;
+	// // weightedEmotions.get(index)
+	// // }
+	// // }
+	// // }
+	// meanMagnitude = (meanMagnitude * numberAddedWords + total) /
+	// (numberAddedWords + 1);
+	// numberAddedWords++;
+	//
+	// }
 
 	/**
 	 * returns the mean of the magnitudes of the emotions
@@ -125,46 +163,48 @@ public class Emotions
 		return numberAddedWords;
 	}
 
-	/**
-	 * displays the magnitudes of all the emotions
-	 */
-	public void showMagnitudes()
-	{
-		System.out.println("Mean magnitude = " + new Double(meanMagnitude).toString());
-
-		for (EmotionType et : EmotionType.values())
-		{
-			if (et != null)
-			{
-				WeightedEmotion weightedEmotion = getWeightedEmotion(et);
-				if (weightedEmotion != null)
-					System.out.println("Magnitude of " + et.toString() + ": " + weightedEmotion.getWeight());
-			}
-		}
-
-	}
-
-	// public double[] getMagnitudes() {
-	// return magnitudes;
+	// /**
+	// * displays the magnitudes of all the emotions
+	// */
+	// public void showMagnitudes()
+	// {
+	// System.out.println("Mean magnitude = " + new
+	// Double(meanMagnitude).toString());
+	//
+	// for (EmotionType et : EmotionType.values())
+	// {
+	// if (et != null)
+	// {
+	// WeightedEmotion weightedEmotion = getWeightedEmotion(et);
+	// if (weightedEmotion != null)
+	// System.out.println("Magnitude of " + et.toString() + ": " +
+	// weightedEmotion.getWeight());
 	// }
-
-	/**
-	 * returns the magnitude of the type of emotion which is inputted
-	 * 
-	 * @param emotion
-	 * @return
-	 */
-	public double getMagnitude(EmotionType emotion)
-	{
-		for (WeightedEmotion we : weightedEmotions)
-		{
-			if (we.getEmotionType().equals(emotion)) { return we.getWeight(); }
-		}
-
-		// for(int i=0; i < EmotionType.values().length; i++)
-		// if(EmotionType.values()[i].equals(emotion))
-		// return magnitudes[i];
-		return (Double) null;
-	}
+	// }
+	//
+	// }
+	//
+	// // public double[] getMagnitudes() {
+	// // return magnitudes;
+	// // }
+	//
+	// /**
+	// * returns the magnitude of the type of emotion which is inputted
+	// *
+	// * @param emotion
+	// * @return
+	// */
+	// public double getMagnitude(EmotionType emotion)
+	// {
+	// for (WeightedEmotion we : weightedEmotions)
+	// {
+	// if (we.getEmotionType().equals(emotion)) { return we.getWeight(); }
+	// }
+	//
+	// // for(int i=0; i < EmotionType.values().length; i++)
+	// // if(EmotionType.values()[i].equals(emotion))
+	// // return magnitudes[i];
+	// return (Double) null;
+	// }
 
 }

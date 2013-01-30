@@ -14,7 +14,8 @@ import nl.naiaden.ahci.poetrist.assocations.Emotions.EmotionType;
 public class WeightedEmotion
 {
 	private EmotionType emotion;
-	private double weight;
+	private double weight = 0;
+	private double normalisation = 0;
 
 	public WeightedEmotion(EmotionType emotion, double weight)
 	{
@@ -22,18 +23,25 @@ public class WeightedEmotion
 		this.weight = weight;
 	}
 
+
+	public void add(double weight)
+	{
+		this.weight += weight;
+		++normalisation;
+	}
+
 	public EmotionType getEmotionType()
 	{
 		return emotion;
 	}
 
-	public double getWeight()
+	public double getAverageWeight()
 	{
-		return weight;
+		return weight / normalisation;
 	}
 
-	public void setWeight(double weight)
+	public String toString()
 	{
-		this.weight = weight;
+		return "[" + emotion + "]: " + weight;
 	}
 }

@@ -184,7 +184,9 @@ public class EmotionsToColors
 		{
 			if(we.getEmotionType().equals(emotion))
 			{
-				return we.getWeight();
+				// return we.getWeight();
+				return 1.0;
+				// TODO
 			}
 		}
 		
@@ -206,7 +208,9 @@ public class EmotionsToColors
 		double sumWeights = 0;
 		for (WeightedEmotion we : weightedEmotions)
 		{
-			sumWeights += we.getWeight();
+			// sumWeights += we.getWeight();
+
+			// TODO
 		}
 
 		for (ColorName colorName : AssociationFactory.getColors())
