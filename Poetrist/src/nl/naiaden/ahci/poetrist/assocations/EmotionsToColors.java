@@ -193,25 +193,25 @@ public class EmotionsToColors
 		return 0;
 	}
 	
-	List<WeightedColor> weightedColors = null;
-	List<WeightedEmotion> weightedEmotions = null;
+	private List<WeightedColor> weightedColors = null;
+	private List<WeightedEmotion> weightedEmotions = null;
+
+	public List<WeightedColor> getWeightedColors()
+	{
+		return weightedColors;
+	}
 	
 	public EmotionsToColors(List<WeightedEmotion> weightedEmotions)
 	{
 		
 		emcWeights = new ArrayList<EmotionsToColors.EmotionColorWeight>();
 		weightedColors = new ArrayList<WeightedColor>();
-		weightedColors.add(new WeightedColor(Color.white, 0.0));
-		weightedColors.add(new WeightedColor(Color.black, 0.0));
-		weightedColors.add(new WeightedColor(Color.red, 0.0));
-		weightedColors.add(new WeightedColor(Color.green, 0.0));
-		weightedColors.add(new WeightedColor(Color.yellow, 0.0));
-		weightedColors.add(new WeightedColor(Color.blue, 0.0));
-		weightedColors.add(new WeightedColor(PoetristColor.brown, 0.0));
-		weightedColors.add(new WeightedColor(Color.pink, 0.0));
-		weightedColors.add(new WeightedColor(PoetristColor.purple, 0.0));
-		weightedColors.add(new WeightedColor(Color.orange, 0.0));
-		weightedColors.add(new WeightedColor(Color.gray, 0.0));
+
+		for (Color c : PoetristColor.getPoetristColors())
+		{
+			weightedColors.add(new WeightedColor(c, 0.0));
+		}
+
 		this.weightedEmotions = weightedEmotions;
 
 		initialiseWeights();
@@ -221,7 +221,6 @@ public class EmotionsToColors
 		 */
 		for (WeightedEmotion weE : weightedEmotions) // the weighted emotions
 		{
-			// System.out.println("Weighted emotion: " + weE);
 			for (EmotionColorWeight ecw : emcWeights) // the colour weights
 			{
 				if (ecw.getEmotionType().equals(weE.getEmotionType()))
@@ -233,10 +232,6 @@ public class EmotionsToColors
 							double colourWeight = ecw.getWeight() * weE.getAverageWeight();
 							if (!Double.isNaN(colourWeight))
 							{
-								// System.out.println(">Adding " +
-								// ecw.getWeight() + "*" + weE.getRawWeight() +
-								// " to " +
-								// PoetristColor.toString(ecw.getColor()));
 								weC.add(colourWeight);
 							}
 						}
@@ -249,28 +244,5 @@ public class EmotionsToColors
 		{
 			System.out.println(">>>> " + weC);
 		}
-
-		// double sumWeights = 0;
-		// for (WeightedEmotion we : weightedEmotions)
-		// {
-		// // sumWeights += we.getWeight();
-		//
-		// // TODO
-		// }
-		//
-		// for (ColorName colorName : AssociationFactory.getColors())
-		// {
-		// double sum = 0;
-		// for (EmotionType emotionType : EmotionType.values())
-		// {
-		// sum += getEMCWeight(emotionType, colorName.getColor()) *
-		// getEmotionWeight(emotionType);
-		// }
-		//
-		// weightedColors.add(new WeightedColor(colorName.getColor(), (sum /
-		// sumWeights)));
-		// }
-
-
 	}
 }

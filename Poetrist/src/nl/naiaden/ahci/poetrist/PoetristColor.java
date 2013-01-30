@@ -59,6 +59,8 @@ public class PoetristColor extends Color
 			return 1;
 		if (color.equals(PoetristColor.magenta))
 			return 2;
+		if (color.equals(PoetristColor.pink))
+			return 2;
 		if (color.equals(PoetristColor.purple))
 			return 3;
 		if (color.equals(PoetristColor.black))
@@ -90,6 +92,8 @@ public class PoetristColor extends Color
 		if (color.equals(PoetristColor.brown))
 			return "brown";
 		if (color.equals(PoetristColor.magenta))
+			return "pink";
+		if (color.equals(PoetristColor.pink))
 			return "pink";
 		if (color.equals(PoetristColor.purple))
 			return "purple";

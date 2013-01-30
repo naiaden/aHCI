@@ -75,6 +75,7 @@ public class PoemPanel extends JPanel
 			{
 				StringToEmotion emotionAnalyzer = new StringToEmotion(textArea.getText());
 				EmotionsToColors etc = new EmotionsToColors(emotionAnalyzer.getWeightedEmotions());
+				etc.getWeightedColors();
 
 				// Emotions emotions = emotionAnalyzer.getEmotions();
 				// EmotionsToColors etc = new
